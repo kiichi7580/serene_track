@@ -26,7 +26,7 @@ class BottomNavigation extends ConsumerWidget {
           ref
               .read(bottomNavigationNotifierProvider.notifier)
               .setIndex(newIndex);
-          switch (index) {
+          switch (ref.watch(bottomNavigationNotifierProvider)) {
             case 0:
               context.go('/todo');
             case 1:
