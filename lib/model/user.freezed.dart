@@ -20,12 +20,17 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'hashed_password')
+  String get hashedPassword => throw _privateConstructorUsedError;
+  @JsonKey(name: 'photo_url')
   String get photoUrl => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_active')
   bool get isActive => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,13 +44,14 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {String id,
+      {int id,
       String name,
       String email,
-      String photoUrl,
+      @JsonKey(name: 'hashed_password') String hashedPassword,
+      @JsonKey(name: 'photo_url') String photoUrl,
       String role,
-      bool isActive,
-      DateTime? createdAt});
+      @JsonKey(name: 'is_active') bool isActive,
+      @JsonKey(name: 'created_at') DateTime? createdAt});
 }
 
 /// @nodoc
@@ -64,6 +70,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? id = null,
     Object? name = null,
     Object? email = null,
+    Object? hashedPassword = null,
     Object? photoUrl = null,
     Object? role = null,
     Object? isActive = null,
@@ -73,7 +80,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -81,6 +88,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      hashedPassword: null == hashedPassword
+          ? _value.hashedPassword
+          : hashedPassword // ignore: cast_nullable_to_non_nullable
               as String,
       photoUrl: null == photoUrl
           ? _value.photoUrl
@@ -110,13 +121,14 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
+      {int id,
       String name,
       String email,
-      String photoUrl,
+      @JsonKey(name: 'hashed_password') String hashedPassword,
+      @JsonKey(name: 'photo_url') String photoUrl,
       String role,
-      bool isActive,
-      DateTime? createdAt});
+      @JsonKey(name: 'is_active') bool isActive,
+      @JsonKey(name: 'created_at') DateTime? createdAt});
 }
 
 /// @nodoc
@@ -132,6 +144,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? email = null,
+    Object? hashedPassword = null,
     Object? photoUrl = null,
     Object? role = null,
     Object? isActive = null,
@@ -141,7 +154,7 @@ class __$$UserImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -149,6 +162,10 @@ class __$$UserImplCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      hashedPassword: null == hashedPassword
+          ? _value.hashedPassword
+          : hashedPassword // ignore: cast_nullable_to_non_nullable
               as String,
       photoUrl: null == photoUrl
           ? _value.photoUrl
@@ -174,20 +191,21 @@ class __$$UserImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserImpl implements _User {
   const _$UserImpl(
-      {this.id = '',
+      {this.id = 0,
       this.name = '',
       this.email = '',
-      this.photoUrl = '',
+      @JsonKey(name: 'hashed_password') this.hashedPassword = '',
+      @JsonKey(name: 'photo_url') this.photoUrl = '',
       this.role = '',
-      this.isActive = true,
-      this.createdAt = null});
+      @JsonKey(name: 'is_active') this.isActive = true,
+      @JsonKey(name: 'created_at') this.createdAt});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
 
   @override
   @JsonKey()
-  final String id;
+  final int id;
   @override
   @JsonKey()
   final String name;
@@ -195,21 +213,24 @@ class _$UserImpl implements _User {
   @JsonKey()
   final String email;
   @override
-  @JsonKey()
+  @JsonKey(name: 'hashed_password')
+  final String hashedPassword;
+  @override
+  @JsonKey(name: 'photo_url')
   final String photoUrl;
   @override
   @JsonKey()
   final String role;
   @override
-  @JsonKey()
+  @JsonKey(name: 'is_active')
   final bool isActive;
   @override
-  @JsonKey()
+  @JsonKey(name: 'created_at')
   final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, photoUrl: $photoUrl, role: $role, isActive: $isActive, createdAt: $createdAt)';
+    return 'User(id: $id, name: $name, email: $email, hashedPassword: $hashedPassword, photoUrl: $photoUrl, role: $role, isActive: $isActive, createdAt: $createdAt)';
   }
 
   @override
@@ -220,6 +241,8 @@ class _$UserImpl implements _User {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.hashedPassword, hashedPassword) ||
+                other.hashedPassword == hashedPassword) &&
             (identical(other.photoUrl, photoUrl) ||
                 other.photoUrl == photoUrl) &&
             (identical(other.role, role) || other.role == role) &&
@@ -231,8 +254,8 @@ class _$UserImpl implements _User {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, email, photoUrl, role, isActive, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, name, email, hashedPassword,
+      photoUrl, role, isActive, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -250,29 +273,36 @@ class _$UserImpl implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {final String id,
+      {final int id,
       final String name,
       final String email,
-      final String photoUrl,
+      @JsonKey(name: 'hashed_password') final String hashedPassword,
+      @JsonKey(name: 'photo_url') final String photoUrl,
       final String role,
-      final bool isActive,
-      final DateTime? createdAt}) = _$UserImpl;
+      @JsonKey(name: 'is_active') final bool isActive,
+      @JsonKey(name: 'created_at') final DateTime? createdAt}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get name;
   @override
   String get email;
   @override
+  @JsonKey(name: 'hashed_password')
+  String get hashedPassword;
+  @override
+  @JsonKey(name: 'photo_url')
   String get photoUrl;
   @override
   String get role;
   @override
+  @JsonKey(name: 'is_active')
   bool get isActive;
   @override
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)
