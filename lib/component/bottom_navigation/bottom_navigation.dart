@@ -3,6 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serene_track/component/bottom_navigation/provider/bottom_navigation_notifier.dart';
 import 'package:serene_track/constant/colors.dart';
+import 'package:serene_track/constant/text_source.dart';
+import 'package:serene_track/view/account_page/account_page.dart';
+import 'package:serene_track/view/montring_page/montring_page.dart';
+import 'package:serene_track/view/todo_page/todo_page.dart';
 
 class BottomNavigation extends ConsumerWidget {
   const BottomNavigation({super.key, required this.child});
@@ -28,11 +32,11 @@ class BottomNavigation extends ConsumerWidget {
               .setIndex(newIndex);
           switch (ref.watch(bottomNavigationNotifierProvider)) {
             case 0:
-              context.go('/todo');
+              context.go(TodoPage.routeLocation);
             case 1:
-              context.go('/montring');
+              context.go(MontringPage.routeLocation);
             case 2:
-              context.go('/account');
+              context.go(AccountPage.routeLocation);
           }
         },
         items: [
@@ -41,21 +45,21 @@ class BottomNavigation extends ConsumerWidget {
               Icons.add_task,
               color: index == 0 ? selectedColor : unselectedColor,
             ),
-            label: 'タスク',
+            label: taskTx,
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.analytics,
               color: index == 1 ? selectedColor : unselectedColor,
             ),
-            label: 'モニタリング',
+            label: montringTx,
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
               color: index == 2 ? selectedColor : unselectedColor,
             ),
-            label: 'アカウント',
+            label: accountTx,
           ),
         ],
       ),
