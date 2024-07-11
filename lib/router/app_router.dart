@@ -1,59 +1,121 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serene_track/component/bottom_navigation/bottom_navigation.dart';
+import 'package:serene_track/responsive/mobile_screen_layout.dart';
+import 'package:serene_track/responsive/responsive_layout.dart';
+import 'package:serene_track/responsive/web_screen_layout.dart';
 import 'package:serene_track/view/account_page/account_page.dart';
+import 'package:serene_track/view/auth_page/provider/auth_provider.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/sign_up_page.dart';
 import 'package:serene_track/view/montring_page/montring_page.dart';
 import 'package:serene_track/view/todo_page/add_todo_page.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
 
-final appRouter = GoRouter(
-  initialLocation: '/sign_up',
-  routes: [
-    GoRoute(
-      path: '/sign_up',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: SignUpPage(),
-      ),
-    ),
-    GoRoute(
-      path: '/sign_in',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: SignInPage(),
-      ),
-    ),
-    ShellRoute(
-      navigatorKey: GlobalKey<NavigatorState>(),
-      builder: (context, state, child) {
-        return BottomNavigation(child: child);
-      },
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
+
+final routerProvider = Provider<GoRouter>(
+  (ref) {
+    final authState = ref.watch(authProvider);
+
+    return GoRouter(
+      navigatorKey: _rootNavigatorKey,
+      debugLogDiagnostics: true,
+      initialLocation: SignInPage.routeLocation,
       routes: [
         GoRoute(
-          path: '/todo',
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: TodoPage(),
-          ),
+          path: SignUpPage.routeLocation,
+          name: SignUpPage.routeName,
+          builder: (context, state) {
+            return const SignUpPage();
+          },
         ),
         GoRoute(
-          path: '/add_todo',
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: AddTodoPage(),
-          ),
+          path: SignInPage.routeLocation,
+          name: SignInPage.routeName,
+          builder: (context, state) {
+            return const SignInPage();
+          },
         ),
         GoRoute(
-          path: '/montring',
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: MontringPage(),
-          ),
+          path: ResponsiveLayout.routeLocation,
+          name: ResponsiveLayout.routeName,
+          builder: (context, state) {
+            return const ResponsiveLayout();
+          },
         ),
         GoRoute(
-          path: '/account',
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: AccountPage(),
-          ),
+          path: MobileScreenLayout.routeLocation,
+          name: MobileScreenLayout.routeName,
+          builder: (context, state) {
+            return const MobileScreenLayout();
+          },
+        ),
+        GoRoute(
+          path: WebScreenLayout.routeLocation,
+          name: WebScreenLayout.routeName,
+          builder: (context, state) {
+            return const WebScreenLayout();
+          },
+        ),
+        ShellRoute(
+          navigatorKey: _shellNavigatorKey,
+          builder: (context, state, child) {
+            return BottomNavigation(child: child);
+          },
+          routes: [
+            GoRoute(
+              path: TodoPage.routeLocation,
+              name: TodoPage.routeName,
+              builder: (context, state) {
+                return const TodoPage();
+              },
+            ),
+            GoRoute(
+              path: AddTodoPage.routeLocation,
+              name: AddTodoPage.routeName,
+              builder: (context, state) {
+                return const AddTodoPage();
+              },
+            ),
+            GoRoute(
+              path: MontringPage.routeLocation,
+              name: MontringPage.routeName,
+              builder: (context, state) {
+                return const MontringPage();
+              },
+            ),
+            GoRoute(
+              path: AccountPage.routeLocation,
+              name: AccountPage.routeName,
+              builder: (context, state) {
+                return const AccountPage();
+              },
+            ),
+          ],
         ),
       ],
-    ),
-  ],
+      // redirect: (context, state) {
+      //   final user = ref.read(userProvider.notifier).currentUser;
+      //   final isSignedIn = user != null && user.id != 0;
+      //   final isSigningUp = state.uri.toString() == SignUpPage.routeLocation;
+
+      //   if (isSigningUp) {
+      //     return null;
+      //   }
+
+      //   if (!isSignedIn) {
+      //     return SignInPage.routeLocation;
+      //   }
+
+      //   if (isSignedIn && state.uri.toString() == '/') {
+      //     return TodoPage.routeLocation;
+      //   }
+
+      //   return null;
+      // },
+    );
+  },
 );
