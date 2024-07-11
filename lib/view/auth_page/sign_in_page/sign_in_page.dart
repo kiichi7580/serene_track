@@ -5,13 +5,14 @@ import 'package:serene_track/component/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/controllers/global/user_controller.dart';
 import 'package:serene_track/gen/assets.gen.dart';
+import 'package:serene_track/model/enum/form_state.dart';
 import 'package:serene_track/model/user.dart';
 import 'package:serene_track/view/account_page/widgets/auth_text_field.dart';
 import 'package:serene_track/view/auth_page/provider/auth_provider.dart';
+import 'package:serene_track/view/auth_page/provider/form_provider.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/provider/form_key_for_sign_in_notifier.dart';
-import 'package:serene_track/view/auth_page/sign_up_page/provider/auth_text_cotroller_notifier.dart';
+import 'package:serene_track/view/auth_page/sign_in_page/provider/sign_in_text_controller_notifier.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/sign_up_page.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
 
@@ -29,10 +30,9 @@ class SignInPage extends ConsumerWidget {
     String res = failureSignIn;
     String signInRes =
         await ref.read(authProvider.notifier).signIn(email, password);
-    User? userData = await ref.read(authProvider.notifier).getUser();
+    User? userData = await ref.read(authProvider.notifier).getUser(ref);
     if (signInRes == successRes && userData != null) {
       String res = successSignIn;
-      await ref.read(userProvider.notifier).fetchUserData(userData);
       await Future.delayed(const Duration(milliseconds: 10));
       if (!context.mounted) return;
       context.go(TodoPage.routeLocation);
@@ -98,8 +98,11 @@ class SignInPage extends ConsumerWidget {
 
   Widget buildBodyContent(BuildContext context, WidgetRef ref) {
     final formKey = ref.watch(formKeyForSignInNotifierProvider);
-    final emailController = ref.watch(emailControllerNotifierProvider);
-    final passwordController = ref.watch(passwordControllerNotifierProvider);
+    final formController = ref.read(formProvider.notifier);
+    final emailController = ref.watch(signInEmailControllerNotifierProvider);
+    final passwordController =
+        ref.watch(signInPasswordControllerNotifierProvider);
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.7,
       width: double.infinity,
@@ -117,6 +120,7 @@ class SignInPage extends ConsumerWidget {
           children: [
             Form(
               key: formKey,
+              autovalidateMode: AutovalidateMode.always,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -124,26 +128,31 @@ class SignInPage extends ConsumerWidget {
                     height: MediaQuery.of(context).size.height * 0.08,
                   ),
                   AuthTextField(
-                    caption: 'メールアドレス',
-                    controller: emailController,
-                    hintText: 'example@gmail.com',
-                  ),
+                      caption: 'メールアドレス',
+                      controller: emailController,
+                      hintText: 'example@gmail.com',
+                      validator: formController.emailrValidator),
                   const SizedBox(height: 16),
                   AuthTextField(
                     caption: 'パスワード',
                     controller: passwordController,
                     hintText: '6文字以上のパスワードを入力',
                     obscureText: true,
+                    validator: formController.passwordValidator,
                   ),
                   const SizedBox(height: 32),
                   InkWell(
                     onTap: () async {
-                      await signInUser(
-                        context: context,
-                        ref: ref,
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
+                      FormStatus formStatus =
+                          formController.validateForm(formKey);
+                      if (formStatus == FormStatus.valid) {
+                        await signInUser(
+                          context: context,
+                          ref: ref,
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                      }
                     },
                     child: Container(
                       alignment: Alignment.center,
