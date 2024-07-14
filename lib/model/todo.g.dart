@@ -7,15 +7,18 @@ part of 'todo.dart';
 // **************************************************************************
 
 _$TodoImpl _$$TodoImplFromJson(Map<String, dynamic> json) => _$TodoImpl(
-      id: json['id'] as String? ?? '',
+      id: (json['id'] as num?)?.toInt() ?? 0,
       title: json['title'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      categoryId: json['categoryId'] as String? ?? '',
-      uid: json['uid'] as String? ?? '',
+      categoryId: json['category_id'] as String? ?? '',
+      uid: (json['owner_id'] as num?)?.toInt() ?? 0,
       completed: json['completed'] as bool? ?? false,
-      createdAt: json['createdAt'] == null
+      notificationTime: json['notification_time'] == null
           ? null
-          : DateTime.parse(json['createdAt'] as String),
+          : DateTime.parse(json['notification_time'] as String),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$$TodoImplToJson(_$TodoImpl instance) =>
@@ -23,8 +26,9 @@ Map<String, dynamic> _$$TodoImplToJson(_$TodoImpl instance) =>
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'categoryId': instance.categoryId,
-      'uid': instance.uid,
+      'category_id': instance.categoryId,
+      'owner_id': instance.uid,
       'completed': instance.completed,
-      'createdAt': instance.createdAt?.toIso8601String(),
+      'notification_time': instance.notificationTime?.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
     };
