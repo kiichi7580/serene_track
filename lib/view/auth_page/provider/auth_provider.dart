@@ -4,6 +4,7 @@ import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/controllers/global/user_controller.dart';
 import 'package:serene_track/model/auth_state.dart';
 import 'package:serene_track/model/user.dart';
+import 'package:serene_track/utils/access_token_manager.dart';
 
 final dioProvider = Provider<Dio>((ref) {
   return Dio(BaseOptions(baseUrl: 'http://localhost:8000'));
@@ -16,7 +17,14 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
 class AuthNotifier extends StateNotifier<AuthState> {
   final Dio dio;
 
-  AuthNotifier(this.dio) : super(const AuthState());
+  AuthNotifier(this.dio) : super(const AuthState()) {
+    _init();
+  }
+
+  Future<void> _init() async {
+    String? token = await AccessTokenManager().getAccessToken();
+    state = state.copyWith(accessToken: token!);
+  }
 
   Future<String> signIn(String email, String password) async {
     String res = failureSignIn;
@@ -76,6 +84,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
           ));
       user = User.fromJson(response.data);
       await ref.read(userProvider.notifier).fetchUserData(user);
+      await AccessTokenManager().saveAccessToken(state.accessToken);
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
