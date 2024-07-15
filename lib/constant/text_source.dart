@@ -69,6 +69,12 @@ const taskTx = 'タスク';
 const montringTx = 'モニタリング';
 const accountTx = 'アカウント';
 
+// カテゴリー分野
+const allTx = 'すべて';
+const exerciseTx = '運動';
+const sleepTx = '睡眠';
+const workTx = '仕事';
+
 // タスク関連
 const titleTx = 'タイトル';
 const categoryTx = 'カテゴリー';

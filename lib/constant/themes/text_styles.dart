@@ -23,4 +23,14 @@ class TextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w700,
   );
+  static const taskTitleBoldStyle = TextStyle(
+    color: textMainColor,
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+  );
+  static const taskTitleStyle = TextStyle(
+    color: textMainColor,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  );
 }
