@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:serene_track/model/auth_state.dart';
 import 'package:serene_track/model/user.dart';
+import 'package:serene_track/utils/access_token_manager.dart';
 
 part 'user_controller.freezed.dart';
 
@@ -20,16 +20,19 @@ final userProvider =
 
 class UserController extends StateNotifier<UserState> {
   UserController() : super(UserState()) {
-    // fetchUserData();
+    _init();
   }
 
   User? get currentUser => state.user;
+
+  Future<void> _init() async {}
 
   Future<void> fetchUserData(User fetchData) async {
     state = state.copyWith(user: fetchData, isAuthenticated: true);
   }
 
-  // Future<void> logOut(AuthState token) {
-  //   state = state.copyWith(isAuthenticated: false);
-  // }
+  Future<void> logOut() async {
+    await AccessTokenManager().deleteAccessToken();
+    state = state.copyWith(isAuthenticated: false);
+  }
 }
