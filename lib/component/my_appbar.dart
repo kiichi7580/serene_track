@@ -3,7 +3,7 @@ import 'package:serene_track/constant/colors.dart';
 
 myAppBar({
   required String title,
-  required List<Widget>? actions,
+  List<Widget>? actions,
 }) {
   return AppBar(
     backgroundColor: backGroundColor,

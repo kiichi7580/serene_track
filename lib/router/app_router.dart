@@ -6,7 +6,6 @@ import 'package:serene_track/responsive/mobile_screen_layout.dart';
 import 'package:serene_track/responsive/responsive_layout.dart';
 import 'package:serene_track/responsive/web_screen_layout.dart';
 import 'package:serene_track/view/account_page/account_page.dart';
-import 'package:serene_track/view/auth_page/provider/auth_provider.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/sign_up_page.dart';
 import 'package:serene_track/view/montring_page/montring_page.dart';
@@ -18,8 +17,6 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
-    final authState = ref.watch(authProvider);
-
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
@@ -99,23 +96,22 @@ final routerProvider = Provider<GoRouter>(
       ],
       // redirect: (context, state) {
       //   final user = ref.read(userProvider.notifier).currentUser;
+      //   final token = ref.watch(authProvider).accessToken;
       //   final isSignedIn = user != null && user.id != 0;
       //   final isSigningUp = state.uri.toString() == SignUpPage.routeLocation;
+
+      //   print('token: $token');
+
+      //   if (token.isNotEmpty) {
+      //     return TodoPage.routeLocation;
+      //   }
 
       //   if (isSigningUp) {
       //     return null;
       //   }
 
-      //   if (!isSignedIn) {
-      //     return SignInPage.routeLocation;
-      //   }
-
-      //   if (isSignedIn && state.uri.toString() == '/') {
-      //     return TodoPage.routeLocation;
-      //   }
-
-      //   return null;
-      // },
+      //   return SignInPage.routeLocation;
+      // }
     );
   },
 );
