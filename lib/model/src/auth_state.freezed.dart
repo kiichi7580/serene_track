@@ -20,9 +20,7 @@ AuthState _$AuthStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AuthState {
-  @JsonKey(name: 'access_token')
   String get accessToken => throw _privateConstructorUsedError;
-  @JsonKey(name: 'token_type')
   String get tokenType => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
@@ -39,10 +37,7 @@ abstract class $AuthStateCopyWith<$Res> {
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'token_type') String tokenType,
-      String error,
-      bool isLoading});
+      {String accessToken, String tokenType, String error, bool isLoading});
 }
 
 /// @nodoc
@@ -93,10 +88,7 @@ abstract class _$$AuthStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'token_type') String tokenType,
-      String error,
-      bool isLoading});
+      {String accessToken, String tokenType, String error, bool isLoading});
 }
 
 /// @nodoc
@@ -137,11 +129,12 @@ class __$$AuthStateImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _$AuthStateImpl implements _AuthState {
   const _$AuthStateImpl(
-      {@JsonKey(name: 'access_token') this.accessToken = '',
-      @JsonKey(name: 'token_type') this.tokenType = '',
+      {this.accessToken = '',
+      this.tokenType = '',
       this.error = '',
       this.isLoading = false});
 
@@ -149,10 +142,10 @@ class _$AuthStateImpl implements _AuthState {
       _$$AuthStateImplFromJson(json);
 
   @override
-  @JsonKey(name: 'access_token')
+  @JsonKey()
   final String accessToken;
   @override
-  @JsonKey(name: 'token_type')
+  @JsonKey()
   final String tokenType;
   @override
   @JsonKey()
@@ -201,8 +194,8 @@ class _$AuthStateImpl implements _AuthState {
 
 abstract class _AuthState implements AuthState {
   const factory _AuthState(
-      {@JsonKey(name: 'access_token') final String accessToken,
-      @JsonKey(name: 'token_type') final String tokenType,
+      {final String accessToken,
+      final String tokenType,
       final String error,
       final bool isLoading}) = _$AuthStateImpl;
 
@@ -210,10 +203,8 @@ abstract class _AuthState implements AuthState {
       _$AuthStateImpl.fromJson;
 
   @override
-  @JsonKey(name: 'access_token')
   String get accessToken;
   @override
-  @JsonKey(name: 'token_type')
   String get tokenType;
   @override
   String get error;

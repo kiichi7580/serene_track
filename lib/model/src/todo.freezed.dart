@@ -23,14 +23,10 @@ mixin _$Todo {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'category_id')
   String get categoryId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'owner_id')
-  int get uid => throw _privateConstructorUsedError;
+  int get ownerId => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
-  @JsonKey(name: 'notification_time')
   DateTime? get notificationTime => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,11 +43,11 @@ abstract class $TodoCopyWith<$Res> {
       {int id,
       String title,
       String description,
-      @JsonKey(name: 'category_id') String categoryId,
-      @JsonKey(name: 'owner_id') int uid,
+      String categoryId,
+      int ownerId,
       bool completed,
-      @JsonKey(name: 'notification_time') DateTime? notificationTime,
-      @JsonKey(name: 'created_at') DateTime? createdAt});
+      DateTime? notificationTime,
+      DateTime? createdAt});
 }
 
 /// @nodoc
@@ -71,7 +67,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? title = null,
     Object? description = null,
     Object? categoryId = null,
-    Object? uid = null,
+    Object? ownerId = null,
     Object? completed = null,
     Object? notificationTime = freezed,
     Object? createdAt = freezed,
@@ -93,9 +89,9 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
               as int,
       completed: null == completed
           ? _value.completed
@@ -124,11 +120,11 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       {int id,
       String title,
       String description,
-      @JsonKey(name: 'category_id') String categoryId,
-      @JsonKey(name: 'owner_id') int uid,
+      String categoryId,
+      int ownerId,
       bool completed,
-      @JsonKey(name: 'notification_time') DateTime? notificationTime,
-      @JsonKey(name: 'created_at') DateTime? createdAt});
+      DateTime? notificationTime,
+      DateTime? createdAt});
 }
 
 /// @nodoc
@@ -145,7 +141,7 @@ class __$$TodoImplCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? categoryId = null,
-    Object? uid = null,
+    Object? ownerId = null,
     Object? completed = null,
     Object? notificationTime = freezed,
     Object? createdAt = freezed,
@@ -167,9 +163,9 @@ class __$$TodoImplCopyWithImpl<$Res>
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
               as int,
       completed: null == completed
           ? _value.completed
@@ -188,17 +184,18 @@ class __$$TodoImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _$TodoImpl implements _Todo {
   const _$TodoImpl(
       {this.id = 0,
       this.title = '',
       this.description = '',
-      @JsonKey(name: 'category_id') this.categoryId = '',
-      @JsonKey(name: 'owner_id') this.uid = 0,
+      this.categoryId = '',
+      this.ownerId = 0,
       this.completed = false,
-      @JsonKey(name: 'notification_time') this.notificationTime = null,
-      @JsonKey(name: 'created_at') this.createdAt = null});
+      this.notificationTime = null,
+      this.createdAt = null});
 
   factory _$TodoImpl.fromJson(Map<String, dynamic> json) =>
       _$$TodoImplFromJson(json);
@@ -213,24 +210,24 @@ class _$TodoImpl implements _Todo {
   @JsonKey()
   final String description;
   @override
-  @JsonKey(name: 'category_id')
+  @JsonKey()
   final String categoryId;
   @override
-  @JsonKey(name: 'owner_id')
-  final int uid;
+  @JsonKey()
+  final int ownerId;
   @override
   @JsonKey()
   final bool completed;
   @override
-  @JsonKey(name: 'notification_time')
+  @JsonKey()
   final DateTime? notificationTime;
   @override
-  @JsonKey(name: 'created_at')
+  @JsonKey()
   final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'Todo(id: $id, title: $title, description: $description, categoryId: $categoryId, uid: $uid, completed: $completed, notificationTime: $notificationTime, createdAt: $createdAt)';
+    return 'Todo(id: $id, title: $title, description: $description, categoryId: $categoryId, ownerId: $ownerId, completed: $completed, notificationTime: $notificationTime, createdAt: $createdAt)';
   }
 
   @override
@@ -244,7 +241,7 @@ class _$TodoImpl implements _Todo {
                 other.description == description) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
-            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.completed, completed) ||
                 other.completed == completed) &&
             (identical(other.notificationTime, notificationTime) ||
@@ -256,7 +253,7 @@ class _$TodoImpl implements _Todo {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, description,
-      categoryId, uid, completed, notificationTime, createdAt);
+      categoryId, ownerId, completed, notificationTime, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -277,11 +274,11 @@ abstract class _Todo implements Todo {
       {final int id,
       final String title,
       final String description,
-      @JsonKey(name: 'category_id') final String categoryId,
-      @JsonKey(name: 'owner_id') final int uid,
+      final String categoryId,
+      final int ownerId,
       final bool completed,
-      @JsonKey(name: 'notification_time') final DateTime? notificationTime,
-      @JsonKey(name: 'created_at') final DateTime? createdAt}) = _$TodoImpl;
+      final DateTime? notificationTime,
+      final DateTime? createdAt}) = _$TodoImpl;
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$TodoImpl.fromJson;
 
@@ -292,18 +289,14 @@ abstract class _Todo implements Todo {
   @override
   String get description;
   @override
-  @JsonKey(name: 'category_id')
   String get categoryId;
   @override
-  @JsonKey(name: 'owner_id')
-  int get uid;
+  int get ownerId;
   @override
   bool get completed;
   @override
-  @JsonKey(name: 'notification_time')
   DateTime? get notificationTime;
   @override
-  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)

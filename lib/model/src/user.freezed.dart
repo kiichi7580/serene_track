@@ -23,14 +23,10 @@ mixin _$User {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'hashed_password')
   String get hashedPassword => throw _privateConstructorUsedError;
-  @JsonKey(name: 'photo_url')
   String get photoUrl => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_active')
   bool get isActive => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,11 +43,11 @@ abstract class $UserCopyWith<$Res> {
       {int id,
       String name,
       String email,
-      @JsonKey(name: 'hashed_password') String hashedPassword,
-      @JsonKey(name: 'photo_url') String photoUrl,
+      String hashedPassword,
+      String photoUrl,
       String role,
-      @JsonKey(name: 'is_active') bool isActive,
-      @JsonKey(name: 'created_at') DateTime? createdAt});
+      bool isActive,
+      DateTime? createdAt});
 }
 
 /// @nodoc
@@ -124,11 +120,11 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       {int id,
       String name,
       String email,
-      @JsonKey(name: 'hashed_password') String hashedPassword,
-      @JsonKey(name: 'photo_url') String photoUrl,
+      String hashedPassword,
+      String photoUrl,
       String role,
-      @JsonKey(name: 'is_active') bool isActive,
-      @JsonKey(name: 'created_at') DateTime? createdAt});
+      bool isActive,
+      DateTime? createdAt});
 }
 
 /// @nodoc
@@ -188,17 +184,18 @@ class __$$UserImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _$UserImpl implements _User {
   const _$UserImpl(
       {this.id = 0,
       this.name = '',
       this.email = '',
-      @JsonKey(name: 'hashed_password') this.hashedPassword = '',
-      @JsonKey(name: 'photo_url') this.photoUrl = '',
+      this.hashedPassword = '',
+      this.photoUrl = '',
       this.role = '',
-      @JsonKey(name: 'is_active') this.isActive = true,
-      @JsonKey(name: 'created_at') this.createdAt});
+      this.isActive = true,
+      this.createdAt});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -213,19 +210,18 @@ class _$UserImpl implements _User {
   @JsonKey()
   final String email;
   @override
-  @JsonKey(name: 'hashed_password')
+  @JsonKey()
   final String hashedPassword;
   @override
-  @JsonKey(name: 'photo_url')
+  @JsonKey()
   final String photoUrl;
   @override
   @JsonKey()
   final String role;
   @override
-  @JsonKey(name: 'is_active')
+  @JsonKey()
   final bool isActive;
   @override
-  @JsonKey(name: 'created_at')
   final DateTime? createdAt;
 
   @override
@@ -276,11 +272,11 @@ abstract class _User implements User {
       {final int id,
       final String name,
       final String email,
-      @JsonKey(name: 'hashed_password') final String hashedPassword,
-      @JsonKey(name: 'photo_url') final String photoUrl,
+      final String hashedPassword,
+      final String photoUrl,
       final String role,
-      @JsonKey(name: 'is_active') final bool isActive,
-      @JsonKey(name: 'created_at') final DateTime? createdAt}) = _$UserImpl;
+      final bool isActive,
+      final DateTime? createdAt}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -291,18 +287,14 @@ abstract class _User implements User {
   @override
   String get email;
   @override
-  @JsonKey(name: 'hashed_password')
   String get hashedPassword;
   @override
-  @JsonKey(name: 'photo_url')
   String get photoUrl;
   @override
   String get role;
   @override
-  @JsonKey(name: 'is_active')
   bool get isActive;
   @override
-  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)

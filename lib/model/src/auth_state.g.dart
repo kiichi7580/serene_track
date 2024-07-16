@@ -11,7 +11,7 @@ _$AuthStateImpl _$$AuthStateImplFromJson(Map<String, dynamic> json) =>
       accessToken: json['access_token'] as String? ?? '',
       tokenType: json['token_type'] as String? ?? '',
       error: json['error'] as String? ?? '',
-      isLoading: json['isLoading'] as bool? ?? false,
+      isLoading: json['is_loading'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$AuthStateImplToJson(_$AuthStateImpl instance) =>
@@ -19,5 +19,5 @@ Map<String, dynamic> _$$AuthStateImplToJson(_$AuthStateImpl instance) =>
       'access_token': instance.accessToken,
       'token_type': instance.tokenType,
       'error': instance.error,
-      'isLoading': instance.isLoading,
+      'is_loading': instance.isLoading,
     };

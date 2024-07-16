@@ -5,15 +5,16 @@ part 'user.g.dart';
 
 @freezed
 abstract class User with _$User {
+  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory User({
     @Default(0) int id,
     @Default('') String name,
     @Default('') String email,
-    @JsonKey(name: 'hashed_password') @Default('') String hashedPassword,
-    @JsonKey(name: 'photo_url') @Default('') String photoUrl,
+    @Default('') String hashedPassword,
+    @Default('') String photoUrl,
     @Default('') String role,
-    @JsonKey(name: 'is_active') @Default(true) bool isActive,
-    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @Default(true) bool isActive,
+    DateTime? createdAt,
 }) = _User;
 
 factory User.fromJson(Map<String, dynamic> json) =>_$UserFromJson(json);
