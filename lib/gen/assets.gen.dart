@@ -16,6 +16,16 @@ class $AssetsImagesGen {
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 }
 
+class $AssetsSoundsGen {
+  const $AssetsSoundsGen();
+
+  /// File path: assets/sounds/timeup.mp3
+  String get timeup => 'assets/sounds/timeup.mp3';
+
+  /// List of all assets
+  List<String> get values => [timeup];
+}
+
 class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
@@ -31,6 +41,7 @@ class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
 }
 
 class AssetGenImage {
