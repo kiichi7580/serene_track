@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:serene_track/model/todo.dart';
+import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/sleep_todo_tab/widgets/default_sleep_tasks.dart';
 
 part 'sleep_todo_tab_notifier.freezed.dart';
@@ -74,7 +74,7 @@ class SleepTodoTabStateController extends StateNotifier<SleepTodoTabState> {
           title: todo.title,
           description: todo.description,
           categoryId: todo.categoryId,
-          uid: todo.uid,
+          ownerId: todo.ownerId,
           completed: changeValue,
           notificationTime: todo.notificationTime,
           createdAt: todo.createdAt,

@@ -11,7 +11,7 @@ _$TodoImpl _$$TodoImplFromJson(Map<String, dynamic> json) => _$TodoImpl(
       title: json['title'] as String? ?? '',
       description: json['description'] as String? ?? '',
       categoryId: json['category_id'] as String? ?? '',
-      uid: (json['owner_id'] as num?)?.toInt() ?? 0,
+      ownerId: (json['owner_id'] as num?)?.toInt() ?? 0,
       completed: json['completed'] as bool? ?? false,
       notificationTime: json['notification_time'] == null
           ? null
@@ -27,7 +27,7 @@ Map<String, dynamic> _$$TodoImplToJson(_$TodoImpl instance) =>
       'title': instance.title,
       'description': instance.description,
       'category_id': instance.categoryId,
-      'owner_id': instance.uid,
+      'owner_id': instance.ownerId,
       'completed': instance.completed,
       'notification_time': instance.notificationTime?.toIso8601String(),
       'created_at': instance.createdAt?.toIso8601String(),

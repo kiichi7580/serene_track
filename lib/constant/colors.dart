@@ -16,6 +16,8 @@ const sandwispColor = Color.fromRGBO(244, 242, 159, 1);
 const yellowGreenColor = Color.fromRGBO(177, 225, 122, 1);
 const mantisColor = Color.fromRGBO(127, 209, 92, 1);
 const appleColor = Color.fromRGBO(75, 184, 71, 1);
+const navyBlueColor = Color.fromRGBO(0, 70, 128, 1);
+const lightSkyBlueColor = Color.fromRGBO(135, 206, 235, 1);
 
 // グレイ系
 const greyColor = Colors.grey;

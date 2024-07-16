@@ -5,9 +5,10 @@ part 'auth_state.g.dart';
 
 @freezed
 class AuthState with _$AuthState {
+  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory AuthState({
-    @JsonKey(name: 'access_token') @Default('') String accessToken,
-    @JsonKey(name: 'token_type') @Default('') String tokenType,
+    @Default('') String accessToken,
+    @Default('') String tokenType,
     @Default('') String error,
     @Default(false) bool isLoading,
   }) = _AuthState;

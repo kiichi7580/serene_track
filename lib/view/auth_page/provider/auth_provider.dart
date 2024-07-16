@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/controllers/global/user_controller.dart';
-import 'package:serene_track/model/auth_state.dart';
-import 'package:serene_track/model/user.dart';
+import 'package:serene_track/model/src/auth_state.dart';
+import 'package:serene_track/model/src/user.dart';
 import 'package:serene_track/utils/access_token_manager.dart';
 
 final dioProvider = Provider<Dio>((ref) {
@@ -23,7 +23,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> _init() async {
     String? token = await AccessTokenManager().getAccessToken();
-    state = state.copyWith(accessToken: token!);
+    // state = state.copyWith(accessToken: token!);
   }
 
   Future<String> signIn(String email, String password) async {

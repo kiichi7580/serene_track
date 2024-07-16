@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:serene_track/model/todo.dart';
+import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/work_todo_tab/widgets/default_work_tasks.dart';
 
 part 'work_todo_tab_notifier.freezed.dart';
@@ -74,7 +74,7 @@ class WorkTodoTabStateController extends StateNotifier<WorkTodoTabState> {
           title: todo.title,
           description: todo.description,
           categoryId: todo.categoryId,
-          uid: todo.uid,
+          ownerId: todo.ownerId,
           completed: changeValue,
           notificationTime: todo.notificationTime,
           createdAt: todo.createdAt,

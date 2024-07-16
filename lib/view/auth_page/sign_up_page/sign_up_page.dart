@@ -7,7 +7,7 @@ import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/model/enum/form_state.dart';
-import 'package:serene_track/model/user.dart';
+import 'package:serene_track/model/src/user.dart';
 import 'package:serene_track/view/account_page/widgets/auth_text_field.dart';
 import 'package:serene_track/view/auth_page/provider/auth_provider.dart';
 import 'package:serene_track/view/auth_page/provider/form_provider.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/model/todo.dart';
+import 'package:serene_track/model/src/todo.dart';
 
 class CustomCheckboxTile extends StatelessWidget {
   const CustomCheckboxTile({
