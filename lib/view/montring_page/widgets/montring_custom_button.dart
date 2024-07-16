@@ -53,6 +53,8 @@ class MontringCustomButton extends ConsumerWidget {
                 height: 70,
                 width: 230,
                 text: 'タイマーを止める',
+                textColor: darkOrangeColor,
+                borderSideColor: darkOrangeColor,
                 onPressed: () async {
                   ref.read(montringPageProvider.notifier).stopTimer();
                   ref.watch(montringPageProvider.notifier).resetTimer();
@@ -72,6 +74,7 @@ class MontringCustomButton extends ConsumerWidget {
     required String text,
     required void Function()? onPressed,
     Color? textColor = navyBlueColor,
+    Color borderSideColor = navyBlueColor,
   }) {
     return SizedBox(
       height: height,
@@ -79,8 +82,8 @@ class MontringCustomButton extends ConsumerWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backGroundColor,
-          side: const BorderSide(
-            color: navyBlueColor,
+          side: BorderSide(
+            color: borderSideColor,
           ),
         ),
         onPressed: onPressed,
