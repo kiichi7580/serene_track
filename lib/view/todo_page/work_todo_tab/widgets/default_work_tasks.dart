@@ -1,4 +1,4 @@
-import 'package:serene_track/model/todo.dart';
+import 'package:serene_track/model/src/todo.dart';
 
 final defaultWorkTasks = [
   Todo(

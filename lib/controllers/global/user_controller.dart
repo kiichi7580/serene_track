@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:serene_track/model/user.dart';
+import 'package:serene_track/model/src/user.dart';
 import 'package:serene_track/utils/access_token_manager.dart';
 
 part 'user_controller.freezed.dart';

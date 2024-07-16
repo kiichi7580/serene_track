@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/constant/colors.dart';
-import 'package:serene_track/model/todo.dart';
+import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/widgets/custom_checkbox_tile.dart';
 import 'package:serene_track/view/todo_page/work_todo_tab/provider/work_todo_tab_notifier.dart';
 
