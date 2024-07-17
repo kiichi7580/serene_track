@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:serene_track/model/src/todo.dart';
-import 'package:serene_track/view/todo_page/work_todo_tab/widgets/default_work_tasks.dart';
+import 'package:serene_track/view/todo_page/work_todo_tab/components/default_work_tasks.dart';
 
 part 'work_todo_tab_notifier.freezed.dart';
 

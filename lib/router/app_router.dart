@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:serene_track/component/bottom_navigation/bottom_navigation.dart';
+import 'package:serene_track/components/bottom_navigation/bottom_navigation.dart';
 import 'package:serene_track/responsive/mobile_screen_layout.dart';
 import 'package:serene_track/responsive/responsive_layout.dart';
 import 'package:serene_track/responsive/web_screen_layout.dart';

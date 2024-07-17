@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:serene_track/component/my_appbar.dart';
+import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/constant/colors.dart';
 
 class AccountPage extends StatelessWidget {
