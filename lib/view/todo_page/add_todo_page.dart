@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:serene_track/component/my_appbar.dart';
+import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/view/todo_page/widgets/add_todo_button.dart';
-import 'package:serene_track/view/todo_page/widgets/todo_text_field.dart';
+import 'package:serene_track/view/todo_page/components/add_todo_button.dart';
+import 'package:serene_track/view/todo_page/components/todo_text_field.dart';
 
 class AddTodoPage extends StatelessWidget {
   const AddTodoPage({super.key});

@@ -12,6 +12,8 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       email: json['email'] as String? ?? '',
       hashedPassword: json['hashed_password'] as String? ?? '',
       photoUrl: json['photo_url'] as String? ?? '',
+      shortTermGoal: json['short_term_goal'] as String? ?? '',
+      longTermGoal: json['long_term_goal'] as String? ?? '',
       role: json['role'] as String? ?? '',
       isActive: json['is_active'] as bool? ?? true,
       createdAt: json['created_at'] == null
@@ -26,6 +28,8 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'email': instance.email,
       'hashed_password': instance.hashedPassword,
       'photo_url': instance.photoUrl,
+      'short_term_goal': instance.shortTermGoal,
+      'long_term_goal': instance.longTermGoal,
       'role': instance.role,
       'is_active': instance.isActive,
       'created_at': instance.createdAt?.toIso8601String(),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:serene_track/component/bottom_navigation/bottom_navigation.dart';
+import 'package:serene_track/components/bottom_navigation/bottom_navigation.dart';
 import 'package:serene_track/responsive/mobile_screen_layout.dart';
 import 'package:serene_track/responsive/responsive_layout.dart';
 import 'package:serene_track/responsive/web_screen_layout.dart';
 import 'package:serene_track/view/account_page/account_page.dart';
+import 'package:serene_track/view/account_page/edit_account_page.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/sign_up_page.dart';
 import 'package:serene_track/view/montring_page/montring_page.dart';
@@ -20,7 +21,7 @@ final routerProvider = Provider<GoRouter>(
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
-      initialLocation: SignInPage.routeLocation,
+      initialLocation: TodoPage.routeLocation,
       routes: [
         GoRoute(
           path: SignUpPage.routeLocation,
@@ -89,6 +90,13 @@ final routerProvider = Provider<GoRouter>(
               name: AccountPage.routeName,
               builder: (context, state) {
                 return const AccountPage();
+              },
+            ),
+            GoRoute(
+              path: EditAccountPage.routeLocation,
+              name: EditAccountPage.routeName,
+              builder: (context, state) {
+                return const EditAccountPage();
               },
             ),
           ],

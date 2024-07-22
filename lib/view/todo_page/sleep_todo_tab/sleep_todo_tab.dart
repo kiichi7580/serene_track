@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/sleep_todo_tab/provider/sleep_todo_tab_notifier.dart';
-import 'package:serene_track/view/todo_page/widgets/custom_checkbox_tile.dart';
+import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
 
 class SleepTodoTab extends ConsumerWidget {
   const SleepTodoTab({super.key});

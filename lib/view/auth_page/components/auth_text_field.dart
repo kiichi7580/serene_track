@@ -6,7 +6,7 @@ class AuthTextField extends StatelessWidget {
     super.key,
     required this.caption,
     required this.controller,
-    this.textInputType,
+    this.keyboardType,
     this.obscureText = false,
     this.hintText,
     this.validator,
@@ -14,7 +14,7 @@ class AuthTextField extends StatelessWidget {
   });
   final String caption;
   final TextEditingController controller;
-  final TextInputType? textInputType;
+  final TextInputType? keyboardType;
   final String? hintText;
   final bool obscureText;
   final String? Function(String?)? validator;
@@ -36,7 +36,7 @@ class AuthTextField extends StatelessWidget {
           ),
           child: TextFormField(
             controller: controller,
-            keyboardType: textInputType,
+            keyboardType: keyboardType,
             obscureText: obscureText,
             decoration: InputDecoration(
               hintText: hintText,

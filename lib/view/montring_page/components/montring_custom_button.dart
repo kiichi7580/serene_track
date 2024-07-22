@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/view/montring_page/provider/montring_page_notifier.dart';
-import 'package:serene_track/view/montring_page/widgets/show_break_promotion_dialog.dart';
+import 'package:serene_track/view/montring_page/components/show_break_promotion_dialog.dart';
 
 class MontringCustomButton extends ConsumerWidget {
   const MontringCustomButton({super.key});

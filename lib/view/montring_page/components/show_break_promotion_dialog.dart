@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:serene_track/component/custom_dialog.dart';
+import 'package:serene_track/components/custom_dialog.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/view/montring_page/provider/show_break_promotion_dialog_notifier.dart';
-import 'package:serene_track/view/montring_page/widgets/break_checkbox_tile.dart';
+import 'package:serene_track/view/montring_page/components/break_checkbox_tile.dart';
 
 Future<bool?> showBreakPromotionDialog(BuildContext context) {
   return showDialog<bool>(

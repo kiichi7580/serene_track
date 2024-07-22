@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:serene_track/model/src/todo.dart';
-import 'package:serene_track/view/todo_page/sleep_todo_tab/widgets/default_sleep_tasks.dart';
+import 'package:serene_track/view/todo_page/sleep_todo_tab/components/default_sleep_tasks.dart';
 
 part 'sleep_todo_tab_notifier.freezed.dart';
 

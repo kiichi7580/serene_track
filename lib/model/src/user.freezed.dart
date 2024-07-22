@@ -25,6 +25,8 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String get hashedPassword => throw _privateConstructorUsedError;
   String get photoUrl => throw _privateConstructorUsedError;
+  String get shortTermGoal => throw _privateConstructorUsedError;
+  String get longTermGoal => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -45,6 +47,8 @@ abstract class $UserCopyWith<$Res> {
       String email,
       String hashedPassword,
       String photoUrl,
+      String shortTermGoal,
+      String longTermGoal,
       String role,
       bool isActive,
       DateTime? createdAt});
@@ -68,6 +72,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? hashedPassword = null,
     Object? photoUrl = null,
+    Object? shortTermGoal = null,
+    Object? longTermGoal = null,
     Object? role = null,
     Object? isActive = null,
     Object? createdAt = freezed,
@@ -92,6 +98,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       photoUrl: null == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      shortTermGoal: null == shortTermGoal
+          ? _value.shortTermGoal
+          : shortTermGoal // ignore: cast_nullable_to_non_nullable
+              as String,
+      longTermGoal: null == longTermGoal
+          ? _value.longTermGoal
+          : longTermGoal // ignore: cast_nullable_to_non_nullable
               as String,
       role: null == role
           ? _value.role
@@ -122,6 +136,8 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String email,
       String hashedPassword,
       String photoUrl,
+      String shortTermGoal,
+      String longTermGoal,
       String role,
       bool isActive,
       DateTime? createdAt});
@@ -142,6 +158,8 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? email = null,
     Object? hashedPassword = null,
     Object? photoUrl = null,
+    Object? shortTermGoal = null,
+    Object? longTermGoal = null,
     Object? role = null,
     Object? isActive = null,
     Object? createdAt = freezed,
@@ -166,6 +184,14 @@ class __$$UserImplCopyWithImpl<$Res>
       photoUrl: null == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      shortTermGoal: null == shortTermGoal
+          ? _value.shortTermGoal
+          : shortTermGoal // ignore: cast_nullable_to_non_nullable
+              as String,
+      longTermGoal: null == longTermGoal
+          ? _value.longTermGoal
+          : longTermGoal // ignore: cast_nullable_to_non_nullable
               as String,
       role: null == role
           ? _value.role
@@ -193,6 +219,8 @@ class _$UserImpl implements _User {
       this.email = '',
       this.hashedPassword = '',
       this.photoUrl = '',
+      this.shortTermGoal = '',
+      this.longTermGoal = '',
       this.role = '',
       this.isActive = true,
       this.createdAt});
@@ -217,6 +245,12 @@ class _$UserImpl implements _User {
   final String photoUrl;
   @override
   @JsonKey()
+  final String shortTermGoal;
+  @override
+  @JsonKey()
+  final String longTermGoal;
+  @override
+  @JsonKey()
   final String role;
   @override
   @JsonKey()
@@ -226,7 +260,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, hashedPassword: $hashedPassword, photoUrl: $photoUrl, role: $role, isActive: $isActive, createdAt: $createdAt)';
+    return 'User(id: $id, name: $name, email: $email, hashedPassword: $hashedPassword, photoUrl: $photoUrl, shortTermGoal: $shortTermGoal, longTermGoal: $longTermGoal, role: $role, isActive: $isActive, createdAt: $createdAt)';
   }
 
   @override
@@ -241,6 +275,10 @@ class _$UserImpl implements _User {
                 other.hashedPassword == hashedPassword) &&
             (identical(other.photoUrl, photoUrl) ||
                 other.photoUrl == photoUrl) &&
+            (identical(other.shortTermGoal, shortTermGoal) ||
+                other.shortTermGoal == shortTermGoal) &&
+            (identical(other.longTermGoal, longTermGoal) ||
+                other.longTermGoal == longTermGoal) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
@@ -251,7 +289,7 @@ class _$UserImpl implements _User {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, email, hashedPassword,
-      photoUrl, role, isActive, createdAt);
+      photoUrl, shortTermGoal, longTermGoal, role, isActive, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -274,6 +312,8 @@ abstract class _User implements User {
       final String email,
       final String hashedPassword,
       final String photoUrl,
+      final String shortTermGoal,
+      final String longTermGoal,
       final String role,
       final bool isActive,
       final DateTime? createdAt}) = _$UserImpl;
@@ -290,6 +330,10 @@ abstract class _User implements User {
   String get hashedPassword;
   @override
   String get photoUrl;
+  @override
+  String get shortTermGoal;
+  @override
+  String get longTermGoal;
   @override
   String get role;
   @override
