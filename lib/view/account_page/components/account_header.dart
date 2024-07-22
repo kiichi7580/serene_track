@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serene_track/constant/colors.dart';
+import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/view/account_page/edit_account_page.dart';
 
@@ -72,11 +73,11 @@ class AccountHeader extends StatelessWidget {
         const Row(
           children: [
             Text(
-              '短期目標:  ',
+              '$shortGorlTx :  ',
               style: TextStyles.accountHeaderBoldTextStyle,
             ),
             Text(
-              '短いことをする',
+              '短いことをする短いことをする',
               style: TextStyles.accountHeaderTextStyle,
               softWrap: true,
               maxLines: 2,
@@ -87,7 +88,7 @@ class AccountHeader extends StatelessWidget {
         const Row(
           children: [
             Text(
-              '長期目標:  ',
+              '$longGorlTx :  ',
               style: TextStyles.accountHeaderBoldTextStyle,
             ),
             Text(

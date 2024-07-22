@@ -8,7 +8,7 @@ import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/model/enum/form_state.dart';
 import 'package:serene_track/model/src/user.dart';
-import 'package:serene_track/view/account_page/components/auth_text_field.dart';
+import 'package:serene_track/view/auth_page/components/auth_text_field.dart';
 import 'package:serene_track/view/auth_page/provider/auth_provider.dart';
 import 'package:serene_track/view/auth_page/provider/form_provider.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/provider/form_key_for_sign_in_notifier.dart';
