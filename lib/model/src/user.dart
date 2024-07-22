@@ -12,6 +12,8 @@ abstract class User with _$User {
     @Default('') String email,
     @Default('') String hashedPassword,
     @Default('') String photoUrl,
+    @Default('') String shortTermGoal,
+    @Default('') String longTermGoal,
     @Default('') String role,
     @Default(true) bool isActive,
     DateTime? createdAt,
