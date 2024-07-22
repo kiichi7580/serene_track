@@ -33,4 +33,19 @@ class TextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w600,
   );
+  static const accountTabStyle = TextStyle(
+    color: textMainColor,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  );
+  static const accountHeaderBoldTextStyle = TextStyle(
+    color: textMainColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+  );
+  static const accountHeaderTextStyle = TextStyle(
+    color: textMainColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
 }
