@@ -85,3 +85,9 @@ const titleFieldEmpty = 'タイトルが入力されていません';
 const categoryFieldEmpty = 'カテゴリーが入力されていません';
 const descriptionFieldEmpty = '内容が入力されていません';
 const notificationSettingFieldEmpty = '通知設定が入力されていません';
+
+// アカウント関連
+const stepsTx = '歩数';
+const userName = 'ユーザー名';
+const shortGorlTx = '短期目標';
+const longGorlTx = '長期目標';
