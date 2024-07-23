@@ -4,6 +4,7 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/view/account_page/edit_account_page.dart';
+import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
 
 class AccountHeader extends StatelessWidget {
   const AccountHeader({super.key});
@@ -45,7 +46,9 @@ class AccountHeader extends StatelessWidget {
               ],
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push(AccountSettingPage.routeLocation);
+              },
               icon: const Icon(
                 Icons.menu,
               ),
@@ -53,53 +56,64 @@ class AccountHeader extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: appleColor,
-            backgroundColor: backGroundColor,
-            textStyle: TextStyles.accountHeaderTextStyle,
-            side: const BorderSide(
-              color: appleColor,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            elevation: 0,
-          ),
-          onPressed: () {
-            context.go(EditAccountPage.routeLocation);
-          },
-          child: const Text('プロフィールを編集'),
-        ),
+        editButton(context),
         const SizedBox(height: 16),
-        const Row(
-          children: [
-            Text(
-              '$shortGorlTx :  ',
-              style: TextStyles.accountHeaderBoldTextStyle,
-            ),
-            Text(
-              '短いことをする短いことをする',
-              style: TextStyles.accountHeaderTextStyle,
-              softWrap: true,
-              maxLines: 2,
-            ),
-          ],
+        RichText(
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+          text: const TextSpan(
+            children: [
+              TextSpan(
+                text: '$shortGorlTx : ',
+                style: TextStyles.accountHeaderBoldTextStyle,
+              ),
+              TextSpan(
+                text: '短いことをする',
+                style: TextStyles.accountHeaderTextStyle,
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 8),
-        const Row(
-          children: [
-            Text(
-              '$longGorlTx :  ',
-              style: TextStyles.accountHeaderBoldTextStyle,
-            ),
-            Text(
-              '長いことをする',
-              style: TextStyles.accountHeaderTextStyle,
-              softWrap: true,
-              maxLines: 2,
-            ),
-          ],
+        RichText(
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+          text: const TextSpan(
+            children: [
+              TextSpan(
+                text: '$longGorlTx :',
+                style: TextStyles.accountHeaderBoldTextStyle,
+              ),
+              TextSpan(
+                text: '長いことをする',
+                style: TextStyles.accountHeaderTextStyle,
+              ),
+            ],
+          ),
         ),
       ],
+    );
+  }
+
+  Widget editButton(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: appleColor,
+        backgroundColor: backGroundColor,
+        textStyle: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
+        ),
+        side: const BorderSide(
+          color: appleColor,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        elevation: 0,
+      ),
+      onPressed: () {
+        context.push(EditAccountPage.routeLocation);
+      },
+      child: const Text('プロフィールを編集'),
     );
   }
 }
