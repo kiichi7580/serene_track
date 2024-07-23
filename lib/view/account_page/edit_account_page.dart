@@ -47,7 +47,7 @@ class EditAccountPage extends StatelessWidget {
                 // this.validator,
                 // this.onSaved,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
               AccountTextField(
                 caption: shortGorlTx,
                 controller: TextEditingController(),
@@ -56,7 +56,7 @@ class EditAccountPage extends StatelessWidget {
                 // this.validator,
                 // this.onSaved,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
               AccountTextField(
                 caption: longGorlTx,
                 controller: TextEditingController(),
@@ -65,15 +65,10 @@ class EditAccountPage extends StatelessWidget {
                 // this.validator,
                 // this.onSaved,
               ),
-              const SizedBox(height: 8),
-              Flexible(
-                flex: 1,
-                child: Container(),
-              ),
+              const SizedBox(height: 16),
               EditAccountButton(
                 onTap: () {},
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
             ],
           ),
         ),

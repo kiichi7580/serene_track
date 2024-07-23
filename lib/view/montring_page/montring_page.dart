@@ -16,6 +16,7 @@ class MontringPage extends ConsumerWidget {
     final isRunning = ref.watch(montringPageProvider).isRunning;
 
     return Scaffold(
+      backgroundColor: backGroundColor,
       appBar: myAppBar(
         title: 'モニタリング',
         actions: [
@@ -27,7 +28,6 @@ class MontringPage extends ConsumerWidget {
           ),
         ],
       ),
-      backgroundColor: backGroundColor,
       body: Container(
         height: double.infinity,
         width: double.infinity,

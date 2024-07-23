@@ -34,6 +34,7 @@ class TodoPageState extends ConsumerState<TodoPage>
   Widget build(BuildContext context) {
     final now = ref.watch(todayDateTimeNotifierProvider);
     return Scaffold(
+      backgroundColor: backGroundColor,
       appBar: myAppBar(
         title: ref.watch(todayDateTimeNotifierProvider.notifier).getDate(now),
         actions: [
@@ -47,7 +48,6 @@ class TodoPageState extends ConsumerState<TodoPage>
           ),
         ],
       ),
-      backgroundColor: backGroundColor,
       body: Center(
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.9,
