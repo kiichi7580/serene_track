@@ -16,6 +16,7 @@ abstract class User with _$User {
     @Default('') String longTermGoal,
     @Default('') String role,
     @Default(true) bool isActive,
+    @Default(false) bool healthdataIntegrationStatus,
     DateTime? createdAt,
 }) = _User;
 
