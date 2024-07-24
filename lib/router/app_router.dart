@@ -7,8 +7,10 @@ import 'package:serene_track/responsive/responsive_layout.dart';
 import 'package:serene_track/responsive/web_screen_layout.dart';
 import 'package:serene_track/view/account_page/account_page.dart';
 import 'package:serene_track/view/account_page/edit_account_page.dart';
+import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/sign_up_page.dart';
+import 'package:serene_track/view/health_care_page/health_care_app_integration_page.dart';
 import 'package:serene_track/view/montring_page/montring_page.dart';
 import 'package:serene_track/view/todo_page/add_todo_page.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
@@ -93,10 +95,24 @@ final routerProvider = Provider<GoRouter>(
               },
             ),
             GoRoute(
+              path: AccountSettingPage.routeLocation,
+              name: AccountSettingPage.routeName,
+              builder: (context, state) {
+                return const AccountSettingPage();
+              },
+            ),
+            GoRoute(
               path: EditAccountPage.routeLocation,
               name: EditAccountPage.routeName,
               builder: (context, state) {
                 return const EditAccountPage();
+              },
+            ),
+            GoRoute(
+              path: HealthCareAppIntegrationPage.routeLocation,
+              name: HealthCareAppIntegrationPage.routeName,
+              builder: (context, state) {
+                return const HealthCareAppIntegrationPage();
               },
             ),
           ],
