@@ -25,7 +25,7 @@ class TextStyles {
   );
   static const taskTitleBoldStyle = TextStyle(
     color: textMainColor,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.w700,
   );
   static const taskTitleStyle = TextStyle(
@@ -40,12 +40,12 @@ class TextStyles {
   );
   static const accountHeaderBoldTextStyle = TextStyle(
     color: textMainColor,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w700,
   );
   static const accountHeaderTextStyle = TextStyle(
     color: textMainColor,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 }

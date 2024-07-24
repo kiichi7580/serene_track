@@ -29,6 +29,7 @@ mixin _$User {
   String get longTermGoal => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
+  bool get healthdataIntegrationStatus => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,6 +52,7 @@ abstract class $UserCopyWith<$Res> {
       String longTermGoal,
       String role,
       bool isActive,
+      bool healthdataIntegrationStatus,
       DateTime? createdAt});
 }
 
@@ -76,6 +78,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? longTermGoal = null,
     Object? role = null,
     Object? isActive = null,
+    Object? healthdataIntegrationStatus = null,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -115,6 +118,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
+      healthdataIntegrationStatus: null == healthdataIntegrationStatus
+          ? _value.healthdataIntegrationStatus
+          : healthdataIntegrationStatus // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -140,6 +147,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String longTermGoal,
       String role,
       bool isActive,
+      bool healthdataIntegrationStatus,
       DateTime? createdAt});
 }
 
@@ -162,6 +170,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? longTermGoal = null,
     Object? role = null,
     Object? isActive = null,
+    Object? healthdataIntegrationStatus = null,
     Object? createdAt = freezed,
   }) {
     return _then(_$UserImpl(
@@ -201,6 +210,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
+      healthdataIntegrationStatus: null == healthdataIntegrationStatus
+          ? _value.healthdataIntegrationStatus
+          : healthdataIntegrationStatus // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -223,6 +236,7 @@ class _$UserImpl implements _User {
       this.longTermGoal = '',
       this.role = '',
       this.isActive = true,
+      this.healthdataIntegrationStatus = false,
       this.createdAt});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
@@ -256,11 +270,14 @@ class _$UserImpl implements _User {
   @JsonKey()
   final bool isActive;
   @override
+  @JsonKey()
+  final bool healthdataIntegrationStatus;
+  @override
   final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, hashedPassword: $hashedPassword, photoUrl: $photoUrl, shortTermGoal: $shortTermGoal, longTermGoal: $longTermGoal, role: $role, isActive: $isActive, createdAt: $createdAt)';
+    return 'User(id: $id, name: $name, email: $email, hashedPassword: $hashedPassword, photoUrl: $photoUrl, shortTermGoal: $shortTermGoal, longTermGoal: $longTermGoal, role: $role, isActive: $isActive, healthdataIntegrationStatus: $healthdataIntegrationStatus, createdAt: $createdAt)';
   }
 
   @override
@@ -282,14 +299,29 @@ class _$UserImpl implements _User {
             (identical(other.role, role) || other.role == role) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
+            (identical(other.healthdataIntegrationStatus,
+                    healthdataIntegrationStatus) ||
+                other.healthdataIntegrationStatus ==
+                    healthdataIntegrationStatus) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, hashedPassword,
-      photoUrl, shortTermGoal, longTermGoal, role, isActive, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      email,
+      hashedPassword,
+      photoUrl,
+      shortTermGoal,
+      longTermGoal,
+      role,
+      isActive,
+      healthdataIntegrationStatus,
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -316,6 +348,7 @@ abstract class _User implements User {
       final String longTermGoal,
       final String role,
       final bool isActive,
+      final bool healthdataIntegrationStatus,
       final DateTime? createdAt}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
@@ -338,6 +371,8 @@ abstract class _User implements User {
   String get role;
   @override
   bool get isActive;
+  @override
+  bool get healthdataIntegrationStatus;
   @override
   DateTime? get createdAt;
   @override

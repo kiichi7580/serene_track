@@ -19,6 +19,11 @@ const appleColor = Color.fromRGBO(75, 184, 71, 1);
 const navyBlueColor = Color.fromRGBO(0, 70, 128, 1);
 const lightSkyBlueColor = Color.fromRGBO(135, 206, 235, 1);
 
+// ヘルスケア関連の色
+const healthCareAppColor = Color.fromRGBO(255, 45, 85, 1);
+const healthCareStepsColor = Color.fromRGBO(255, 100, 0, 1);
+const healthCareSleepColor = Color.fromRGBO(40, 240, 220, 1);
+
 // グレイ系
 const greyColor = Colors.grey;
 Color lightGreyColor = Colors.grey[400]!;

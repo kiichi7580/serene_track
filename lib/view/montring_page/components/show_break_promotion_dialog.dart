@@ -18,6 +18,7 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
     builder: (context, ref, child) {
       final checkedList =
           ref.watch(showBreakPromotionDialogProvider).checkedList;
+      bool allChecked = checkedList.every((check) => check);
 
       return CustomDialog(
         title: 'ちょっとだけ休憩しましょう☕️',
@@ -109,10 +110,13 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
               textStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
-              foregroundColor: textMainColor,
+              side: BorderSide(
+                color: allChecked ? navyBlueColor : unselectedColor,
+              ),
+              foregroundColor: navyBlueColor,
               backgroundColor: backGroundColor,
             ),
-            onPressed: checkedList.every((check) => check)
+            onPressed: allChecked
                 ? () {
                     ref
                         .watch(showBreakPromotionDialogProvider.notifier)

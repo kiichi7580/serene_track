@@ -4,6 +4,7 @@ import 'package:serene_track/constant/colors.dart';
 myAppBar({
   required String title,
   List<Widget>? actions,
+  bool? centerTitle = false,
 }) {
   return AppBar(
     backgroundColor: backGroundColor,
@@ -12,9 +13,10 @@ myAppBar({
       style: const TextStyle(
         color: textMainColor,
         fontWeight: FontWeight.bold,
+        fontSize: 18,
       ),
     ),
-    centerTitle: false,
+    centerTitle: centerTitle,
     actions: actions,
   );
 }

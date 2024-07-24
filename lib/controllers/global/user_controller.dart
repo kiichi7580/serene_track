@@ -35,4 +35,8 @@ class UserController extends StateNotifier<UserState> {
     await AccessTokenManager().deleteAccessToken();
     state = state.copyWith(isAuthenticated: false);
   }
+
+  void updateUser(User user) {
+    state = state.copyWith(user: user);
+  }
 }
