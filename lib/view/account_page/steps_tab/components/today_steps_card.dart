@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/constant/colors.dart';
+import 'package:serene_track/view/account_page/steps_tab/provider/steps_tab_notifier.dart';
 
-class TodayStepsCard extends StatelessWidget {
+class TodayStepsCard extends ConsumerWidget {
   const TodayStepsCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todaySteps = ref.watch(stepsTabProvider).todaySteps;
     return Container(
       padding: const EdgeInsets.symmetric(
-        vertical: 16,
+        vertical: 4,
         horizontal: 8,
       ),
       child: Card(
@@ -37,17 +40,17 @@ class TodayStepsCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '1000',
-                        style: TextStyle(
+                        text: todaySteps.toString(),
+                        style: const TextStyle(
                           color: textMainColor,
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '歩',
                         style: TextStyle(
                           color: textMainColor,
