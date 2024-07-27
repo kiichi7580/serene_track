@@ -16,8 +16,8 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       longTermGoal: json['long_term_goal'] as String? ?? '',
       role: json['role'] as String? ?? '',
       isActive: json['is_active'] as bool? ?? true,
-      healthdataIntegrationStatus:
-          json['healthdata_integration_status'] as bool? ?? false,
+      healthDataIntegrationStatus:
+          json['health_data_integration_status'] as bool? ?? false,
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -34,6 +34,6 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'long_term_goal': instance.longTermGoal,
       'role': instance.role,
       'is_active': instance.isActive,
-      'healthdata_integration_status': instance.healthdataIntegrationStatus,
+      'health_data_integration_status': instance.healthDataIntegrationStatus,
       'created_at': instance.createdAt?.toIso8601String(),
     };
