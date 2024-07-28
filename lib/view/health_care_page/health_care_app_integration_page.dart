@@ -8,8 +8,8 @@ import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/controllers/global/user_controller.dart';
-import 'package:serene_track/model/src/user.dart';
+import 'package:serene_track/controllers/global/user_notifier.dart';
+import 'package:serene_track/view/account_page/steps_tab/provider/steps_tab_notifier.dart';
 import 'package:serene_track/view/health_care_page/components/cancellation_of_integration_with_health_care_app_dialog.dart';
 import 'package:serene_track/view/health_care_page/components/show_allow_access_to_health_care_app_dialog.dart';
 
@@ -27,15 +27,12 @@ class HealthCareAppIntegrationPage extends ConsumerStatefulWidget {
 class _HealthCareAppIntegrationPageState
     extends ConsumerState<HealthCareAppIntegrationPage>
     with WidgetsBindingObserver {
-  late bool isHealthDataIntegrated;
   Health health = Health();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    final user = ref.read(userProvider).user;
-    isHealthDataIntegrated = user.healthdataIntegrationStatus;
     checkHealthDataAccess();
   }
 
@@ -52,71 +49,61 @@ class _HealthCareAppIntegrationPageState
     super.dispose();
   }
 
-  Future<void> fetchData(List<HealthDataPoint> healthDataPoints) async {
-    // DateTime now = DateTime.now();
-    // DateTime startOfDay = DateTime(now.year, now.month, now.day - 1);
-    // DateTime endOfDay = DateTime(now.year, now.month, now.day);
+  Future<void> fetchData() async {
+    try {
+      DateTime startOfDay = DateTime.now().subtract(const Duration(days: 6));
+      DateTime endOfDay = DateTime.now();
 
-    // List<HealthDataPoint> healthDataPoints =
-    //     await health.getHealthDataFromTypes(
-    //   startTime: startOfDay,
-    //   endTime: endOfDay,
-    //   types: [HealthDataType.STEPS],
-    // );
-    // healthDataPoints = health.removeDuplicates(healthDataPoints);
+      List<HealthDataPoint> healthDataPoints =
+          await health.getHealthDataFromTypes(
+        startTime: startOfDay,
+        endTime: endOfDay,
+        types: [HealthDataType.STEPS],
+      );
 
-    // 歩数と運動時間の合計を計算
-    double totalSteps = 0;
-    double totalExerciseMinutes = 0;
-    double totalSleepMinutes = 0;
-
-    for (var dataPoint in healthDataPoints) {
-      if (dataPoint.type == HealthDataType.STEPS &&
-          dataPoint.value is NumericHealthValue) {
-        totalSteps += (dataPoint.value as NumericHealthValue).numericValue;
-      } else if (dataPoint.type == HealthDataType.EXERCISE_TIME &&
-          dataPoint.value is NumericHealthValue) {
-        totalExerciseMinutes +=
-            (dataPoint.value as NumericHealthValue).numericValue;
-      } else if (dataPoint.type == HealthDataType.SLEEP_IN_BED) {
-        totalSleepMinutes +=
-            (dataPoint.value as NumericHealthValue).numericValue;
+      if (healthDataPoints.isEmpty) {
+        return;
       }
-    }
 
-    // コンソールに出力
-    // print("平均睡眠時間：$totalSleepMinutes分");
-    // print("総歩数: $totalSteps 歩");
-    // print("総運動時間: $totalExerciseMinutes 分");
+      healthDataPoints = health.removeDuplicates(healthDataPoints);
+
+      Map<DateTime, int> dailySteps = {};
+
+      for (var dataPoint in healthDataPoints) {
+        dynamic year = dataPoint.dateFrom.year;
+        int month = dataPoint.dateFrom.month;
+        int day = dataPoint.dateFrom.day;
+        DateTime date = DateTime(year, month, day);
+
+        num value = 0;
+        if (dataPoint.value is NumericHealthValue) {
+          value = (dataPoint.value as NumericHealthValue).numericValue;
+        }
+
+        if (!dailySteps.containsKey(date)) {
+          dailySteps[date] = 0;
+        }
+        dailySteps[date] = dailySteps[date]! + value.toInt();
+      }
+
+      List<int> steps = [];
+      for (int i = 0; i < 7; i++) {
+        DateTime day =
+            DateTime(startOfDay.year, startOfDay.month, startOfDay.day)
+                .add(Duration(days: i));
+        steps.add(dailySteps[day] ?? 0);
+      }
+      ref.read(stepsTabProvider.notifier).getSteps(steps);
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   void checkHealthDataAccess() async {
     try {
-      // データ取得の試みを行う
-      List<HealthDataPoint> healthDataPoints =
-          await health.getHealthDataFromTypes(
-        startTime: DateTime.now().subtract(const Duration(days: 5)),
-        endTime: DateTime.now(),
-        types: [HealthDataType.STEPS],
-      );
-
-      // print('healthDataPoints: $healthDataPoints');
-
-      await fetchData(healthDataPoints);
-
-      // データが取得できたかどうかでアクセス権限があるかを確認
-      bool hasPermissions = healthDataPoints.isNotEmpty;
-
-      setState(() {
-        isHealthDataIntegrated = hasPermissions;
-      });
-      final userNotifier = ref.read(userProvider.notifier);
-      userNotifier
-          .updateUser(User(healthdataIntegrationStatus: hasPermissions));
+      await fetchData();
     } catch (e) {
-      setState(() {
-        isHealthDataIntegrated = false;
-      });
+      ref.read(userProvider.notifier).updateHealthDataIntegrationStatus(false);
     }
   }
 
@@ -124,12 +111,8 @@ class _HealthCareAppIntegrationPageState
     required BuildContext context,
     required bool isRequested,
   }) async {
-    final userNotifier = ref.read(userProvider.notifier);
     if (isRequested) {
       try {
-        bool requestResult =
-            await health.requestAuthorization([HealthDataType.STEPS]);
-
         List<HealthDataPoint> healthData = await health.getHealthDataFromTypes(
           startTime: DateTime.now().subtract(const Duration(days: 1)),
           endTime: DateTime.now(),
@@ -137,12 +120,10 @@ class _HealthCareAppIntegrationPageState
         );
 
         bool hasDataAccess = healthData.isNotEmpty;
+        ref
+            .read(userProvider.notifier)
+            .updateHealthDataIntegrationStatus(hasDataAccess);
 
-        setState(() {
-          isHealthDataIntegrated = hasDataAccess;
-        });
-        userNotifier
-            .updateUser(User(healthdataIntegrationStatus: hasDataAccess));
         if (!hasDataAccess && Platform.isIOS) {
           showAllowAccessToHealthCareAppDialog(context);
         }
@@ -155,14 +136,9 @@ class _HealthCareAppIntegrationPageState
       } else {
         try {
           await health.revokePermissions();
-          print('Permissions revoked');
-
-          setState(() {
-            isHealthDataIntegrated = false;
-          });
-          userNotifier.updateUser(
-            User(healthdataIntegrationStatus: false),
-          );
+          ref
+              .read(userProvider.notifier)
+              .updateHealthDataIntegrationStatus(false);
         } catch (e) {
           showSnackBar(e.toString(), context);
         }
@@ -172,6 +148,8 @@ class _HealthCareAppIntegrationPageState
 
   @override
   Widget build(BuildContext context) {
+    final healthDataIntegrationStatus =
+        ref.watch(userProvider).user.healthDataIntegrationStatus;
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: myAppBar(
@@ -189,7 +167,7 @@ class _HealthCareAppIntegrationPageState
                 style: TextStyles.caption,
               ),
               trailing: CupertinoSwitch(
-                value: isHealthDataIntegrated,
+                value: healthDataIntegrationStatus,
                 onChanged: (value) async {
                   if (value) {
                     await requestPermissions(
