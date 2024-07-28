@@ -12,6 +12,7 @@ import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/sign_up_page.dart';
 import 'package:serene_track/view/health_care_page/health_care_app_integration_page.dart';
 import 'package:serene_track/view/montring_page/montring_page.dart';
+import 'package:serene_track/view/splash_page/splash_page.dart';
 import 'package:serene_track/view/todo_page/add_todo_page.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
 
@@ -25,6 +26,13 @@ final routerProvider = Provider<GoRouter>(
       debugLogDiagnostics: true,
       initialLocation: TodoPage.routeLocation,
       routes: [
+        GoRoute(
+          path: SplashPage.routeLocation,
+          name: SplashPage.routeName,
+          builder: (context, state) {
+            return const SplashPage();
+          },
+        ),
         GoRoute(
           path: SignUpPage.routeLocation,
           name: SignUpPage.routeName,
