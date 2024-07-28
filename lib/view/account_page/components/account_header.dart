@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/controllers/global/user_controller.dart';
+import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/view/account_page/edit_account_page.dart';
 import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
@@ -15,6 +15,7 @@ class AccountHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider).user;
+    print('User: $user');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -40,7 +41,7 @@ class AccountHeader extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user.name,
+                      userName(user.name),
                       style: TextStyles.title,
                     ),
                   ],
@@ -67,11 +68,11 @@ class AccountHeader extends ConsumerWidget {
           text: TextSpan(
             children: [
               const TextSpan(
-                text: '$shortGorlTx : ',
+                text: '$shortTermGorlTx : ',
                 style: TextStyles.accountHeaderBoldTextStyle,
               ),
               TextSpan(
-                text: user.shortTermGoal,
+                text: shortTermGoal(user.shortTermGoal),
                 style: TextStyles.accountHeaderTextStyle,
               ),
             ],
@@ -84,11 +85,11 @@ class AccountHeader extends ConsumerWidget {
           text: TextSpan(
             children: [
               const TextSpan(
-                text: '$longGorlTx : ',
+                text: '$longTermGorlTx : ',
                 style: TextStyles.accountHeaderBoldTextStyle,
               ),
               TextSpan(
-                text: user.longTermGoal,
+                text: longTermGoal(user.longTermGoal),
                 style: TextStyles.accountHeaderTextStyle,
               ),
             ],
@@ -118,6 +119,30 @@ class AccountHeader extends ConsumerWidget {
       },
       child: const Text('プロフィールを編集'),
     );
+  }
+
+  String userName(String name) {
+    if (name != '') {
+      return name;
+    } else {
+      return 'ユーザー';
+    }
+  }
+
+  String shortTermGoal(String goal) {
+    if (goal != '') {
+      return goal;
+    } else {
+      return '短い期間で達成できそうな目標を設定しましょう。';
+    }
+  }
+
+  String longTermGoal(String goal) {
+    if (goal != '') {
+      return goal;
+    } else {
+      return '長期的に達成したい目標を設定しましょう。';
+    }
   }
 
   ImageProvider<Object> iconImage(String url) {

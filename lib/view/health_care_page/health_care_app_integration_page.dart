@@ -8,7 +8,7 @@ import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/controllers/global/user_controller.dart';
+import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/view/account_page/steps_tab/provider/steps_tab_notifier.dart';
 import 'package:serene_track/view/health_care_page/components/cancellation_of_integration_with_health_care_app_dialog.dart';
 import 'package:serene_track/view/health_care_page/components/show_allow_access_to_health_care_app_dialog.dart';

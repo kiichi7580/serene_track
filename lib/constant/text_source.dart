@@ -89,5 +89,5 @@ const notificationSettingFieldEmpty = '通知設定が入力されていませ�
 // アカウント関連
 const stepsTx = '歩数';
 const userName = 'ユーザー名';
-const shortGorlTx = '短期目標';
-const longGorlTx = '長期目標';
+const shortTermGorlTx = '短期目標';
+const longTermGorlTx = '長期目標';

@@ -49,7 +49,7 @@ class EditAccountPage extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               AccountTextField(
-                caption: shortGorlTx,
+                caption: shortTermGorlTx,
                 controller: TextEditingController(),
                 keyboardType: TextInputType.text,
                 maxLength: 100,
@@ -58,7 +58,7 @@ class EditAccountPage extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               AccountTextField(
-                caption: longGorlTx,
+                caption: longTermGorlTx,
                 controller: TextEditingController(),
                 keyboardType: TextInputType.text,
                 maxLength: 100,

@@ -202,7 +202,7 @@ class SignInPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('まだアカウントをお持ちでないですか？'),
+                const Text('アカウントをお持ちでないですか？'),
                 TextButton(
                   style: TextButton.styleFrom(
                     foregroundColor: linkBlue,
