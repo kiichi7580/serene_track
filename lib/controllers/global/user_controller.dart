@@ -36,7 +36,10 @@ class UserController extends StateNotifier<UserState> {
     state = state.copyWith(isAuthenticated: false);
   }
 
-  void updateUser(User user) {
+  void updateHealthDataIntegrationStatus(
+    bool healthDataIntegrationStatus,
+  ) {
+    User user = User(healthDataIntegrationStatus: healthDataIntegrationStatus);
     state = state.copyWith(user: user);
   }
 }
