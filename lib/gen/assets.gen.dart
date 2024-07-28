@@ -33,8 +33,12 @@ class $AssetsImagesIconsGen {
   AssetGenImage get sereneTrackIcon =>
       const AssetGenImage('assets/images/icons/serene_track_icon.png');
 
+  /// File path: assets/images/icons/serene_track_icon_black.png
+  AssetGenImage get sereneTrackIconBlack =>
+      const AssetGenImage('assets/images/icons/serene_track_icon_black.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [sereneTrackIcon];
+  List<AssetGenImage> get values => [sereneTrackIcon, sereneTrackIconBlack];
 }
 
 class Assets {
