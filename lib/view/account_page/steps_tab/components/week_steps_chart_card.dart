@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/view/account_page/steps_tab/provider/steps_tab_notifier.dart';
@@ -15,17 +16,15 @@ class WeekStepsChartCard extends ConsumerWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 4,
-        horizontal: 8,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(
         elevation: 3,
         color: backGroundColor,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SizedBox(
-            height: screenHeight * 0.21,
+            // height: screenHeight * 0.2182,
+            height: screenHeight * 0.26,
             child: BarChart(
               BarChartData(
                 borderData: FlBorderData(
@@ -44,12 +43,29 @@ class WeekStepsChartCard extends ConsumerWidget {
                   rightTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        DateTime date = DateTime.now()
+                            .subtract(Duration(days: value.toInt()));
+                        String formattedDate = DateFormat('M/d').format(date);
+                        return SideTitleWidget(
+                          axisSide: meta.axisSide,
+                          child: Text(
+                            formattedDate,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
                 groupsSpace: 10,
                 barGroups: [
                   for (var i = 0; i < steps.length; i++) ...{
                     BarChartGroupData(
-                      x: i,
+                      x: 6 - i,
                       barRods: [
                         BarChartRodData(
                           toY: steps[i].toDouble(),
@@ -60,6 +76,23 @@ class WeekStepsChartCard extends ConsumerWidget {
                     ),
                   }
                 ],
+                extraLinesData: ExtraLinesData(
+                  horizontalLines: [
+                    HorizontalLine(
+                      y: weekAvgSteps.toDouble(),
+                      color: rustColor,
+                      strokeWidth: 2,
+                      dashArray: [5, 5],
+                      label: HorizontalLineLabel(
+                        show: true,
+                        alignment: Alignment.topRight,
+                        labelResolver: (line) => 'AVG',
+                        style: TextStyles.accountHeaderBoldTextStyle
+                            .copyWith(color: rustColor),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -70,8 +103,6 @@ class WeekStepsChartCard extends ConsumerWidget {
 
   Widget weekAvgStepsText(int weekAvgSteps) {
     return RichText(
-      overflow: TextOverflow.ellipsis,
-      maxLines: 2,
       text: TextSpan(
         children: [
           const TextSpan(
