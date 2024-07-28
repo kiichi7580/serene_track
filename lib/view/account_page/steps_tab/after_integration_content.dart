@@ -7,14 +7,14 @@ class AfterIntegrationContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            TodayStepsCard(),
-            WeekStepsChartCard(),
-          ],
-        ),
+    return const SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(height: 16),
+          TodayStepsCard(),
+          SizedBox(height: 16),
+          WeekStepsChartCard(),
+        ],
       ),
     );
   }

@@ -10,10 +10,7 @@ class TodayStepsCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todaySteps = ref.watch(stepsTabProvider).todaySteps;
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 4,
-        horizontal: 8,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(
         elevation: 3,
         color: backGroundColor,
