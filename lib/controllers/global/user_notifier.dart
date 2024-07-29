@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:serene_track/model/src/user.dart';
-import 'package:serene_track/utils/access_token_manager.dart';
+import 'package:serene_track/utils/preferences_manager.dart';
 
 part 'user_notifier.freezed.dart';
 
@@ -32,7 +32,9 @@ class UserController extends StateNotifier<UserState> {
   }
 
   Future<void> logOut() async {
-    await AccessTokenManager().deleteAccessToken();
+    await PreferencesManager().setIsLogin(isLogin: false);
+    await PreferencesManager().deleteAccessToken();
+    await PreferencesManager().deleteTokenType();
     state = state.copyWith(isAuthenticated: false);
   }
 
