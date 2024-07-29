@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'auth_state.dart';
+part of 'auth_notifier.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,18 +14,14 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-AuthState _$AuthStateFromJson(Map<String, dynamic> json) {
-  return _AuthState.fromJson(json);
-}
-
 /// @nodoc
 mixin _$AuthState {
   String get accessToken => throw _privateConstructorUsedError;
   String get tokenType => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get initialized => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -37,7 +33,11 @@ abstract class $AuthStateCopyWith<$Res> {
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
   $Res call(
-      {String accessToken, String tokenType, String error, bool isLoading});
+      {String accessToken,
+      String tokenType,
+      String error,
+      bool isLoading,
+      bool initialized});
 }
 
 /// @nodoc
@@ -57,6 +57,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? tokenType = null,
     Object? error = null,
     Object? isLoading = null,
+    Object? initialized = null,
   }) {
     return _then(_value.copyWith(
       accessToken: null == accessToken
@@ -75,6 +76,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      initialized: null == initialized
+          ? _value.initialized
+          : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -88,7 +93,11 @@ abstract class _$$AuthStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String accessToken, String tokenType, String error, bool isLoading});
+      {String accessToken,
+      String tokenType,
+      String error,
+      bool isLoading,
+      bool initialized});
 }
 
 /// @nodoc
@@ -106,6 +115,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
     Object? tokenType = null,
     Object? error = null,
     Object? isLoading = null,
+    Object? initialized = null,
   }) {
     return _then(_$AuthStateImpl(
       accessToken: null == accessToken
@@ -124,6 +134,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      initialized: null == initialized
+          ? _value.initialized
+          : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -131,15 +145,14 @@ class __$$AuthStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
-class _$AuthStateImpl implements _AuthState {
-  const _$AuthStateImpl(
+class _$AuthStateImpl extends _AuthState {
+  _$AuthStateImpl(
       {this.accessToken = '',
       this.tokenType = '',
       this.error = '',
-      this.isLoading = false});
-
-  factory _$AuthStateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AuthStateImplFromJson(json);
+      this.isLoading = false,
+      this.initialized = false})
+      : super._();
 
   @override
   @JsonKey()
@@ -153,10 +166,13 @@ class _$AuthStateImpl implements _AuthState {
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final bool initialized;
 
   @override
   String toString() {
-    return 'AuthState(accessToken: $accessToken, tokenType: $tokenType, error: $error, isLoading: $isLoading)';
+    return 'AuthState(accessToken: $accessToken, tokenType: $tokenType, error: $error, isLoading: $isLoading, initialized: $initialized)';
   }
 
   @override
@@ -170,37 +186,30 @@ class _$AuthStateImpl implements _AuthState {
                 other.tokenType == tokenType) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+                other.isLoading == isLoading) &&
+            (identical(other.initialized, initialized) ||
+                other.initialized == initialized));
   }
 
-  @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, accessToken, tokenType, error, isLoading);
+  int get hashCode => Object.hash(
+      runtimeType, accessToken, tokenType, error, isLoading, initialized);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>
       __$$AuthStateImplCopyWithImpl<_$AuthStateImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AuthStateImplToJson(
-      this,
-    );
-  }
 }
 
-abstract class _AuthState implements AuthState {
-  const factory _AuthState(
+abstract class _AuthState extends AuthState {
+  factory _AuthState(
       {final String accessToken,
       final String tokenType,
       final String error,
-      final bool isLoading}) = _$AuthStateImpl;
-
-  factory _AuthState.fromJson(Map<String, dynamic> json) =
-      _$AuthStateImpl.fromJson;
+      final bool isLoading,
+      final bool initialized}) = _$AuthStateImpl;
+  _AuthState._() : super._();
 
   @override
   String get accessToken;
@@ -210,6 +219,8 @@ abstract class _AuthState implements AuthState {
   String get error;
   @override
   bool get isLoading;
+  @override
+  bool get initialized;
   @override
   @JsonKey(ignore: true)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>

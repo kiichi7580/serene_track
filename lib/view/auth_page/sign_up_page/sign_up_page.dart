@@ -5,11 +5,13 @@ import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
+import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/model/enum/form_state.dart';
 import 'package:serene_track/model/src/user.dart';
+import 'package:serene_track/utils/preferences_manager.dart';
 import 'package:serene_track/view/auth_page/components/auth_text_field.dart';
-import 'package:serene_track/view/auth_page/provider/auth_provider.dart';
+import 'package:serene_track/view/auth_page/provider/auth_notifier.dart';
 import 'package:serene_track/view/auth_page/provider/form_provider.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/provider/sign_up_text_cotroller_notifier.dart';
@@ -30,11 +32,13 @@ class SignUpPage extends ConsumerWidget {
     String res = failureSignUp;
     String signUpRes =
         await ref.read(authProvider.notifier).signUp(email, password);
-    User? userData = await ref.read(authProvider.notifier).getUser(ref);
+    User? userData = await ref.read(authProvider.notifier).getUser();
     if (signUpRes == successRes && userData != null) {
+      await ref.read(userProvider.notifier).fetchUserData(userData);
       String res = successSignUp;
       await Future.delayed(const Duration(milliseconds: 10));
       if (!context.mounted) return;
+      await PreferencesManager().setIsLogin(isLogin: true);
       context.go(TodoPage.routeLocation);
       showSnackBar(res, context);
     } else {

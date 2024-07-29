@@ -24,7 +24,7 @@ final routerProvider = Provider<GoRouter>(
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
-      initialLocation: SignInPage.routeLocation,
+      initialLocation: SplashPage.routeLocation,
       routes: [
         GoRoute(
           path: SplashPage.routeLocation,

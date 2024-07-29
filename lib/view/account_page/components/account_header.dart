@@ -15,7 +15,6 @@ class AccountHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider).user;
-    print('User: $user');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -121,36 +120,39 @@ class AccountHeader extends ConsumerWidget {
     );
   }
 
-  String userName(String name) {
-    if (name != '') {
+  String userName(String? name) {
+    if (name != null && name != '') {
       return name;
     } else {
       return 'ユーザー';
     }
   }
 
-  String shortTermGoal(String goal) {
-    if (goal != '') {
+  String shortTermGoal(String? goal) {
+    if (goal != null && goal != '') {
       return goal;
     } else {
-      return '短い期間で達成できそうな目標を設定しましょう。';
+      return '短期間で達成できる目標を設定しましょう。';
     }
   }
 
-  String longTermGoal(String goal) {
-    if (goal != '') {
+  String longTermGoal(String? goal) {
+    if (goal != null && goal != '') {
       return goal;
     } else {
       return '長期的に達成したい目標を設定しましょう。';
     }
   }
 
-  ImageProvider<Object> iconImage(String url) {
-    bool networkImage = url.substring(0, 8) == 'https://';
+  ImageProvider<Object> iconImage(String? url) {
+    if (url == null || url.isEmpty || url.length < 8) {
+      return AssetImage(
+        Assets.images.icons.sereneTrackIconBlack.path,
+      ) as ImageProvider;
+    }
+    bool networkImage = url.startsWith('https://');
     if (networkImage) {
-      return NetworkImage(
-        url,
-      );
+      return NetworkImage(url);
     } else {
       return AssetImage(
         Assets.images.icons.sereneTrackIconBlack.path,

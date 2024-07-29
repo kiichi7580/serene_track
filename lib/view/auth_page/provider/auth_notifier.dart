@@ -1,30 +1,49 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
-import 'package:serene_track/constant/constants.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:serene_track/constant/text_source.dart';
-import 'package:serene_track/controllers/global/user_notifier.dart';
-import 'package:serene_track/model/src/auth_state.dart';
+import 'package:serene_track/controllers/global/dio_notifier.dart';
 import 'package:serene_track/model/src/user.dart';
-import 'package:serene_track/utils/access_token_manager.dart';
+import 'package:serene_track/utils/preferences_manager.dart';
 
-final dioProvider = Provider<Dio>((ref) {
-  return Dio(BaseOptions(baseUrl: kBaseUrl));
+part 'auth_notifier.freezed.dart';
+
+@freezed
+class AuthState with _$AuthState {
+  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
+  factory AuthState({
+    @Default('') String accessToken,
+    @Default('') String tokenType,
+    @Default('') String error,
+    @Default(false) bool isLoading,
+    @Default(false) bool initialized,
+  }) = _AuthState;
+  AuthState._();
+}
+
+final authProvider = StateNotifierProvider<AuthController, AuthState>((ref) {
+  final dio = ref.watch(dioProvider);
+  return AuthController(dio: dio);
 });
 
-final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  return AuthNotifier(ref.watch(dioProvider));
-});
-
-class AuthNotifier extends StateNotifier<AuthState> {
-  final Dio dio;
-
-  AuthNotifier(this.dio) : super(const AuthState()) {
+class AuthController extends StateNotifier<AuthState> {
+  AuthController({
+    required Dio dio,
+  })  : _dio = dio,
+        super(AuthState()) {
     _init();
   }
 
+  final Dio _dio;
+
   Future<void> _init() async {
-    String? token = await AccessTokenManager().getAccessToken();
-    // state = state.copyWith(accessToken: token!);
+    final accessToken = await PreferencesManager().getAccessToken;
+    final tokenType = await PreferencesManager().getTokenType;
+    state = state.copyWith(
+      accessToken: accessToken,
+      tokenType: tokenType,
+      initialized: true,
+    );
   }
 
   Future<String> signIn(String email, String password) async {
@@ -32,7 +51,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
         state = state.copyWith(isLoading: true);
-        final response = await dio.post('/user/sign_in',
+        final response = await _dio.post('/user/sign_in',
             data: {'email': email, 'password': password});
         state = state.copyWith(
           isLoading: false,
@@ -55,7 +74,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
         state = state.copyWith(isLoading: true);
-        final response = await dio.post('/user/sign_up',
+        final response = await _dio.post('/user/sign_up',
             data: {'email': email, 'password': password});
         state = state.copyWith(
           isLoading: false,
@@ -73,19 +92,22 @@ class AuthNotifier extends StateNotifier<AuthState> {
     return res;
   }
 
-  Future<User?> getUser(WidgetRef ref) async {
+  Future<User?> getUser() async {
+    while (!state.initialized) {
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
     User? user;
     try {
       state = state.copyWith(isLoading: true);
-      final response = await dio.get('/user/',
+      final response = await _dio.get('/user/',
           options: Options(
             headers: {
               'Authorization': '${state.tokenType} ${state.accessToken}'
             },
           ));
       user = User.fromJson(response.data);
-      await ref.read(userProvider.notifier).fetchUserData(user);
-      await AccessTokenManager().saveAccessToken(state.accessToken);
+      await PreferencesManager().setAccessToken(accessToken: state.accessToken);
+      await PreferencesManager().setTokenType(tokenType: state.tokenType);
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
