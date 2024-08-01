@@ -14,33 +14,31 @@ class SleepTodoTab extends ConsumerWidget {
     final selectedItemList = ref.watch(sleepTodoTabProvider).isSelectedList;
     final checkedList = ref.watch(sleepTodoTabProvider).checkedList;
 
-    return Scaffold(
-      backgroundColor: mantisColor,
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        itemCount: sleepTodoList.length,
-        itemBuilder: (context, index) {
-          Todo sleepTodo = sleepTodoList[index];
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: sleepTodoList.length,
+      itemBuilder: (context, index) {
+        Todo sleepTodo = sleepTodoList[index];
 
-          return CustomCheckboxTile(
-            todo: sleepTodo,
-            index: index,
-            value: checkedList[index],
-            fillColor: sandwispColor,
-            onTap: () {
-              ref
-                  .read(sleepTodoTabProvider.notifier)
-                  .changeSelectedItemList(index);
-            },
-            onChanged: (value) {
-              ref
-                  .watch(sleepTodoTabProvider.notifier)
-                  .changeCheckedList(index, value!);
-            },
-            selectedItemList: selectedItemList,
-          );
-        },
-      ),
+        return CustomCheckboxTile(
+          todo: sleepTodo,
+          index: index,
+          value: checkedList[index],
+          fillColor: sandwispColor,
+          onTap: () {
+            ref
+                .read(sleepTodoTabProvider.notifier)
+                .changeSelectedItemList(index);
+          },
+          onChanged: (value) {
+            ref
+                .watch(sleepTodoTabProvider.notifier)
+                .changeCheckedList(index, value!);
+          },
+          selectedItemList: selectedItemList,
+        );
+      },
     );
   }
 }

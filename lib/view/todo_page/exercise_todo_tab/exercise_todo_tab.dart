@@ -14,33 +14,31 @@ class ExerciseTodoTab extends ConsumerWidget {
     final selectedItemList = ref.watch(exerciseTodoTabProvider).isSelectedList;
     final checkedList = ref.watch(exerciseTodoTabProvider).checkedList;
 
-    return Scaffold(
-      backgroundColor: yellowGreenColor,
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        itemCount: exerciseTodoList.length,
-        itemBuilder: (context, index) {
-          Todo exerciseTodo = exerciseTodoList[index];
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: exerciseTodoList.length,
+      itemBuilder: (context, index) {
+        Todo exerciseTodo = exerciseTodoList[index];
 
-          return CustomCheckboxTile(
-            todo: exerciseTodo,
-            index: index,
-            value: checkedList[index],
-            fillColor: yellowGreenColor,
-            onTap: () {
-              ref
-                  .read(exerciseTodoTabProvider.notifier)
-                  .changeSelectedItemList(index);
-            },
-            onChanged: (value) {
-              ref
-                  .watch(exerciseTodoTabProvider.notifier)
-                  .changeCheckedList(index, value!);
-            },
-            selectedItemList: selectedItemList,
-          );
-        },
-      ),
+        return CustomCheckboxTile(
+          todo: exerciseTodo,
+          index: index,
+          value: checkedList[index],
+          fillColor: yellowGreenColor,
+          onTap: () {
+            ref
+                .read(exerciseTodoTabProvider.notifier)
+                .changeSelectedItemList(index);
+          },
+          onChanged: (value) {
+            ref
+                .watch(exerciseTodoTabProvider.notifier)
+                .changeCheckedList(index, value!);
+          },
+          selectedItemList: selectedItemList,
+        );
+      },
     );
   }
 }

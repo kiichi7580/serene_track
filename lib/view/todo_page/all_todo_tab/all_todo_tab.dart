@@ -14,33 +14,29 @@ class AllTodoTab extends ConsumerWidget {
     final selectedItemList = ref.watch(allTodoTabProvider).isSelectedList;
     final checkedList = ref.watch(allTodoTabProvider).checkedList;
 
-    return Scaffold(
-      backgroundColor: sandwispColor,
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        itemCount: allTodoList.length,
-        itemBuilder: (context, index) {
-          Todo allTodo = allTodoList[index];
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: allTodoList.length,
+      itemBuilder: (context, index) {
+        Todo allTodo = allTodoList[index];
 
-          return CustomCheckboxTile(
-            todo: allTodo,
-            index: index,
-            value: checkedList[index],
-            fillColor: sandwispColor,
-            onTap: () {
-              ref
-                  .read(allTodoTabProvider.notifier)
-                  .changeSelectedItemList(index);
-            },
-            onChanged: (value) {
-              ref
-                  .watch(allTodoTabProvider.notifier)
-                  .changeCheckedList(index, value!);
-            },
-            selectedItemList: selectedItemList,
-          );
-        },
-      ),
+        return CustomCheckboxTile(
+          todo: allTodo,
+          index: index,
+          value: checkedList[index],
+          fillColor: sandwispColor,
+          onTap: () {
+            ref.read(allTodoTabProvider.notifier).changeSelectedItemList(index);
+          },
+          onChanged: (value) {
+            ref
+                .watch(allTodoTabProvider.notifier)
+                .changeCheckedList(index, value!);
+          },
+          selectedItemList: selectedItemList,
+        );
+      },
     );
   }
 }
