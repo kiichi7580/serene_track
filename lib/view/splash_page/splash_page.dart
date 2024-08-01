@@ -23,7 +23,8 @@ class SplashPage extends ConsumerWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           if (user != null) {
             await ref.read(userProvider.notifier).fetchUserData(user);
-            final isLogin = ref.watch(splashPageProvider).isLogin;
+            final isLogin =
+                ref.watch(splashPageProvider.select((value) => value.isLogin));
             if (isLogin == false) {
               context.go(SignInPage.routeLocation);
             } else {

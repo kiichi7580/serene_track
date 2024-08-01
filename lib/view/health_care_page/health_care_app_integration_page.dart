@@ -176,8 +176,8 @@ class _HealthCareAppIntegrationPageState
 
   @override
   Widget build(BuildContext context) {
-    final healthDataIntegrationStatus =
-        ref.watch(userProvider).user.healthDataIntegrationStatus;
+    final healthDataIntegrationStatus = ref.watch(
+        userProvider.select((value) => value.user.healthDataIntegrationStatus));
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: myAppBar(

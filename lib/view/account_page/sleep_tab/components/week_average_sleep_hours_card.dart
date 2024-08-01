@@ -9,7 +9,7 @@ class WeekAverageSleepHoursCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weekAvgSleepHours =
-        ref.watch(sleepTabProvider.select((s) => s.weekAvgSleepHours));
+        ref.watch(sleepTabProvider.select((value) => value.weekAvgSleepHours));
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(

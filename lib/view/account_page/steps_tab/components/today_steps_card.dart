@@ -8,7 +8,8 @@ class TodayStepsCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todaySteps = ref.watch(stepsTabProvider).todaySteps;
+    final todaySteps =
+        ref.watch(stepsTabProvider.select((value) => value.todaySteps));
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(

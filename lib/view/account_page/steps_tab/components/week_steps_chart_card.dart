@@ -11,8 +11,10 @@ class WeekStepsChartCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final steps = ref.watch(stepsTabProvider).weekSteps;
-    final weekAvgSteps = ref.watch(stepsTabProvider).weekAvgSteps;
+    final weekSteps =
+        ref.watch(stepsTabProvider.select((value) => value.weekSteps));
+    final weekAvgSteps =
+        ref.watch(stepsTabProvider.select((value) => value.weekAvgSteps));
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
@@ -63,12 +65,12 @@ class WeekStepsChartCard extends ConsumerWidget {
                 ),
                 groupsSpace: 10,
                 barGroups: [
-                  for (var i = 0; i < steps.length; i++) ...{
+                  for (var i = 0; i < weekSteps.length; i++) ...{
                     BarChartGroupData(
                       x: 6 - i,
                       barRods: [
                         BarChartRodData(
-                          toY: steps[i].toDouble(),
+                          toY: weekSteps[i].toDouble(),
                           width: 15,
                           color: healthCareStepsColor,
                         ),

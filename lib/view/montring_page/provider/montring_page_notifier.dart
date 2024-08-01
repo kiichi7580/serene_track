@@ -28,8 +28,6 @@ class MontringPageStateController extends StateNotifier<MontringPageState> {
     _init();
   }
 
-  bool get getIsRunning => state.isRunning;
-
   void _init() {
     setTimer();
   }

@@ -8,8 +8,10 @@ class MontringTimer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dynamicSeconds = ref.watch(montringPageProvider).dynamicSeconds;
-    final totalSeconds = ref.watch(montringPageProvider).totalSeconds;
+    final dynamicSeconds =
+        ref.watch(montringPageProvider.select((value) => value.dynamicSeconds));
+    final totalSeconds =
+        ref.watch(montringPageProvider.select((value) => value.totalSeconds));
 
     if (dynamicSeconds == 0) {
       // 状態の変更を非同期に行う

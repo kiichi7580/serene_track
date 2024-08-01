@@ -11,10 +11,10 @@ class WeekSleepHoursChartCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final weekTotalSleepMinutes =
-        ref.watch(sleepTabProvider.select((s) => s.weekTotalSleepMinutes));
-    final weekAvgTotalSleepMinutes =
-        ref.watch(sleepTabProvider.select((s) => s.weekAvgTotalSleepMinutes));
+    final weekTotalSleepMinutes = ref
+        .watch(sleepTabProvider.select((value) => value.weekTotalSleepMinutes));
+    final weekAvgTotalSleepMinutes = ref.watch(
+        sleepTabProvider.select((value) => value.weekAvgTotalSleepMinutes));
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(

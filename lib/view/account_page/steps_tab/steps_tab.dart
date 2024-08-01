@@ -10,8 +10,8 @@ class StepsTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final healthDataIntegrationStatus =
-        ref.watch(userProvider).user.healthDataIntegrationStatus;
+    final healthDataIntegrationStatus = ref
+        .watch(userProvider.select((s) => s.user.healthDataIntegrationStatus));
 
     return Scaffold(
       backgroundColor: backGroundColor,

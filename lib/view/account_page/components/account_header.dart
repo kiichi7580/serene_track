@@ -14,7 +14,7 @@ class AccountHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider).user;
+    final user = ref.watch(userProvider.select((value) => value.user));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
