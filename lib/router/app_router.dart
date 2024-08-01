@@ -126,24 +126,6 @@ final routerProvider = Provider<GoRouter>(
           ],
         ),
       ],
-      // redirect: (context, state) {
-      //   final user = ref.read(userProvider.notifier).currentUser;
-      //   final token = ref.watch(authProvider).accessToken;
-      //   final isSignedIn = user != null && user.id != 0;
-      //   final isSigningUp = state.uri.toString() == SignUpPage.routeLocation;
-
-      //   print('token: $token');
-
-      //   if (token.isNotEmpty) {
-      //     return TodoPage.routeLocation;
-      //   }
-
-      //   if (isSigningUp) {
-      //     return null;
-      //   }
-
-      //   return SignInPage.routeLocation;
-      // }
     );
   },
 );
