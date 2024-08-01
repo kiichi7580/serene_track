@@ -35,6 +35,7 @@ class TodoPageState extends ConsumerState<TodoPage>
     final now = ref.watch(todayDateTimeNotifierProvider);
     return Scaffold(
       backgroundColor: backGroundColor,
+      extendBodyBehindAppBar: true,
       appBar: myAppBar(
         title: ref.watch(todayDateTimeNotifierProvider.notifier).getDate(now),
         actions: [
@@ -49,44 +50,54 @@ class TodoPageState extends ConsumerState<TodoPage>
         ],
       ),
       body: Center(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.9,
-          width: MediaQuery.of(context).size.width * 0.94,
-          child: TabContainer(
-            controller: _tabController,
-            tabEdge: TabEdge.top,
-            tabsStart: 0,
-            tabsEnd: 1,
-            tabMaxLength: 100,
-            borderRadius: BorderRadius.circular(10),
-            tabBorderRadius: BorderRadius.circular(10),
-            childPadding: const EdgeInsets.all(20.0),
-            selectedTextStyle: const TextStyle(
-              color: textMainColor,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-            unselectedTextStyle: const TextStyle(
-              fontSize: 13,
-              color: textMainColor,
-            ),
-            colors: const [
-              sandwispColor,
-              yellowGreenColor,
-              mantisColor,
-              appleColor,
-            ],
-            tabs: const [
-              Text('すべて'),
-              Text('運動'),
-              Text('睡眠'),
-              Text('仕事'),
-            ],
-            children: const [
-              AllTodoTab(),
-              ExerciseTodoTab(),
-              SleepTodoTab(),
-              WorkTodoTab(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 8,
+            horizontal: 8,
+          ),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width * 0.94,
+                child: TabContainer(
+                  controller: _tabController,
+                  tabEdge: TabEdge.top,
+                  tabsStart: 0,
+                  tabsEnd: 1,
+                  tabMaxLength: 100,
+                  borderRadius: BorderRadius.circular(10),
+                  tabBorderRadius: BorderRadius.circular(10),
+                  childPadding: const EdgeInsets.all(20.0),
+                  selectedTextStyle: const TextStyle(
+                    color: textMainColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  unselectedTextStyle: const TextStyle(
+                    fontSize: 13,
+                    color: textMainColor,
+                  ),
+                  colors: const [
+                    sandwispColor,
+                    yellowGreenColor,
+                    mantisColor,
+                    appleColor,
+                  ],
+                  tabs: const [
+                    Text('すべて'),
+                    Text('運動'),
+                    Text('睡眠'),
+                    Text('仕事'),
+                  ],
+                  children: const [
+                    AllTodoTab(),
+                    ExerciseTodoTab(),
+                    SleepTodoTab(),
+                    WorkTodoTab(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

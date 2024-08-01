@@ -14,33 +14,31 @@ class WorkTodoTab extends ConsumerWidget {
     final selectedItemList = ref.watch(workTodoTabProvider).isSelectedList;
     final checkedList = ref.watch(workTodoTabProvider).checkedList;
 
-    return Scaffold(
-      backgroundColor: appleColor,
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        itemCount: workTodoList.length,
-        itemBuilder: (context, index) {
-          Todo workTodo = workTodoList[index];
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: workTodoList.length,
+      itemBuilder: (context, index) {
+        Todo workTodo = workTodoList[index];
 
-          return CustomCheckboxTile(
-            todo: workTodo,
-            index: index,
-            value: checkedList[index],
-            fillColor: appleColor,
-            onTap: () {
-              ref
-                  .read(workTodoTabProvider.notifier)
-                  .changeSelectedItemList(index);
-            },
-            onChanged: (value) {
-              ref
-                  .watch(workTodoTabProvider.notifier)
-                  .changeCheckedList(index, value!);
-            },
-            selectedItemList: selectedItemList,
-          );
-        },
-      ),
+        return CustomCheckboxTile(
+          todo: workTodo,
+          index: index,
+          value: checkedList[index],
+          fillColor: appleColor,
+          onTap: () {
+            ref
+                .read(workTodoTabProvider.notifier)
+                .changeSelectedItemList(index);
+          },
+          onChanged: (value) {
+            ref
+                .watch(workTodoTabProvider.notifier)
+                .changeCheckedList(index, value!);
+          },
+          selectedItemList: selectedItemList,
+        );
+      },
     );
   }
 }
