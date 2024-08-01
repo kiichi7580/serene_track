@@ -18,11 +18,8 @@ class AllTodoTabState with _$AllTodoTabState {
   AllTodoTabState._();
 }
 
-final allTodoTabProvider =
-    // StateNotifierProvider<AllTodoTabStateController, AllTodoTabState>(
-    // (ref) => AllTodoTabStateController());
-    StateNotifierProvider.autoDispose<AllTodoTabStateController,
-        AllTodoTabState>(
+final allTodoTabProvider = StateNotifierProvider.autoDispose<
+    AllTodoTabStateController, AllTodoTabState>(
   (ref) {
     final exerciseTodoList = ref.read(exerciseTodoTabProvider).exerciseTodoList;
     final sleepTodoList = ref.read(sleepTodoTabProvider).sleepTodoList;
