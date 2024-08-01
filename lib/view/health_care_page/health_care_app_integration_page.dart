@@ -9,6 +9,7 @@ import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
+import 'package:serene_track/view/account_page/sleep_tab/provider/sleep_tab_notifier.dart';
 import 'package:serene_track/view/account_page/steps_tab/provider/steps_tab_notifier.dart';
 import 'package:serene_track/view/health_care_page/components/cancellation_of_integration_with_health_care_app_dialog.dart';
 import 'package:serene_track/view/health_care_page/components/show_allow_access_to_health_care_app_dialog.dart';
@@ -58,7 +59,14 @@ class _HealthCareAppIntegrationPageState
           await health.getHealthDataFromTypes(
         startTime: startOfDay,
         endTime: endOfDay,
-        types: [HealthDataType.STEPS],
+        types: [
+          HealthDataType.STEPS,
+          HealthDataType.SLEEP_IN_BED,
+          HealthDataType.SLEEP_ASLEEP,
+          HealthDataType.SLEEP_AWAKE,
+          HealthDataType.SLEEP_DEEP,
+          HealthDataType.SLEEP_REM,
+        ],
       );
 
       if (healthDataPoints.isEmpty) {
@@ -67,7 +75,8 @@ class _HealthCareAppIntegrationPageState
 
       healthDataPoints = health.removeDuplicates(healthDataPoints);
 
-      Map<DateTime, int> dailySteps = {};
+      Map<DateTime, int> dailyStepsMap = {};
+      Map<DateTime, int> dailySleepHoursMap = {};
 
       for (var dataPoint in healthDataPoints) {
         dynamic year = dataPoint.dateFrom.year;
@@ -75,25 +84,37 @@ class _HealthCareAppIntegrationPageState
         int day = dataPoint.dateFrom.day;
         DateTime date = DateTime(year, month, day);
 
-        num value = 0;
-        if (dataPoint.value is NumericHealthValue) {
-          value = (dataPoint.value as NumericHealthValue).numericValue;
+        num stepValue = 0;
+        num sleepHoursValue = 0;
+        if (dataPoint.type == HealthDataType.STEPS &&
+            dataPoint.value is NumericHealthValue) {
+          stepValue = (dataPoint.value as NumericHealthValue).numericValue;
+        } else if (dataPoint.type == HealthDataType.SLEEP_IN_BED) {
+          sleepHoursValue =
+              (dataPoint.value as NumericHealthValue).numericValue;
         }
 
-        if (!dailySteps.containsKey(date)) {
-          dailySteps[date] = 0;
+        if (!dailyStepsMap.containsKey(date)) {
+          dailyStepsMap[date] = 0;
+          dailySleepHoursMap[date] = 0;
         }
-        dailySteps[date] = dailySteps[date]! + value.toInt();
+
+        dailyStepsMap[date] = dailyStepsMap[date]! + stepValue.toInt();
+        dailySleepHoursMap[date] =
+            dailySleepHoursMap[date]! + sleepHoursValue.toInt();
       }
 
       List<int> steps = [];
+      List<int> sleepHours = [];
       for (int i = 0; i < 7; i++) {
         DateTime day =
             DateTime(startOfDay.year, startOfDay.month, startOfDay.day)
                 .add(Duration(days: i));
-        steps.add(dailySteps[day] ?? 0);
+        steps.add(dailyStepsMap[day] ?? 0);
+        sleepHours.add(dailySleepHoursMap[day] ?? 0);
       }
       ref.read(stepsTabProvider.notifier).getSteps(steps);
+      ref.read(sleepTabProvider.notifier).getWeekSleepHours(sleepHours);
     } catch (e) {
       print('Error: $e');
     }
@@ -116,7 +137,14 @@ class _HealthCareAppIntegrationPageState
         List<HealthDataPoint> healthData = await health.getHealthDataFromTypes(
           startTime: DateTime.now().subtract(const Duration(days: 1)),
           endTime: DateTime.now(),
-          types: [HealthDataType.STEPS],
+          types: [
+            HealthDataType.STEPS,
+            HealthDataType.SLEEP_IN_BED,
+            HealthDataType.SLEEP_ASLEEP,
+            HealthDataType.SLEEP_AWAKE,
+            HealthDataType.SLEEP_DEEP,
+            HealthDataType.SLEEP_REM,
+          ],
         );
 
         bool hasDataAccess = healthData.isNotEmpty;
