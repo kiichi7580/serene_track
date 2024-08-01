@@ -10,7 +10,7 @@ class ExerciseTodoTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final exerciseTodoList = ref.read(
+    final exerciseTodoList = ref.watch(
         exerciseTodoTabProvider.select((value) => value.exerciseTodoList));
     final selectedItemList = ref
         .watch(exerciseTodoTabProvider.select((value) => value.isSelectedList));
