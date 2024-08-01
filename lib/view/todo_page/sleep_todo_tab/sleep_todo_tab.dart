@@ -10,9 +10,12 @@ class SleepTodoTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sleepTodoList = ref.watch(sleepTodoTabProvider).sleepTodoList;
-    final selectedItemList = ref.watch(sleepTodoTabProvider).isSelectedList;
-    final checkedList = ref.watch(sleepTodoTabProvider).checkedList;
+    final sleepTodoList =
+        ref.watch(sleepTodoTabProvider.select((value) => value.sleepTodoList));
+    final selectedItemList =
+        ref.watch(sleepTodoTabProvider.select((value) => value.isSelectedList));
+    final checkedList =
+        ref.watch(sleepTodoTabProvider.select((value) => value.checkedList));
 
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),

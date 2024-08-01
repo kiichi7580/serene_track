@@ -16,8 +16,8 @@ Future<bool?> showBreakPromotionDialog(BuildContext context) {
 Widget _buildBreakPromotionDialog(BuildContext context) {
   return Consumer(
     builder: (context, ref, child) {
-      final checkedList =
-          ref.watch(showBreakPromotionDialogProvider).checkedList;
+      final checkedList = ref.watch(showBreakPromotionDialogProvider
+          .select((value) => value.checkedList));
       bool allChecked = checkedList.every((check) => check);
 
       return CustomDialog(

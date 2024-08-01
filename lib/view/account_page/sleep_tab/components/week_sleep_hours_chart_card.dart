@@ -4,17 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/view/account_page/steps_tab/provider/steps_tab_notifier.dart';
+import 'package:serene_track/view/account_page/sleep_tab/provider/sleep_tab_notifier.dart';
 
-class WeekStepsChartCard extends ConsumerWidget {
-  const WeekStepsChartCard({super.key});
+class WeekSleepHoursChartCard extends ConsumerWidget {
+  const WeekSleepHoursChartCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final weekSteps =
-        ref.watch(stepsTabProvider.select((value) => value.weekSteps));
-    final weekAvgSteps =
-        ref.watch(stepsTabProvider.select((value) => value.weekAvgSteps));
+    final weekTotalSleepMinutes = ref
+        .watch(sleepTabProvider.select((value) => value.weekTotalSleepMinutes));
+    final weekAvgTotalSleepMinutes = ref.watch(
+        sleepTabProvider.select((value) => value.weekAvgTotalSleepMinutes));
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
@@ -25,7 +25,6 @@ class WeekStepsChartCard extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SizedBox(
-            // height: screenHeight * 0.2182,
             height: screenHeight * 0.26,
             child: BarChart(
               BarChartData(
@@ -39,7 +38,8 @@ class WeekStepsChartCard extends ConsumerWidget {
                 ),
                 titlesData: FlTitlesData(
                   topTitles: AxisTitles(
-                    axisNameWidget: weekAvgStepsText(weekAvgSteps),
+                    axisNameWidget:
+                        weekAvgSleepHoursText(weekAvgTotalSleepMinutes),
                     axisNameSize: 35.0,
                   ),
                   rightTitles: const AxisTitles(
@@ -65,14 +65,14 @@ class WeekStepsChartCard extends ConsumerWidget {
                 ),
                 groupsSpace: 10,
                 barGroups: [
-                  for (var i = 0; i < weekSteps.length; i++) ...{
+                  for (var i = 0; i < weekTotalSleepMinutes.length; i++) ...{
                     BarChartGroupData(
                       x: 6 - i,
                       barRods: [
                         BarChartRodData(
-                          toY: weekSteps[i].toDouble(),
+                          toY: weekTotalSleepMinutes[i].toDouble(),
                           width: 15,
-                          color: healthCareStepsColor,
+                          color: healthCareSleepColor,
                         ),
                       ],
                     ),
@@ -81,8 +81,8 @@ class WeekStepsChartCard extends ConsumerWidget {
                 extraLinesData: ExtraLinesData(
                   horizontalLines: [
                     HorizontalLine(
-                      y: weekAvgSteps.toDouble(),
-                      color: rustColor,
+                      y: weekAvgTotalSleepMinutes.toDouble(),
+                      color: navyBlueColor,
                       strokeWidth: 2,
                       dashArray: [5, 5],
                       label: HorizontalLineLabel(
@@ -90,7 +90,7 @@ class WeekStepsChartCard extends ConsumerWidget {
                         alignment: Alignment.topRight,
                         labelResolver: (line) => 'AVG',
                         style: TextStyles.accountHeaderBoldTextStyle
-                            .copyWith(color: rustColor),
+                            .copyWith(color: navyBlueColor),
                       ),
                     ),
                   ],
@@ -103,20 +103,20 @@ class WeekStepsChartCard extends ConsumerWidget {
     );
   }
 
-  Widget weekAvgStepsText(int weekAvgSteps) {
+  Widget weekAvgSleepHoursText(int weekAvgTotalSleepMinutes) {
     return RichText(
       text: TextSpan(
         children: [
           const TextSpan(
-            text: '平均歩数: ',
+            text: '平均睡眠: ',
             style: TextStyles.accountHeaderTextStyle,
           ),
           TextSpan(
-            text: weekAvgSteps.toString(),
+            text: weekAvgTotalSleepMinutes.toString(),
             style: TextStyles.accountHeaderBoldTextStyle,
           ),
           const TextSpan(
-            text: '歩',
+            text: '分',
             style: TextStyles.accountHeaderTextStyle,
           ),
         ],

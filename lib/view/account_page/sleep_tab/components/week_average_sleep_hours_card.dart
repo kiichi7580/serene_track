@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/constant/colors.dart';
-import 'package:serene_track/view/account_page/steps_tab/provider/steps_tab_notifier.dart';
+import 'package:serene_track/view/account_page/sleep_tab/provider/sleep_tab_notifier.dart';
 
-class TodayStepsCard extends ConsumerWidget {
-  const TodayStepsCard({super.key});
+class WeekAverageSleepHoursCard extends ConsumerWidget {
+  const WeekAverageSleepHoursCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todaySteps =
-        ref.watch(stepsTabProvider.select((value) => value.todaySteps));
+    final weekAvgSleepHours =
+        ref.watch(sleepTabProvider.select((value) => value.weekAvgSleepHours));
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(
@@ -22,13 +22,13 @@ class TodayStepsCard extends ConsumerWidget {
               const Row(
                 children: [
                   Icon(
-                    Icons.local_fire_department,
-                    color: healthCareStepsColor,
+                    Icons.bed,
+                    color: healthCareSleepColor,
                   ),
                   Text(
-                    '今日の歩数',
+                    '今週の睡眠時間',
                     style: TextStyle(
-                      color: healthCareStepsColor,
+                      color: healthCareSleepColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -41,7 +41,7 @@ class TodayStepsCard extends ConsumerWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: todaySteps.toString(),
+                        text: weekAvgSleepHoursText(weekAvgSleepHours),
                         style: const TextStyle(
                           color: textMainColor,
                           fontSize: 24,
@@ -49,7 +49,23 @@ class TodayStepsCard extends ConsumerWidget {
                         ),
                       ),
                       const TextSpan(
-                        text: '歩',
+                        text: '時間',
+                        style: TextStyle(
+                          color: textMainColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      TextSpan(
+                        text: weekAvgSleepMinutesText(weekAvgSleepHours),
+                        style: const TextStyle(
+                          color: textMainColor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const TextSpan(
+                        text: '分',
                         style: TextStyle(
                           color: textMainColor,
                           fontSize: 16,
@@ -65,5 +81,19 @@ class TodayStepsCard extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  String weekAvgSleepHoursText(List<int> weekAvgSleepHours) {
+    if (weekAvgSleepHours.isEmpty) {
+      return '0';
+    }
+    return weekAvgSleepHours[0].toString();
+  }
+
+  String weekAvgSleepMinutesText(List<int> weekAvgSleepHours) {
+    if (weekAvgSleepHours.isEmpty) {
+      return '0';
+    }
+    return weekAvgSleepHours[1].toString();
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/constant/colors.dart';
+import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/view/montring_page/provider/montring_page_notifier.dart';
 import 'package:serene_track/view/montring_page/components/montring_custom_button.dart';
 import 'package:serene_track/view/montring_page/components/montring_timer.dart';
@@ -13,21 +14,12 @@ class MontringPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isRunning = ref.watch(montringPageProvider).isRunning;
+    final isRunning =
+        ref.watch(montringPageProvider.select((value) => value.isRunning));
 
     return Scaffold(
       backgroundColor: backGroundColor,
-      appBar: myAppBar(
-        title: 'モニタリング',
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.add,
-            ),
-          ),
-        ],
-      ),
+      appBar: myAppBar(title: 'モニタリング'),
       body: Container(
         height: double.infinity,
         width: double.infinity,

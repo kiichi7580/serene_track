@@ -10,9 +10,12 @@ class AllTodoTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final allTodoList = ref.watch(allTodoTabProvider).allTodoList;
-    final selectedItemList = ref.watch(allTodoTabProvider).isSelectedList;
-    final checkedList = ref.watch(allTodoTabProvider).checkedList;
+    final allTodoList =
+        ref.watch(allTodoTabProvider.select((value) => value.allTodoList));
+    final selectedItemList =
+        ref.watch(allTodoTabProvider.select((value) => value.isSelectedList));
+    final checkedList =
+        ref.watch(allTodoTabProvider.select((value) => value.checkedList));
 
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),

@@ -17,7 +17,7 @@ final splashPageProvider =
     StateNotifierProvider.autoDispose<SplashPageController, SplashPageState>(
         (ref) {
   final isAuthenticated =
-      ref.watch(userProvider.select((s) => s.isAuthenticated));
+      ref.watch(userProvider.select((value) => value.isAuthenticated));
   return SplashPageController(isAuthenticated: isAuthenticated);
 });
 

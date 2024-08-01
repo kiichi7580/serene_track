@@ -9,9 +9,12 @@ class MontringCustomButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isRunning = ref.watch(montringPageProvider.notifier).getIsRunning;
-    final dynamicSeconds = ref.watch(montringPageProvider).dynamicSeconds;
-    final timer = ref.watch(montringPageProvider).timer;
+    final isRunning =
+        ref.watch(montringPageProvider.select((value) => value.isRunning));
+    final dynamicSeconds =
+        ref.watch(montringPageProvider.select((value) => value.dynamicSeconds));
+    final timer =
+        ref.watch(montringPageProvider.select((value) => value.timer));
 
     return isRunning && dynamicSeconds != 0
         ? Row(
