@@ -22,7 +22,7 @@ const lightSkyBlueColor = Color.fromRGBO(135, 206, 235, 1);
 // ヘルスケア関連の色
 const healthCareAppColor = Color.fromRGBO(255, 45, 85, 1);
 const healthCareStepsColor = Color.fromRGBO(255, 100, 0, 1);
-const healthCareSleepColor = Color.fromRGBO(40, 240, 220, 1);
+const healthCareSleepColor = Color.fromRGBO(0, 200, 190, 1);
 
 // グレイ系
 const greyColor = Colors.grey;
