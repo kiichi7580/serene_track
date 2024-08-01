@@ -16,16 +16,18 @@ class BottomNavigation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(bottomNavigationNotifierProvider);
     return Scaffold(
+      extendBody: true,
       body: child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
+        backgroundColor: backGroundColor.withAlpha(220),
+        elevation: 0,
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: const TextStyle(
           fontWeight: FontWeight.bold,
         ),
         selectedItemColor: selectedColor,
         unselectedItemColor: unselectedColor,
-        backgroundColor: backGroundColor,
         onTap: (int newIndex) {
           ref
               .read(bottomNavigationNotifierProvider.notifier)
