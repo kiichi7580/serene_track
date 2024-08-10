@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SplashPageState {
-  bool get isLogin => throw _privateConstructorUsedError;
+  bool? get isLogin => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SplashPageStateCopyWith<SplashPageState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $SplashPageStateCopyWith<$Res> {
           SplashPageState value, $Res Function(SplashPageState) then) =
       _$SplashPageStateCopyWithImpl<$Res, SplashPageState>;
   @useResult
-  $Res call({bool isLogin});
+  $Res call({bool? isLogin});
 }
 
 /// @nodoc
@@ -45,13 +45,13 @@ class _$SplashPageStateCopyWithImpl<$Res, $Val extends SplashPageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLogin = null,
+    Object? isLogin = freezed,
   }) {
     return _then(_value.copyWith(
-      isLogin: null == isLogin
+      isLogin: freezed == isLogin
           ? _value.isLogin
           : isLogin // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
     ) as $Val);
   }
 }
@@ -64,7 +64,7 @@ abstract class _$$SplashPageStateImplCopyWith<$Res>
       __$$SplashPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLogin});
+  $Res call({bool? isLogin});
 }
 
 /// @nodoc
@@ -78,13 +78,13 @@ class __$$SplashPageStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLogin = null,
+    Object? isLogin = freezed,
   }) {
     return _then(_$SplashPageStateImpl(
-      isLogin: null == isLogin
+      isLogin: freezed == isLogin
           ? _value.isLogin
           : isLogin // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
     ));
   }
 }
@@ -92,11 +92,10 @@ class __$$SplashPageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SplashPageStateImpl implements _SplashPageState {
-  const _$SplashPageStateImpl({this.isLogin = false});
+  const _$SplashPageStateImpl({this.isLogin});
 
   @override
-  @JsonKey()
-  final bool isLogin;
+  final bool? isLogin;
 
   @override
   String toString() {
@@ -123,10 +122,10 @@ class _$SplashPageStateImpl implements _SplashPageState {
 }
 
 abstract class _SplashPageState implements SplashPageState {
-  const factory _SplashPageState({final bool isLogin}) = _$SplashPageStateImpl;
+  const factory _SplashPageState({final bool? isLogin}) = _$SplashPageStateImpl;
 
   @override
-  bool get isLogin;
+  bool? get isLogin;
   @override
   @JsonKey(ignore: true)
   _$$SplashPageStateImplCopyWith<_$SplashPageStateImpl> get copyWith =>

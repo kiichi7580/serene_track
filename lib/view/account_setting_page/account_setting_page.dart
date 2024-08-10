@@ -5,7 +5,7 @@ import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
-import 'package:serene_track/view/account_setting_page/components/show_log_out_dialog.dart';
+import 'package:serene_track/view/account_setting_page/components/show_sign_out_dialog.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/health_care_page/health_care_app_integration_page.dart';
 
@@ -32,7 +32,7 @@ class AccountSettingPage extends ConsumerWidget {
               context.push(HealthCareAppIntegrationPage.routeLocation);
             },
           ),
-          logOut(context: context, ref: ref),
+          signOut(context: context, ref: ref),
         ],
       ),
     );
@@ -52,7 +52,7 @@ class AccountSettingPage extends ConsumerWidget {
     );
   }
 
-  Widget logOut({
+  Widget signOut({
     required BuildContext context,
     required WidgetRef ref,
   }) {
@@ -60,17 +60,17 @@ class AccountSettingPage extends ConsumerWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
       leading: const Icon(Icons.logout, color: noReactionColor),
       title: Text(
-        'ログアウトする',
+        'サインアウトする',
         style: TextStyles.caption.copyWith(color: noReactionColor),
       ),
       onTap: () async {
-        final response = await showLogOutDiolog(
+        final response = await showSignOutDiolog(
           context,
         );
         if (response == null || response == false) {
           return;
         }
-        await ref.read(userProvider.notifier).logOut();
+        await ref.read(userProvider.notifier).signOut();
         context.go(SignInPage.routeLocation);
       },
     );

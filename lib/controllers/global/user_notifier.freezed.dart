@@ -16,8 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserState {
-  bool get isAuthenticated => throw _privateConstructorUsedError;
+  String get accessToken => throw _privateConstructorUsedError;
+  String get tokenType => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
+  bool get isAuthenticated => throw _privateConstructorUsedError;
+  bool get initialized => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserStateCopyWith<UserState> get copyWith =>
@@ -29,7 +33,13 @@ abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
-  $Res call({bool isAuthenticated, User user});
+  $Res call(
+      {String accessToken,
+      String tokenType,
+      User user,
+      bool isAuthenticated,
+      bool initialized,
+      bool isLoading});
 
   $UserCopyWith<$Res> get user;
 }
@@ -47,18 +57,38 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isAuthenticated = null,
+    Object? accessToken = null,
+    Object? tokenType = null,
     Object? user = null,
+    Object? isAuthenticated = null,
+    Object? initialized = null,
+    Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
-      isAuthenticated: null == isAuthenticated
-          ? _value.isAuthenticated
-          : isAuthenticated // ignore: cast_nullable_to_non_nullable
-              as bool,
+      accessToken: null == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      tokenType: null == tokenType
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as String,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User,
+      isAuthenticated: null == isAuthenticated
+          ? _value.isAuthenticated
+          : isAuthenticated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      initialized: null == initialized
+          ? _value.initialized
+          : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -79,7 +109,13 @@ abstract class _$$UserStateImplCopyWith<$Res>
       __$$UserStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isAuthenticated, User user});
+  $Res call(
+      {String accessToken,
+      String tokenType,
+      User user,
+      bool isAuthenticated,
+      bool initialized,
+      bool isLoading});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -96,18 +132,38 @@ class __$$UserStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isAuthenticated = null,
+    Object? accessToken = null,
+    Object? tokenType = null,
     Object? user = null,
+    Object? isAuthenticated = null,
+    Object? initialized = null,
+    Object? isLoading = null,
   }) {
     return _then(_$UserStateImpl(
-      isAuthenticated: null == isAuthenticated
-          ? _value.isAuthenticated
-          : isAuthenticated // ignore: cast_nullable_to_non_nullable
-              as bool,
+      accessToken: null == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      tokenType: null == tokenType
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as String,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User,
+      isAuthenticated: null == isAuthenticated
+          ? _value.isAuthenticated
+          : isAuthenticated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      initialized: null == initialized
+          ? _value.initialized
+          : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -115,19 +171,37 @@ class __$$UserStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UserStateImpl extends _UserState {
-  _$UserStateImpl({this.isAuthenticated = false, this.user = const User()})
+  _$UserStateImpl(
+      {this.accessToken = '',
+      this.tokenType = '',
+      this.user = const User(),
+      this.isAuthenticated = false,
+      this.initialized = false,
+      this.isLoading = false})
       : super._();
 
+  @override
+  @JsonKey()
+  final String accessToken;
+  @override
+  @JsonKey()
+  final String tokenType;
+  @override
+  @JsonKey()
+  final User user;
   @override
   @JsonKey()
   final bool isAuthenticated;
   @override
   @JsonKey()
-  final User user;
+  final bool initialized;
+  @override
+  @JsonKey()
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'UserState(isAuthenticated: $isAuthenticated, user: $user)';
+    return 'UserState(accessToken: $accessToken, tokenType: $tokenType, user: $user, isAuthenticated: $isAuthenticated, initialized: $initialized, isLoading: $isLoading)';
   }
 
   @override
@@ -135,13 +209,22 @@ class _$UserStateImpl extends _UserState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserStateImpl &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.tokenType, tokenType) ||
+                other.tokenType == tokenType) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.isAuthenticated, isAuthenticated) ||
                 other.isAuthenticated == isAuthenticated) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.initialized, initialized) ||
+                other.initialized == initialized) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAuthenticated, user);
+  int get hashCode => Object.hash(runtimeType, accessToken, tokenType, user,
+      isAuthenticated, initialized, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -151,14 +234,27 @@ class _$UserStateImpl extends _UserState {
 }
 
 abstract class _UserState extends UserState {
-  factory _UserState({final bool isAuthenticated, final User user}) =
-      _$UserStateImpl;
+  factory _UserState(
+      {final String accessToken,
+      final String tokenType,
+      final User user,
+      final bool isAuthenticated,
+      final bool initialized,
+      final bool isLoading}) = _$UserStateImpl;
   _UserState._() : super._();
 
   @override
-  bool get isAuthenticated;
+  String get accessToken;
+  @override
+  String get tokenType;
   @override
   User get user;
+  @override
+  bool get isAuthenticated;
+  @override
+  bool get initialized;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$$UserStateImplCopyWith<_$UserStateImpl> get copyWith =>

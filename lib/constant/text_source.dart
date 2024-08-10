@@ -20,7 +20,6 @@ const saveTx = '保存';
 
 // Update
 const upDateTx = '更新';
-
 const editTx = '編集';
 
 // Delete
@@ -41,7 +40,6 @@ const failureSignIn = '問題が発生しました。もう一度、サインイ
 
 // パスワードを忘れた場合
 const forgotYourPassword = 'パスワードを忘れましたか？';
-const userNotFound = 'user-not-found';
 const userNotFoundMessage = 'ユーザーが見つかりません';
 const successSendEmail = 'パスワード再設定手続きのためのメールを送信しました。';
 const successResendEmail = 'メールを再送信しました。メールボックスをご確認ください。';

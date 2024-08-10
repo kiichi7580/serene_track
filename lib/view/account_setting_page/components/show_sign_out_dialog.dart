@@ -3,19 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/components/custom_dialog.dart';
 import 'package:serene_track/constant/colors.dart';
 
-Future<bool?> showLogOutDiolog(BuildContext context) {
+Future<bool?> showSignOutDiolog(BuildContext context) {
   return showDialog<bool>(
     context: context,
     barrierDismissible: false,
-    builder: _buildLogOutDiolog,
+    builder: _buildSignOutDiolog,
   );
 }
 
-Widget _buildLogOutDiolog(BuildContext context) {
+Widget _buildSignOutDiolog(BuildContext context) {
   return Consumer(
     builder: (context, ref, child) {
       return CustomDialog(
-        title: '本当にログアウトしますか？',
+        title: '本当にサインアウトしますか？',
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 18, vertical: 24),
         actions: [
@@ -46,7 +46,7 @@ Widget _buildLogOutDiolog(BuildContext context) {
               Navigator.pop(context, true);
             },
             child: const Text(
-              'ログアウト',
+              'サインアウト',
             ),
           ),
         ],

@@ -8,10 +8,8 @@ import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/model/enum/form_state.dart';
-import 'package:serene_track/model/src/user.dart';
 import 'package:serene_track/utils/preferences_manager.dart';
 import 'package:serene_track/view/auth_page/components/auth_text_field.dart';
-import 'package:serene_track/view/auth_page/provider/auth_notifier.dart';
 import 'package:serene_track/view/auth_page/provider/form_provider.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/provider/sign_up_text_cotroller_notifier.dart';
@@ -30,11 +28,11 @@ class SignUpPage extends ConsumerWidget {
     required String password,
   }) async {
     String res = failureSignUp;
-    String signUpRes =
-        await ref.read(authProvider.notifier).signUp(email, password);
-    User? userData = await ref.read(authProvider.notifier).getUser();
-    if (signUpRes == successRes && userData != null) {
-      await ref.read(userProvider.notifier).fetchUserData(userData);
+    String signUpRes = await ref
+        .read(userProvider.notifier)
+        .signUp(email: email, password: password);
+    String getUserRes = await ref.read(userProvider.notifier).fetchUser();
+    if (signUpRes == successRes && getUserRes == successRes) {
       String res = successSignUp;
       await Future.delayed(const Duration(milliseconds: 10));
       if (!context.mounted) return;
