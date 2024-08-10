@@ -15,11 +15,6 @@ class UserRepositoryImpl implements UserRepository {
   final Dio _dio;
 
   @override
-  Future<void> createUser() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Result<User?>> fetchUser({
     required String accessToken,
     required String tokenType,
