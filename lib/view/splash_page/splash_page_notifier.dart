@@ -9,7 +9,7 @@ part 'splash_page_notifier.freezed.dart';
 @freezed
 class SplashPageState with _$SplashPageState {
   const factory SplashPageState({
-    @Default(false) bool isLogin,
+    bool? isLogin,
   }) = _SplashPageState;
 }
 
@@ -32,6 +32,7 @@ class SplashPageController extends StateNotifier<SplashPageState> {
   final bool _isAuthenticated;
 
   Future<void> init() async {
+    await Future.delayed(const Duration(seconds: 1));
     if (_isAuthenticated && mounted) {
       final isLogin = await PreferencesManager().isLogin;
       state = state.copyWith(isLogin: isLogin);
