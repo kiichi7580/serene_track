@@ -72,7 +72,9 @@ class AccountHeader extends ConsumerWidget {
               ),
               TextSpan(
                 text: shortTermGoal(user.shortTermGoal),
-                style: TextStyles.accountHeaderTextStyle,
+                style: TextStyles.accountHeaderTextStyle.copyWith(
+                  color: user.shortTermGoal.isEmpty ? greyColor : textMainColor,
+                ),
               ),
             ],
           ),
@@ -89,7 +91,9 @@ class AccountHeader extends ConsumerWidget {
               ),
               TextSpan(
                 text: longTermGoal(user.longTermGoal),
-                style: TextStyles.accountHeaderTextStyle,
+                style: TextStyles.accountHeaderTextStyle.copyWith(
+                  color: user.shortTermGoal.isEmpty ? greyColor : textMainColor,
+                ),
               ),
             ],
           ),
