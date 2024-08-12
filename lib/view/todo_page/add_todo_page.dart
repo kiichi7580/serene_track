@@ -3,7 +3,7 @@ import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/view/todo_page/components/add_todo_button.dart';
+import 'package:serene_track/components/custom_button.dart';
 import 'package:serene_track/view/todo_page/components/todo_text_field.dart';
 
 class AddTodoPage extends StatelessWidget {
@@ -76,10 +76,13 @@ class AddTodoPage extends StatelessWidget {
                 flex: 1,
                 child: Container(),
               ),
-              AddTodoButton(
+              CustomButton(
+                buttonText: '追加する',
                 onTap: () {},
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.16,
+              ),
             ],
           ),
         ),

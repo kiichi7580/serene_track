@@ -6,7 +6,7 @@ import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/gen/assets.gen.dart';
-import 'package:serene_track/view/account_page/edit_account_page.dart';
+import 'package:serene_track/view/account_edit_page/edit_account_page.dart';
 import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
 
 class AccountHeader extends ConsumerWidget {
