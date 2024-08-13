@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/view/account_edit_page/edit_account_page.dart';
+import 'package:serene_track/components/image_dialog.dart';
 import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
 
 class AccountHeader extends ConsumerWidget {
@@ -15,6 +17,24 @@ class AccountHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider.select((value) => value.user));
+
+    Future<String?> pickImage() async {
+      final ImagePicker picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        return pickedFile.path;
+      }
+      return null;
+    }
+
+    Future<String?> getImageUrl(String? imagePath) async {
+      if (imagePath != null) {
+        final imageUrl = 'file://$imagePath';
+        return imageUrl;
+      }
+      return null;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,17 +43,68 @@ class AccountHeader extends ConsumerWidget {
           children: [
             Row(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: iconImage(user.photoUrl),
-                      fit: BoxFit.cover,
+                Stack(
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        await imageDialog(
+                          context: context,
+                          imageUrl: user.photoUrl,
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: iconImage(user.photoUrl),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        height: 80,
+                        width: 80,
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  height: 72,
-                  width: 72,
+                    Positioned(
+                      bottom: 2,
+                      left: 54,
+                      child: Container(
+                        height: 25,
+                        width: 25,
+                        decoration: BoxDecoration(
+                          color: backGroundColor,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 3,
+                      left: 56,
+                      child: Container(
+                        height: 22,
+                        width: 22,
+                        decoration: BoxDecoration(
+                          color: linkBlue,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 43,
+                      bottom: -10,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.add,
+                          color: backGroundColor,
+                          size: 16,
+                        ),
+                        onPressed: () async {
+                          String? imagePath = await pickImage();
+                          await getImageUrl(imagePath);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(width: 24),
                 Column(
