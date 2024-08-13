@@ -21,8 +21,7 @@ class SignInPage extends ConsumerWidget {
   static String get routeName => 'sign_in';
   static String get routeLocation => '/$routeName';
 
-  Future<void> signInUser({
-    required BuildContext context,
+  Future<String> signInUser({
     required WidgetRef ref,
     required String email,
     required String password,
@@ -34,16 +33,10 @@ class SignInPage extends ConsumerWidget {
         );
     String getUserRes = await ref.read(userProvider.notifier).fetchUser();
     if (signInRes == successRes && getUserRes == successRes) {
-      String res = successSignIn;
-      await Future.delayed(const Duration(milliseconds: 10));
-      if (!context.mounted) return;
+      res = successSignIn;
       await PreferencesManager().setIsLogin(isLogin: true);
-      context.go(TodoPage.routeLocation);
-      showSnackBar(res, context);
-    } else {
-      if (!context.mounted) return;
-      showSnackBar(res, context);
     }
+    return res;
   }
 
   @override
@@ -105,7 +98,8 @@ class SignInPage extends ConsumerWidget {
     final emailController = ref.watch(signInEmailControllerNotifierProvider);
     final passwordController =
         ref.watch(signInPasswordControllerNotifierProvider);
-
+    final isLoading =
+        ref.watch(userProvider.select((value) => value.isLoading));
     return Container(
       height: MediaQuery.of(context).size.height * 0.7,
       width: double.infinity,
@@ -149,12 +143,17 @@ class SignInPage extends ConsumerWidget {
                       FormStatus formStatus =
                           formController.validateForm(formKey);
                       if (formStatus == FormStatus.valid) {
-                        await signInUser(
-                          context: context,
+                        String res = await signInUser(
                           ref: ref,
                           email: emailController.text,
                           password: passwordController.text,
                         );
+                        if (res == successSignIn) {
+                          if (!context.mounted) return;
+                          context.go(TodoPage.routeLocation);
+                        }
+                        if (!context.mounted) return;
+                        showSnackBar(res, context);
                       }
                     },
                     child: Container(
@@ -168,7 +167,12 @@ class SignInPage extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      child: const Text('サインイン'),
+                      child: isLoading
+                          ? const CircularProgressIndicator(
+                              color: backGroundColor,
+                              strokeWidth: 2,
+                            )
+                          : const Text('サインイン'),
                     ),
                   )
                 ],
