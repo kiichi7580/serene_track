@@ -29,6 +29,8 @@ class FormNotifier extends Notifier<FormStatus> {
     passwordText = value!;
   }
 
+  String? basicValidator(String? value) => _formLogic.basicValidator(value);
+
   String? emailrValidator(String? value) => _formLogic.emailValidator(value);
 
   String? passwordValidator(String? value) =>

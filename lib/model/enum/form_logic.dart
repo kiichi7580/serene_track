@@ -41,4 +41,11 @@ class FormLogic {
     }
     return null;
   }
+
+  String? basicValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return AccountEditErrorMessage.emptyOrNull.errorMsg;
+    }
+    return null;
+  }
 }
