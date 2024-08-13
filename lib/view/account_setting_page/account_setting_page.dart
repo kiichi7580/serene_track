@@ -32,7 +32,17 @@ class AccountSettingPage extends ConsumerWidget {
               context.push(HealthCareAppIntegrationPage.routeLocation);
             },
           ),
-          signOut(context: context, ref: ref),
+          signOut(
+            onTap: () async {
+              final response = await showSignOutDiolog(context);
+              if (response == null || response == false) {
+                return;
+              }
+              await ref.read(userProvider.notifier).signOut();
+              if (!context.mounted) return;
+              context.go(SignInPage.routeLocation);
+            },
+          ),
         ],
       ),
     );
@@ -52,10 +62,7 @@ class AccountSettingPage extends ConsumerWidget {
     );
   }
 
-  Widget signOut({
-    required BuildContext context,
-    required WidgetRef ref,
-  }) {
+  Widget signOut({required void Function()? onTap}) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
       leading: const Icon(Icons.logout, color: noReactionColor),
@@ -63,16 +70,7 @@ class AccountSettingPage extends ConsumerWidget {
         'サインアウトする',
         style: TextStyles.caption.copyWith(color: noReactionColor),
       ),
-      onTap: () async {
-        final response = await showSignOutDiolog(
-          context,
-        );
-        if (response == null || response == false) {
-          return;
-        }
-        await ref.read(userProvider.notifier).signOut();
-        context.go(SignInPage.routeLocation);
-      },
+      onTap: onTap,
     );
   }
 }
