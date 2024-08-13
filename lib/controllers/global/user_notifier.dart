@@ -127,8 +127,8 @@ class UserController extends StateNotifier<UserState> {
     while (!state.initialized) {
       await Future.delayed(const Duration(milliseconds: 100));
     }
-    state = state.copyWith(isLoading: true);
     if (state.accessToken.isNotEmpty && state.tokenType.isNotEmpty) {
+      state = state.copyWith(isLoading: true);
       final result = await userRepository.fetchUser(
         accessToken: state.accessToken,
         tokenType: state.tokenType,
@@ -213,7 +213,31 @@ class UserController extends StateNotifier<UserState> {
 
   Future<void> updateHealthDataIntegrationStatus(
       bool healthDataIntegrationStatus) async {
-    User user = User(healthDataIntegrationStatus: healthDataIntegrationStatus);
-    state = state.copyWith(user: user);
+    state = state.copyWith(isLoading: true);
+    if (state.accessToken.isNotEmpty &&
+        state.tokenType.isNotEmpty &&
+        state.user.id != 0) {
+      final formData = FormData.fromMap({
+        'health_data_integration_status': healthDataIntegrationStatus,
+      });
+      final result = await userRepository.updateHealthDataIntegrationStatus(
+        accessToken: state.accessToken,
+        tokenType: state.tokenType,
+        user: state.user,
+        formData: formData,
+      );
+      result.when(
+        success: (user) {
+          state = state.copyWith(
+            isLoading: false,
+            user: user,
+          );
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          throw ('Error: ${error.toString()}');
+        },
+      );
+    }
   }
 }
