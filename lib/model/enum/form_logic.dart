@@ -1,4 +1,4 @@
-import 'package:serene_track/model/enum/auth_error_message.dart';
+import 'package:serene_track/model/enum/error_message.dart';
 
 class FormLogic {
   String? emailValidator(String? value) {
@@ -44,7 +44,7 @@ class FormLogic {
 
   String? basicValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return AccountEditErrorMessage.emptyOrNull.errorMsg;
+      return BasicErrorMessage.emptyOrNull.errorMsg;
     }
     return null;
   }
