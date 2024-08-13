@@ -27,3 +27,11 @@ enum ConfirmationPasswordErrorMessage {
   const ConfirmationPasswordErrorMessage(this.errorMsg);
   final String errorMsg;
 }
+
+enum BasicErrorMessage {
+  emptyOrNull(validationRes),
+  ;
+
+  const BasicErrorMessage(this.errorMsg);
+  final String errorMsg;
+}

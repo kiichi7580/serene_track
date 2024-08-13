@@ -50,6 +50,15 @@ class _HealthCareAppIntegrationPageState
     super.dispose();
   }
 
+  static final types = [
+    HealthDataType.STEPS,
+    HealthDataType.SLEEP_IN_BED,
+    HealthDataType.SLEEP_ASLEEP,
+    HealthDataType.SLEEP_AWAKE,
+    HealthDataType.SLEEP_DEEP,
+    HealthDataType.SLEEP_REM,
+  ];
+
   Future<void> fetchData() async {
     try {
       DateTime startOfDay = DateTime.now().subtract(const Duration(days: 6));
@@ -59,14 +68,7 @@ class _HealthCareAppIntegrationPageState
           await health.getHealthDataFromTypes(
         startTime: startOfDay,
         endTime: endOfDay,
-        types: [
-          HealthDataType.STEPS,
-          HealthDataType.SLEEP_IN_BED,
-          HealthDataType.SLEEP_ASLEEP,
-          HealthDataType.SLEEP_AWAKE,
-          HealthDataType.SLEEP_DEEP,
-          HealthDataType.SLEEP_REM,
-        ],
+        types: types,
       );
 
       if (healthDataPoints.isEmpty) {
@@ -116,15 +118,25 @@ class _HealthCareAppIntegrationPageState
       ref.read(stepsTabProvider.notifier).getSteps(steps);
       ref.read(sleepTabProvider.notifier).getWeekSleepHours(sleepHours);
     } catch (e) {
-      print('Error: $e');
+      throw ('Error: $e');
     }
   }
 
-  void checkHealthDataAccess() async {
+  Future<void> checkHealthDataAccess() async {
     try {
-      await fetchData();
+      List<HealthDataPoint> healthData = await health.getHealthDataFromTypes(
+        startTime: DateTime.now().subtract(const Duration(days: 1)),
+        endTime: DateTime.now(),
+        types: types,
+      );
+
+      bool hasPermissions = healthData.isNotEmpty;
+      ref
+          .read(userProvider.notifier)
+          .updateHealthDataIntegrationStatus(hasPermissions);
     } catch (e) {
       ref.read(userProvider.notifier).updateHealthDataIntegrationStatus(false);
+      throw ('Error: $e');
     }
   }
 
@@ -134,28 +146,15 @@ class _HealthCareAppIntegrationPageState
   }) async {
     if (isRequested) {
       try {
-        List<HealthDataPoint> healthData = await health.getHealthDataFromTypes(
-          startTime: DateTime.now().subtract(const Duration(days: 1)),
-          endTime: DateTime.now(),
-          types: [
-            HealthDataType.STEPS,
-            HealthDataType.SLEEP_IN_BED,
-            HealthDataType.SLEEP_ASLEEP,
-            HealthDataType.SLEEP_AWAKE,
-            HealthDataType.SLEEP_DEEP,
-            HealthDataType.SLEEP_REM,
-          ],
-        );
-
-        bool hasDataAccess = healthData.isNotEmpty;
-        ref
-            .read(userProvider.notifier)
-            .updateHealthDataIntegrationStatus(hasDataAccess);
+        bool hasDataAccess = ref.watch(userProvider
+            .select((value) => value.user.healthDataIntegrationStatus));
 
         if (!hasDataAccess && Platform.isIOS) {
+          if (!context.mounted) return;
           showAllowAccessToHealthCareAppDialog(context);
         }
       } catch (e) {
+        if (!context.mounted) return;
         showSnackBar(e.toString(), context);
       }
     } else {
@@ -168,6 +167,7 @@ class _HealthCareAppIntegrationPageState
               .read(userProvider.notifier)
               .updateHealthDataIntegrationStatus(false);
         } catch (e) {
+          if (!context.mounted) return;
           showSnackBar(e.toString(), context);
         }
       }

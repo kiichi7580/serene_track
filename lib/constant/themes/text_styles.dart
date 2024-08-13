@@ -20,7 +20,7 @@ class TextStyles {
   );
   static const buttonTextStyle = TextStyle(
     color: backGroundColor,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: FontWeight.w700,
   );
   static const taskTitleBoldStyle = TextStyle(

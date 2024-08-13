@@ -21,8 +21,7 @@ class SignUpPage extends ConsumerWidget {
   static String get routeName => 'sign_up';
   static String get routeLocation => '/$routeName';
 
-  Future<void> signUpUser({
-    required BuildContext context,
+  Future<String> signUpUser({
     required WidgetRef ref,
     required String email,
     required String password,
@@ -33,16 +32,10 @@ class SignUpPage extends ConsumerWidget {
         .signUp(email: email, password: password);
     String getUserRes = await ref.read(userProvider.notifier).fetchUser();
     if (signUpRes == successRes && getUserRes == successRes) {
-      String res = successSignUp;
-      await Future.delayed(const Duration(milliseconds: 10));
-      if (!context.mounted) return;
+      res = successSignUp;
       await PreferencesManager().setIsLogin(isLogin: true);
-      context.go(TodoPage.routeLocation);
-      showSnackBar(res, context);
-    } else {
-      if (!context.mounted) return;
-      showSnackBar(res, context);
     }
+    return res;
   }
 
   @override
@@ -106,7 +99,8 @@ class SignUpPage extends ConsumerWidget {
         ref.watch(signUpPasswordControllerNotifierProvider);
     final confirmationPasswordController =
         ref.watch(signUpConfirmationPasswordControllerNotifierProvider);
-
+    final isLoading =
+        ref.watch(userProvider.select((value) => value.isLoading));
     return SingleChildScrollView(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.76,
@@ -161,12 +155,17 @@ class SignUpPage extends ConsumerWidget {
                         FormStatus formStatus =
                             formController.validateForm(formKey);
                         if (formStatus == FormStatus.valid) {
-                          await signUpUser(
-                            context: context,
+                          String res = await signUpUser(
                             ref: ref,
                             email: emailController.text,
                             password: passwordController.text,
                           );
+                          if (res == successSignUp) {
+                            if (!context.mounted) return;
+                            context.go(TodoPage.routeLocation);
+                          }
+                          if (!context.mounted) return;
+                          showSnackBar(res, context);
                         }
                       },
                       child: Container(
@@ -180,7 +179,12 @@ class SignUpPage extends ConsumerWidget {
                             ],
                           ),
                         ),
-                        child: const Text('新規登録'),
+                        child: isLoading
+                            ? const CircularProgressIndicator(
+                                color: backGroundColor,
+                                strokeWidth: 2,
+                              )
+                            : const Text('新規登録'),
                       ),
                     )
                   ],

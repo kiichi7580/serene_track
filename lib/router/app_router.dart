@@ -6,7 +6,7 @@ import 'package:serene_track/responsive/mobile_screen_layout.dart';
 import 'package:serene_track/responsive/responsive_layout.dart';
 import 'package:serene_track/responsive/web_screen_layout.dart';
 import 'package:serene_track/view/account_page/account_page.dart';
-import 'package:serene_track/view/account_page/edit_account_page.dart';
+import 'package:serene_track/view/account_edit_page/edit_account_page.dart';
 import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/sign_up_page.dart';

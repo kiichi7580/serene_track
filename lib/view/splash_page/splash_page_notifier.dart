@@ -38,4 +38,8 @@ class SplashPageController extends StateNotifier<SplashPageState> {
       state = state.copyWith(isLogin: isLogin);
     }
   }
+
+  void changeIsLogin(bool isLogin) {
+    state = state.copyWith(isLogin: isLogin);
+  }
 }

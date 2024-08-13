@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 
-class EditAccountButton extends StatelessWidget {
-  const EditAccountButton({
+class CustomButton extends StatelessWidget {
+  const CustomButton({
     super.key,
+    required this.buttonText,
     required this.onTap,
   });
+  final String buttonText;
   final void Function()? onTap;
 
   @override
@@ -17,7 +19,7 @@ class EditAccountButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(
             vertical: 10,
-            horizontal: 40,
+            horizontal: 48,
           ),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -30,8 +32,8 @@ class EditAccountButton extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(30),
           ),
-          child: const Text(
-            '更新する',
+          child: Text(
+            buttonText,
             style: TextStyles.buttonTextStyle,
           ),
         ),

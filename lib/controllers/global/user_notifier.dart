@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:serene_track/constant/text_source.dart';
@@ -8,6 +9,7 @@ import 'package:serene_track/model/src/user.dart';
 import 'package:serene_track/repository/auth/auth_repository.dart';
 import 'package:serene_track/repository/user/user_repository.dart';
 import 'package:serene_track/utils/preferences_manager.dart';
+import 'package:serene_track/view/splash_page/splash_page_notifier.dart';
 
 part 'user_notifier.freezed.dart';
 
@@ -41,6 +43,7 @@ class UserController extends StateNotifier<UserState> {
 
   User? get currentUser => state.user;
   bool? get getAuthenticated => state.isAuthenticated;
+  bool get getLoading => state.isLoading;
 
   Future<void> _init() async {
     final accessToken = await PreferencesManager().getAccessToken;
@@ -51,7 +54,12 @@ class UserController extends StateNotifier<UserState> {
       initialized: true,
       isAuthenticated: false,
     );
-    await fetchUser();
+    String res = await fetchUser();
+    if (res == successRes) {
+      return;
+    } else {
+      _ref.read(splashPageProvider.notifier).changeIsLogin(false);
+    }
   }
 
   Future<String> signIn({
@@ -119,8 +127,8 @@ class UserController extends StateNotifier<UserState> {
     while (!state.initialized) {
       await Future.delayed(const Duration(milliseconds: 100));
     }
-    state = state.copyWith(isLoading: true);
     if (state.accessToken.isNotEmpty && state.tokenType.isNotEmpty) {
+      state = state.copyWith(isLoading: true);
       final result = await userRepository.fetchUser(
         accessToken: state.accessToken,
         tokenType: state.tokenType,
@@ -135,20 +143,119 @@ class UserController extends StateNotifier<UserState> {
             user: user,
             isAuthenticated: true,
           );
+          res = successRes;
         },
         failure: (error) {
           state = state.copyWith(isLoading: false);
           res = error.toString();
-          return res;
         },
       );
       await setToken(
         accessToken: state.accessToken,
         tokenType: state.tokenType,
       );
-      res = successRes;
     }
     return res;
+  }
+
+  Future<String> updateUser({
+    required String name,
+    required String shortTermGoal,
+    required String longTermGoal,
+  }) async {
+    String res = userNull;
+    state = state.copyWith(isLoading: true);
+    if (state.accessToken.isNotEmpty &&
+        state.tokenType.isNotEmpty &&
+        state.user.id != 0) {
+      final formData = FormData.fromMap({
+        'name': name,
+        'short_term_goal': shortTermGoal,
+        'long_term_goal': longTermGoal,
+      });
+      final result = await userRepository.updateUser(
+        accessToken: state.accessToken,
+        tokenType: state.tokenType,
+        user: state.user,
+        formData: formData,
+      );
+      result.when(
+        success: (user) {
+          state = state.copyWith(
+            isLoading: false,
+            user: user,
+          );
+          res = successRes;
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          res = error.toString();
+        },
+      );
+    }
+    return res;
+  }
+
+  Future<String> updateUserIcon(String photoUrl) async {
+    String res = failureUpDate;
+    state = state.copyWith(isLoading: true);
+    if (state.accessToken.isNotEmpty &&
+        state.tokenType.isNotEmpty &&
+        state.user.id != 0) {
+      final formData = FormData.fromMap({
+        'photo_url': photoUrl,
+      });
+      final result = await userRepository.updateUserIcon(
+        accessToken: state.accessToken,
+        tokenType: state.tokenType,
+        user: state.user,
+        formData: formData,
+      );
+      result.when(
+        success: (user) {
+          state = state.copyWith(
+            isLoading: false,
+            user: user,
+          );
+          res = successRes;
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          res = error.toString();
+        },
+      );
+    }
+    return res;
+  }
+
+  Future<void> updateHealthDataIntegrationStatus(
+      bool healthDataIntegrationStatus) async {
+    state = state.copyWith(isLoading: true);
+    if (state.accessToken.isNotEmpty &&
+        state.tokenType.isNotEmpty &&
+        state.user.id != 0) {
+      final formData = FormData.fromMap({
+        'health_data_integration_status': healthDataIntegrationStatus,
+      });
+      final result = await userRepository.updateHealthDataIntegrationStatus(
+        accessToken: state.accessToken,
+        tokenType: state.tokenType,
+        user: state.user,
+        formData: formData,
+      );
+      result.when(
+        success: (user) {
+          state = state.copyWith(
+            isLoading: false,
+            user: user,
+          );
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          throw ('Error: ${error.toString()}');
+        },
+      );
+    }
   }
 
   Future<void> setToken({
@@ -164,11 +271,5 @@ class UserController extends StateNotifier<UserState> {
     await PreferencesManager().deleteAccessToken();
     await PreferencesManager().deleteTokenType();
     state = state.copyWith(isAuthenticated: false);
-  }
-
-  Future<void> updateHealthDataIntegrationStatus(
-      bool healthDataIntegrationStatus) async {
-    User user = User(healthDataIntegrationStatus: healthDataIntegrationStatus);
-    state = state.copyWith(user: user);
   }
 }
