@@ -196,19 +196,36 @@ class UserController extends StateNotifier<UserState> {
     return res;
   }
 
-  Future<void> setToken({
-    required String accessToken,
-    required String tokenType,
-  }) async {
-    await PreferencesManager().setAccessToken(accessToken: accessToken);
-    await PreferencesManager().setTokenType(tokenType: tokenType);
-  }
-
-  Future<void> signOut() async {
-    await PreferencesManager().setIsLogin(isLogin: false);
-    await PreferencesManager().deleteAccessToken();
-    await PreferencesManager().deleteTokenType();
-    state = state.copyWith(isAuthenticated: false);
+  Future<String> updateUserIcon(String photoUrl) async {
+    String res = failureUpDate;
+    state = state.copyWith(isLoading: true);
+    if (state.accessToken.isNotEmpty &&
+        state.tokenType.isNotEmpty &&
+        state.user.id != 0) {
+      final formData = FormData.fromMap({
+        'photo_url': photoUrl,
+      });
+      final result = await userRepository.updateUserIcon(
+        accessToken: state.accessToken,
+        tokenType: state.tokenType,
+        user: state.user,
+        formData: formData,
+      );
+      result.when(
+        success: (user) {
+          state = state.copyWith(
+            isLoading: false,
+            user: user,
+          );
+          res = successRes;
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          res = error.toString();
+        },
+      );
+    }
+    return res;
   }
 
   Future<void> updateHealthDataIntegrationStatus(
@@ -239,5 +256,20 @@ class UserController extends StateNotifier<UserState> {
         },
       );
     }
+  }
+
+  Future<void> setToken({
+    required String accessToken,
+    required String tokenType,
+  }) async {
+    await PreferencesManager().setAccessToken(accessToken: accessToken);
+    await PreferencesManager().setTokenType(tokenType: tokenType);
+  }
+
+  Future<void> signOut() async {
+    await PreferencesManager().setIsLogin(isLogin: false);
+    await PreferencesManager().deleteAccessToken();
+    await PreferencesManager().deleteTokenType();
+    state = state.copyWith(isAuthenticated: false);
   }
 }
