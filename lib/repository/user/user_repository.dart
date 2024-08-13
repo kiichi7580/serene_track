@@ -15,6 +15,13 @@ abstract class UserRepository {
     required FormData formData,
   });
 
+  Future<Result<User>> updateUserIcon({
+    required String accessToken,
+    required String tokenType,
+    required User user,
+    required FormData formData,
+  });
+
   Future<Result<User>> updateHealthDataIntegrationStatus({
     required String accessToken,
     required String tokenType,
