@@ -196,6 +196,31 @@ class UserController extends StateNotifier<UserState> {
     return res;
   }
 
+  Future<String> deleteUser() async {
+    String res = userNull;
+    state = state.copyWith(isLoading: true);
+    if (state.accessToken.isNotEmpty &&
+        state.tokenType.isNotEmpty &&
+        state.user.id != 0) {
+      final result = await userRepository.deleteUser(
+        accessToken: state.accessToken,
+        tokenType: state.tokenType,
+        user: state.user,
+      );
+      result.when(
+        success: (user) {
+          state = state.copyWith(isLoading: false);
+          res = successRes;
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          res = error.toString();
+        },
+      );
+    }
+    return res;
+  }
+
   Future<String> updateUserIcon(String photoUrl) async {
     String res = failureUpDate;
     state = state.copyWith(isLoading: true);
