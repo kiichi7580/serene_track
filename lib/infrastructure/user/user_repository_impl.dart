@@ -120,8 +120,26 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> deleteUser() {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
+  Future<Result<void>> deleteUser({
+    required String accessToken,
+    required String tokenType,
+    required User user,
+  }) {
+    return Result.guardFuture(() async {
+      await Future.delayed(const Duration(seconds: 1));
+
+      final response = await _dio.delete(
+        '/user/${user.id}',
+        options: Options(
+          headers: {'Authorization': '$tokenType $accessToken'},
+        ),
+      );
+
+      if (response.statusCode == 204) {
+        return;
+      } else {
+        throw Exception('Unexpected response format');
+      }
+    });
   }
 }
