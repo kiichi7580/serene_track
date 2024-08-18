@@ -3,15 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/components/custom_dialog.dart';
 import 'package:serene_track/constant/colors.dart';
 
-Future<bool?> showSignOutDiolog(BuildContext context) {
+Future<bool?> showSignOutDialog(BuildContext context) {
   return showDialog<bool>(
     context: context,
     barrierDismissible: false,
-    builder: _buildSignOutDiolog,
+    builder: _buildSignOutDialog,
   );
 }
 
-Widget _buildSignOutDiolog(BuildContext context) {
+Widget _buildSignOutDialog(BuildContext context) {
   return Consumer(
     builder: (context, ref, child) {
       return CustomDialog(
