@@ -16,8 +16,8 @@ import 'package:serene_track/view/todo_add_page/provider/todo_add_text_field_not
 import 'package:serene_track/view/todo_page/components/todo_text_field.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
 
-class AddTodoPage extends ConsumerWidget {
-  const AddTodoPage({super.key});
+class TodoAddPage extends ConsumerWidget {
+  const TodoAddPage({super.key});
   static String get routeName => 'add_todo';
   static String get routeLocation => '/$routeName';
 

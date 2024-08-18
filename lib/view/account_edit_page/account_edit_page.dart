@@ -16,8 +16,8 @@ import 'package:serene_track/view/account_edit_page/provider/form_key_for_edit_a
 import 'package:serene_track/view/account_page/account_page.dart';
 import 'package:serene_track/view/auth_page/provider/form_provider.dart';
 
-class EditAccountPage extends ConsumerWidget {
-  const EditAccountPage({super.key});
+class AccountEditPage extends ConsumerWidget {
+  const AccountEditPage({super.key});
   static String get routeName => 'edit_account';
   static String get routeLocation => '/$routeName';
 
