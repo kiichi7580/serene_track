@@ -33,9 +33,7 @@ class EditAccountPage extends ConsumerWidget {
           shortTermGoal: shortTermGoal,
           longTermGoal: longTermGoal,
         );
-    if (res == successRes) {
-      res = successUpDate;
-    }
+    if (res == successRes) res = successUpDate;
     return res;
   }
 

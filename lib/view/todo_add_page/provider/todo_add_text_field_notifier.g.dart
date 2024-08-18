@@ -23,7 +23,7 @@ final titleControllerNotifierProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$TitleControllerNotifier = AutoDisposeNotifier<TextEditingController>;
-String _$categoryNotifierHash() => r'd377408e837c5a486fd3c87cc2277e0bb428a8f9';
+String _$categoryNotifierHash() => r'98f5c779605edb81c41ef4e5d1d4795aaa16fb0d';
 
 /// See also [CategoryNotifier].
 @ProviderFor(CategoryNotifier)

@@ -32,7 +32,7 @@ Color lightGreyColor = Colors.grey[400]!;
 const linkBlue = Color.fromRGBO(27, 149, 224, 1);
 
 // deleteカラー
-const deleteColor = Color.fromRGBO(255, 102, 102, 1.0);
+const deleteColor = Color(0xFFFE4A49);
 
 // reactionカラー
 const yesReactionColor = Color.fromRGBO(0, 255, 0, 1.0);
