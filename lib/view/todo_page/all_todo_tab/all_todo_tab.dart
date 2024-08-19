@@ -5,6 +5,7 @@ import 'package:serene_track/components/delete_confirmation_dialog.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
+import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/all_todo_tab/provider/all_todo_tab_notifier.dart';
@@ -22,6 +23,29 @@ class AllTodoTab extends ConsumerWidget {
     final todos = ref.watch(todoProvider.select((value) => value.todos));
     final isLoading =
         ref.watch(todoProvider.select((value) => value.isLoading));
+
+    if (todos.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.checklist,
+              size: 60,
+              color: sandwispColor2,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'タスクを追加しましょう',
+              style: TextStyles.taskTitleStyle.copyWith(
+                color: sandwispColor2,
+              ),
+            ),
+            const SizedBox(height: 260),
+          ],
+        ),
+      );
+    }
 
     return isLoading
         ? const SizedBox(

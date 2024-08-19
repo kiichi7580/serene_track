@@ -5,6 +5,7 @@ import 'package:serene_track/components/delete_confirmation_dialog.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
+import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/exercise_todo_tab/provider/exercise_todo_tab_notifier.dart';
@@ -17,7 +18,7 @@ class ExerciseTodoTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final exerciseTodoList = ref.watch(
     //     exerciseTodoTabProvider.select((value) => value.exerciseTodoList));
-    final exerciseTodoList = ref
+    final exerciseTodos = ref
         .watch(todoProvider.select((value) => value.todos))
         .where((value) => value.categoryId == exerciseTx)
         .toList();
@@ -27,6 +28,29 @@ class ExerciseTodoTab extends ConsumerWidget {
         ref.watch(exerciseTodoTabProvider.select((value) => value.checkedList));
     final isLoading =
         ref.watch(todoProvider.select((value) => value.isLoading));
+
+    if (exerciseTodos.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.sports_gymnastics,
+              size: 60,
+              color: yellowGreenColor2,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'タスクを追加しましょう',
+              style: TextStyles.taskTitleStyle.copyWith(
+                color: yellowGreenColor2,
+              ),
+            ),
+            const SizedBox(height: 260),
+          ],
+        ),
+      );
+    }
 
     return isLoading
         ? const SizedBox(
@@ -41,9 +65,9 @@ class ExerciseTodoTab extends ConsumerWidget {
         : ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: exerciseTodoList.length,
+            itemCount: exerciseTodos.length,
             itemBuilder: (context, index) {
-              Todo todo = exerciseTodoList[index];
+              Todo todo = exerciseTodos[index];
 
               return Slidable(
                 key: ValueKey(index),
@@ -74,7 +98,7 @@ class ExerciseTodoTab extends ConsumerWidget {
                 ),
                 child: CustomCheckboxTile(
                   // todo: todo,
-                  todos: exerciseTodoList,
+                  todos: exerciseTodos,
                   index: index,
                   value: checkedList[index],
                   fillColor: sandwispColor,

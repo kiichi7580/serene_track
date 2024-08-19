@@ -5,6 +5,7 @@ import 'package:serene_track/components/delete_confirmation_dialog.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
+import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -17,7 +18,7 @@ class WorkTodoTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final workTodoList =
     //     ref.watch(workTodoTabProvider.select((value) => value.workTodoList));
-    final workTodoList = ref
+    final workTodos = ref
         .watch(todoProvider.select((value) => value.todos))
         .where((value) => value.categoryId == workTx)
         .toList();
@@ -27,6 +28,29 @@ class WorkTodoTab extends ConsumerWidget {
         ref.watch(workTodoTabProvider.select((value) => value.checkedList));
     final isLoading =
         ref.watch(todoProvider.select((value) => value.isLoading));
+
+    if (workTodos.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.work,
+              size: 60,
+              color: appleColor2,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'タスクを追加しましょう',
+              style: TextStyles.taskTitleStyle.copyWith(
+                color: appleColor2,
+              ),
+            ),
+            const SizedBox(height: 260),
+          ],
+        ),
+      );
+    }
 
     return isLoading
         ? const SizedBox(
@@ -41,9 +65,9 @@ class WorkTodoTab extends ConsumerWidget {
         : ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: workTodoList.length,
+            itemCount: workTodos.length,
             itemBuilder: (context, index) {
-              Todo todo = workTodoList[index];
+              Todo todo = workTodos[index];
 
               return Slidable(
                 key: ValueKey(index),
@@ -73,8 +97,7 @@ class WorkTodoTab extends ConsumerWidget {
                   ],
                 ),
                 child: CustomCheckboxTile(
-                  // todo: todo,
-                  todos: workTodoList,
+                  todos: workTodos,
                   index: index,
                   value: checkedList[index],
                   fillColor: sandwispColor,
