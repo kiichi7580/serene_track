@@ -2,48 +2,78 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/controllers/global/dio_notifier.dart';
 import 'package:serene_track/model/enum/result.dart';
-import 'package:serene_track/model/src/user.dart';
-import 'package:serene_track/repository/user/user_repository.dart';
+import 'package:serene_track/model/src/todo.dart';
+import 'package:serene_track/repository/todo/todo_repository.dart';
 
-final userRepositoryProvider =
-    Provider<UserRepository>((ref) => UserRepositoryImpl(ref));
+final todoRepositoryProvider =
+    Provider<TodoRepository>((ref) => TodoRepositoryImpl(ref));
 
-class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl(ProviderRef<UserRepository> ref)
+class TodoRepositoryImpl implements TodoRepository {
+  TodoRepositoryImpl(ProviderRef<TodoRepository> ref)
       : _dio = ref.watch(dioProvider);
 
   final Dio _dio;
 
   @override
-  Future<Result<User?>> fetchUser({
+  Future<Result<Todo?>> createTodo({
     required String accessToken,
     required String tokenType,
-  }) async {
+    required FormData formData,
+  }) {
     return Result.guardFuture(() async {
       await Future.delayed(const Duration(seconds: 1));
 
-      User? user;
-      final response = await _dio.get('/user/',
+      final response = await _dio.post(
+        '/todo/',
+        options: Options(
+          headers: {'Authorization': '$tokenType $accessToken'},
+        ),
+        data: formData,
+      );
+      if (response.statusCode == 204) {
+        return null;
+      } else if (response.data != null) {
+        Todo todo = Todo.fromJson(response.data);
+        return todo;
+      } else {
+        throw Exception('Unexpected response format');
+      }
+    });
+  }
+
+  @override
+  Future<Result<List<Todo>?>> fetchTodo({
+    required String accessToken,
+    required String tokenType,
+  }) {
+    return Result.guardFuture(() async {
+      await Future.delayed(const Duration(seconds: 1));
+
+      final response = await _dio.get('/todo/',
           options: Options(
             headers: {'Authorization': '$tokenType $accessToken'},
           ));
-      user = User.fromJson(response.data);
-      return user;
+      if (response.data.isEmpty) {
+        return [];
+      }
+      final todos =
+          List<Todo>.from(response.data.map((todo) => Todo.fromJson(todo)));
+      return todos;
     });
   }
 
   @override
-  Future<Result<User>> updateUser({
+  Future<Result<Todo>> updateTodo({
     required String accessToken,
     required String tokenType,
-    required User user,
+    required Todo todo,
     required FormData formData,
   }) {
     return Result.guardFuture(() async {
       await Future.delayed(const Duration(seconds: 1));
 
       final response = await _dio.put(
-        '/user/${user.id}',
+        '/todo/${todo.id}',
         options: Options(
           headers: {'Authorization': '$tokenType $accessToken'},
         ),
@@ -51,10 +81,10 @@ class UserRepositoryImpl implements UserRepository {
       );
 
       if (response.statusCode == 204) {
-        return user;
+        return todo;
       } else if (response.data != null) {
-        user = User.fromJson(response.data);
-        return user;
+        todo = Todo.fromJson(response.data);
+        return todo;
       } else {
         throw Exception('Unexpected response format');
       }
@@ -62,81 +92,22 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Result<User>> updateUserIcon({
+  Future<Result<Todo>> deleteTodo({
     required String accessToken,
     required String tokenType,
-    required User user,
-    required FormData formData,
-  }) {
-    return Result.guardFuture(() async {
-      await Future.delayed(const Duration(seconds: 1));
-
-      final response = await _dio.put(
-        '/user/user_icon/${user.id}',
-        options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
-        ),
-        data: formData,
-      );
-
-      if (response.statusCode == 204) {
-        return user;
-      } else if (response.data != null) {
-        user = User.fromJson(response.data);
-        return user;
-      } else {
-        throw Exception('Unexpected response format');
-      }
-    });
-  }
-
-  @override
-  Future<Result<User>> updateHealthDataIntegrationStatus({
-    required String accessToken,
-    required String tokenType,
-    required User user,
-    required FormData formData,
-  }) {
-    return Result.guardFuture(() async {
-      await Future.delayed(const Duration(seconds: 1));
-
-      final response = await _dio.put(
-        '/user/health_care/${user.id}',
-        options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
-        ),
-        data: formData,
-      );
-
-      if (response.statusCode == 204) {
-        return user;
-      } else if (response.data != null) {
-        user = User.fromJson(response.data);
-        return user;
-      } else {
-        throw Exception('Unexpected response format');
-      }
-    });
-  }
-
-  @override
-  Future<Result<void>> deleteUser({
-    required String accessToken,
-    required String tokenType,
-    required User user,
+    required Todo todo,
   }) {
     return Result.guardFuture(() async {
       await Future.delayed(const Duration(seconds: 1));
 
       final response = await _dio.delete(
-        '/user/${user.id}',
+        '/todo/${todo.id}',
         options: Options(
           headers: {'Authorization': '$tokenType $accessToken'},
         ),
       );
-
       if (response.statusCode == 204) {
-        return;
+        return todo;
       } else {
         throw Exception('Unexpected response format');
       }

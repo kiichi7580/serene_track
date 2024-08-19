@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/constant/colors.dart';
-import 'package:serene_track/view/todo_page/add_todo_page.dart';
+import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/view/todo_add_page/todo_add_page.dart';
 import 'package:serene_track/view/todo_page/all_todo_tab/all_todo_tab.dart';
 import 'package:serene_track/view/todo_page/exercise_todo_tab/exercise_todo_tab.dart';
 import 'package:serene_track/view/todo_page/provider/today_datetime_notifier.dart';
@@ -33,6 +34,7 @@ class TodoPageState extends ConsumerState<TodoPage>
   @override
   Widget build(BuildContext context) {
     final now = ref.watch(todayDateTimeNotifierProvider);
+    final editMode = ref.watch(todoProvider.select((value) => value.editMode));
     return Scaffold(
       backgroundColor: backGroundColor,
       extendBodyBehindAppBar: true,
@@ -41,11 +43,18 @@ class TodoPageState extends ConsumerState<TodoPage>
         actions: [
           IconButton(
             onPressed: () {
-              context.push(AddTodoPage.routeLocation);
+              ref.read(todoProvider.notifier).changeEditMode();
             },
-            icon: const Icon(
-              Icons.add,
+            icon: Icon(
+              Icons.edit,
+              color: editMode ? selectedColor : textMainColor,
             ),
+          ),
+          IconButton(
+            onPressed: () {
+              context.push(TodoAddPage.routeLocation);
+            },
+            icon: const Icon(Icons.add),
           ),
         ],
       ),

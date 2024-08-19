@@ -3,19 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/components/custom_dialog.dart';
 import 'package:serene_track/constant/colors.dart';
 
-Future<bool?> showSignOutDialog(BuildContext context) {
+Future<bool?> showDeleteConfirmationDialog(BuildContext context) {
   return showDialog<bool>(
     context: context,
     barrierDismissible: false,
-    builder: _buildSignOutDialog,
+    builder: _buildDeleteConfirmationDialog,
   );
 }
 
-Widget _buildSignOutDialog(BuildContext context) {
+Widget _buildDeleteConfirmationDialog(BuildContext context) {
   return Consumer(
     builder: (context, ref, child) {
       return CustomDialog(
-        title: '本当にサインアウトしますか？',
+        title: '本当に削除しますか？',
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 18, vertical: 24),
         actions: [
@@ -46,7 +46,7 @@ Widget _buildSignOutDialog(BuildContext context) {
               Navigator.pop(context, true);
             },
             child: const Text(
-              'サインアウト',
+              '削除する',
             ),
           ),
         ],

@@ -9,6 +9,7 @@ myAppBar({
   bool? centerTitle = false,
 }) {
   return AppBar(
+    foregroundColor: textMainColor,
     backgroundColor: backGroundColor.withAlpha(180),
     elevation: 0,
     flexibleSpace: ClipRect(

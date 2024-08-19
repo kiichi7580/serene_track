@@ -29,5 +29,9 @@ abstract class UserRepository {
     required FormData formData,
   });
 
-  Future<void> deleteUser();
+  Future<Result<void>> deleteUser({
+    required String accessToken,
+    required String tokenType,
+    required User user,
+  });
 }

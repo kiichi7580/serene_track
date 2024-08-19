@@ -2,12 +2,14 @@
 const userNull = 'ユーザー情報の取得に失敗しました。\n通信環境を確認して、再度お試しください。';
 const userNotNull = 'ユーザー情報の取得に成功しました。';
 const successRes = 'success';
-const successAdd = '追加が完了しました。';
+const successRead = '取得が完了しました。';
+const successCreate = '追加が完了しました。';
 const successUpDate = '更新が完了しました。';
 const successDelete = '削除が完了しました。';
 
 const failureRes = 'failure';
-const failureAdd = '追加できませんでした。もう一度やり直してください。';
+const failureCreate = '追加できませんでした。もう一度やり直してください。';
+const failureRead = '取得できませんでした。もう一度やり直してください。';
 const failureUpDate = '更新できませんでした。もう一度やり直してください。';
 const failureDelete = '削除できませんでした。もう一度やり直してください。';
 
