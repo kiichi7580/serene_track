@@ -13,9 +13,13 @@ const burntOrangeColor = Color.fromRGBO(204, 85, 0, 1);
 const darkOrangeColor = Color.fromRGBO(255, 165, 0, 1);
 const sunglowColor = Color.fromRGBO(255, 203, 46, 1);
 const sandwispColor = Color.fromRGBO(244, 242, 159, 1);
+const sandwispColor2 = Color.fromRGBO(141, 139, 99, 1);
 const yellowGreenColor = Color.fromRGBO(177, 225, 122, 1);
+const yellowGreenColor2 = Color.fromRGBO(109, 135, 78, 1);
 const mantisColor = Color.fromRGBO(127, 209, 92, 1);
+const mantisColor2 = Color.fromRGBO(72, 104, 54, 1);
 const appleColor = Color.fromRGBO(75, 184, 71, 1);
+const appleColor2 = Color.fromRGBO(45, 81, 45, 1);
 const navyBlueColor = Color.fromRGBO(0, 70, 128, 1);
 const lightSkyBlueColor = Color.fromRGBO(135, 206, 235, 1);
 
