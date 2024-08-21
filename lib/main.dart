@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/router/app_router.dart';
+import 'package:serene_track/utils/local_notification_setting.dart';
 import 'package:serene_track/utils/preferences_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferencesManager().set(await SharedPreferences.getInstance());
+  await initializeLocalNotifications();
   const scope = ProviderScope(
     child: MyApp(),
   );
