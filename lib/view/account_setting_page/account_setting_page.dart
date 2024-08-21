@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:serene_track/components/delete_confirmation_dialog.dart';
+import 'package:serene_track/components/dialog/show_delete_confirmation_dialog.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
@@ -11,6 +11,7 @@ import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/view/account_setting_page/components/show_sign_out_dialog.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/health_care_page/health_care_app_integration_page.dart';
+import 'package:serene_track/view/notification_setting_page/notification_setting_page.dart';
 
 class AccountSettingPage extends ConsumerWidget {
   const AccountSettingPage({super.key});
@@ -28,6 +29,13 @@ class AccountSettingPage extends ConsumerWidget {
       body: Column(
         children: [
           const SizedBox(height: 16),
+          settingItem(
+            title: '通知設定',
+            iconData: Icons.notifications,
+            onTap: () {
+              context.push(NotificationSettingPage.routeLocation);
+            },
+          ),
           settingItem(
             title: 'ヘルスケアと連携する',
             iconData: Icons.favorite,
