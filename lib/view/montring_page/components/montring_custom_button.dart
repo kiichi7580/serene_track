@@ -13,6 +13,7 @@ class MontringCustomButton extends ConsumerWidget {
         ref.watch(montringPageProvider.select((value) => value.isRunning));
     final dynamicSeconds =
         ref.watch(montringPageProvider.select((value) => value.dynamicSeconds));
+    // ignore: unused_local_variable
     final timer =
         ref.watch(montringPageProvider.select((value) => value.timer));
 
