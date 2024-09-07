@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 
-Future<void> imageDialog({
+Future<void> showImageDialog({
   required BuildContext context,
   required String imageUrl,
 }) {

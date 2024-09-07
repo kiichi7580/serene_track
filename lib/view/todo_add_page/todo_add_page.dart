@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:serene_track/components/loading_button.dart';
+import 'package:serene_track/components/button/loading_button.dart';
 import 'package:serene_track/components/my_appbar.dart';
+import 'package:serene_track/components/picker/drum_roll_time_picker.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
-import 'package:serene_track/components/tooltip_button.dart';
+import 'package:serene_track/components/button/tooltip_button.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
-import 'package:serene_track/components/custom_button.dart';
+import 'package:serene_track/components/button/custom_button.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
 import 'package:serene_track/model/enum/form_state.dart';
 import 'package:serene_track/ui_core/format/datetime_format.dart';
@@ -208,18 +208,14 @@ class TodoAddPage extends ConsumerWidget {
               ),
             ),
             onPressed: () {
-              DatePicker.showTimePicker(
-                context,
-                showTitleActions: true,
-                showSecondsColumn: false,
-                onConfirm: (date) {
-                  ref
-                      .read(todoAddPageProvider.notifier)
-                      .selectNotificationTime(date);
-                },
-                currentTime: DateTime.now(),
-                locale: LocaleType.jp,
-              );
+              drumRollTimePicker(
+                  context: context,
+                  showSecondsColumn: false,
+                  onConfirm: (date) {
+                    ref
+                        .read(todoAddPageProvider.notifier)
+                        .selectNotificationTime(date);
+                  });
             },
             child: const Text('設定する'),
           ),

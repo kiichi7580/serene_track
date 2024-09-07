@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:serene_track/components/custom_dialog.dart';
+import 'package:serene_track/components/dialog/custom_dialog.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
