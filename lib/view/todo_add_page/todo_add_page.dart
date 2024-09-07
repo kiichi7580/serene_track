@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serene_track/components/loading_button.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
+import 'package:serene_track/components/tooltip_button.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/components/custom_button.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
 import 'package:serene_track/model/enum/form_state.dart';
+import 'package:serene_track/ui_core/format/datetime_format.dart';
 import 'package:serene_track/view/auth_page/provider/form_provider.dart';
 import 'package:serene_track/view/todo_add_page/provider/form_key_for_add_todo_notifier.dart';
+import 'package:serene_track/view/todo_add_page/provider/todo_add_page_notifier.dart';
 import 'package:serene_track/view/todo_add_page/provider/todo_add_text_field_notifier.dart';
 import 'package:serene_track/view/todo_page/components/todo_text_field.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
@@ -27,6 +31,7 @@ class TodoAddPage extends ConsumerWidget {
     required String description,
     required bool completed,
     required String categoryId,
+    DateTime? notificationTime,
   }) async {
     String res = failureCreate;
     res = await ref.read(todoProvider.notifier).createTodo(
@@ -34,6 +39,7 @@ class TodoAddPage extends ConsumerWidget {
           description: description,
           completed: completed,
           categoryId: categoryId,
+          notificationTime: notificationTime,
         );
     if (res == successRes) res = successCreate;
     return res;
@@ -130,6 +136,8 @@ class TodoAddPage extends ConsumerWidget {
                         buttonText: '追加する',
                         onTap: () async {
                           final category = ref.watch(categoryNotifierProvider);
+                          final notificationTime = ref.watch(todoAddPageProvider
+                              .select((value) => value.notificationTime));
                           FormStatus formStatus =
                               formController.validateForm(formKey);
                           if (formStatus == FormStatus.valid) {
@@ -139,6 +147,7 @@ class TodoAddPage extends ConsumerWidget {
                               description: descriptionController.text,
                               completed: false,
                               categoryId: category!,
+                              notificationTime: notificationTime,
                             );
                             if (res == successCreate) {
                               if (!context.mounted) return;
@@ -167,35 +176,55 @@ class TodoAddPage extends ConsumerWidget {
   }
 
   Widget notificationSettingArea() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            side: const BorderSide(
-              color: unselectedColor,
-            ),
-            foregroundColor: unselectedColor,
-            backgroundColor: backGroundColor,
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+    return Consumer(builder: (context, ref, _) {
+      final notificationTime = ref
+          .watch(todoAddPageProvider.select((value) => value.notificationTime));
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Row(
+            children: [
+              Text(
+                formatTimeToHm(notificationTime),
+                style: TextStyles.title.copyWith(fontSize: 24),
+              ),
+              const SizedBox(width: 8),
+              tooltipButton(
+                notificationTime != null
+                    ? '毎日${notificationTime.hour}時${notificationTime.minute}分に通知が送られます。'
+                    : '通知時間を設定すると、毎日設定した時間に通知が送られます。',
+              ),
+            ],
           ),
-          onPressed: () {},
-          child: const Text('なし'),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: backGroundColor,
-            backgroundColor: unselectedColor,
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              side: const BorderSide(
+                color: unselectedColor,
+              ),
+              foregroundColor: unselectedColor,
+              backgroundColor: backGroundColor,
+              textStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
+            onPressed: () {
+              DatePicker.showTimePicker(
+                context,
+                showTitleActions: true,
+                showSecondsColumn: false,
+                onConfirm: (date) {
+                  ref
+                      .read(todoAddPageProvider.notifier)
+                      .selectNotificationTime(date);
+                },
+                currentTime: DateTime.now(),
+                locale: LocaleType.jp,
+              );
+            },
+            child: const Text('設定する'),
           ),
-          onPressed: () {},
-          child: const Text('あり'),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 }
