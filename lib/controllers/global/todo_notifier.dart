@@ -59,6 +59,7 @@ class TodoController extends StateNotifier<TodoState> {
     required String description,
     required bool completed,
     required String categoryId,
+    DateTime? notificationTime,
   }) async {
     String res = failureCreate;
     if (_userNotifier.accessToken.isNotEmpty &&
@@ -69,6 +70,7 @@ class TodoController extends StateNotifier<TodoState> {
         'description': description,
         'complete': completed,
         'category_id': categoryId,
+        'notification_time': notificationTime,
       });
       final result = await todoRepository.createTodo(
         accessToken: _userNotifier.accessToken,
@@ -135,6 +137,7 @@ class TodoController extends StateNotifier<TodoState> {
     required String description,
     required bool completed,
     required String categoryId,
+    DateTime? notificationTime,
   }) async {
     String res = failureUpDate;
     state = state.copyWith(isLoading: true);
@@ -146,6 +149,7 @@ class TodoController extends StateNotifier<TodoState> {
         'description': description,
         'complete': completed,
         'category_id': categoryId,
+        'notification_time': notificationTime,
       });
       final result = await todoRepository.updateTodo(
         accessToken: _userNotifier.accessToken,
