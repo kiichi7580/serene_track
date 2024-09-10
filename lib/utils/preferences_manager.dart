@@ -1,13 +1,18 @@
+import 'dart:convert';
+
+import 'package:serene_track/model/src/todo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _isLoginKey = 'isLogin';
-const _accessTokenKey = 'accessToken';
-const _tokenTypeKey = 'tokenType';
+const String _isLoginKey = 'isLogin';
+const String _accessTokenKey = 'accessToken';
+const String _tokenTypeKey = 'tokenType';
+const String _todoNotificationsKey = 'todo_notifications';
 
 class PreferencesManager {
   factory PreferencesManager() {
     return _incessance;
   }
+
   PreferencesManager._internal();
   static late SharedPreferences _preferences;
   static final PreferencesManager _incessance = PreferencesManager._internal();
@@ -51,5 +56,22 @@ class PreferencesManager {
 
   Future<void> deleteTokenType() async {
     await _preferences.remove(_tokenTypeKey);
+  }
+
+  Future<List<Todo>> get getTodoNotifications async {
+    List<String> stringList =
+        _preferences.getStringList(_todoNotificationsKey) ?? [];
+    return stringList
+        .map((string) => Todo.fromJson(jsonDecode(string)))
+        .toList();
+  }
+
+  Future<void> setTodoNotifications({
+    required List<Todo> todoNotifications,
+  }) async {
+    List<String> stringList = todoNotifications
+        .map((notification) => jsonEncode(notification.toJson()))
+        .toList();
+    await _preferences.setStringList(_todoNotificationsKey, stringList);
   }
 }
