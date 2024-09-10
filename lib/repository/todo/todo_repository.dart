@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:serene_track/model/enum/result.dart';
+import 'package:serene_track/model/src/result.dart';
 import 'package:serene_track/model/src/todo.dart';
 
 abstract class TodoRepository {
