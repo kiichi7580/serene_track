@@ -26,4 +26,11 @@ abstract class TodoRepository {
     required String tokenType,
     required Todo todo,
   });
+
+  Future<Result<Todo>> offTodoNotification({
+    required String accessToken,
+    required String tokenType,
+    required FormData formData,
+    required Todo todo,
+  });
 }
