@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:serene_track/model/enum/result.dart';
+import 'package:serene_track/model/src/result.dart';
 import 'package:serene_track/model/src/todo.dart';
 
 abstract class TodoRepository {
@@ -24,6 +24,13 @@ abstract class TodoRepository {
   Future<Result<Todo>> deleteTodo({
     required String accessToken,
     required String tokenType,
+    required Todo todo,
+  });
+
+  Future<Result<Todo>> offTodoNotification({
+    required String accessToken,
+    required String tokenType,
+    required FormData formData,
     required Todo todo,
   });
 }

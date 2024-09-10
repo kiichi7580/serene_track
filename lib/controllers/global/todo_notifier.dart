@@ -6,6 +6,8 @@ import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/infrastructure/todo/todo_repository_impl.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/repository/todo/todo_repository.dart';
+import 'package:serene_track/utils/notification/todo_notifications.dart';
+import 'package:serene_track/utils/preferences_manager.dart';
 
 part 'todo_notifier.freezed.dart';
 
@@ -59,6 +61,7 @@ class TodoController extends StateNotifier<TodoState> {
     required String description,
     required bool completed,
     required String categoryId,
+    DateTime? notificationTime,
   }) async {
     String res = failureCreate;
     if (_userNotifier.accessToken.isNotEmpty &&
@@ -69,6 +72,7 @@ class TodoController extends StateNotifier<TodoState> {
         'description': description,
         'complete': completed,
         'category_id': categoryId,
+        'notification_time': notificationTime,
       });
       final result = await todoRepository.createTodo(
         accessToken: _userNotifier.accessToken,
@@ -81,6 +85,9 @@ class TodoController extends StateNotifier<TodoState> {
             return;
           }
           add(todo);
+          if (todo.notificationTime != null) {
+            setTodoNotifications(todo: todo);
+          }
           state = state.copyWith(isLoading: false);
           res = successRes;
         },
@@ -135,6 +142,7 @@ class TodoController extends StateNotifier<TodoState> {
     required String description,
     required bool completed,
     required String categoryId,
+    DateTime? notificationTime,
   }) async {
     String res = failureUpDate;
     state = state.copyWith(isLoading: true);
@@ -146,6 +154,7 @@ class TodoController extends StateNotifier<TodoState> {
         'description': description,
         'complete': completed,
         'category_id': categoryId,
+        'notification_time': notificationTime,
       });
       final result = await todoRepository.updateTodo(
         accessToken: _userNotifier.accessToken,
@@ -156,6 +165,9 @@ class TodoController extends StateNotifier<TodoState> {
       result.when(
         success: (todo) {
           update(todo);
+          if (todo.notificationTime != null) {
+            updateTodoNotifications(updateTodo: todo);
+          }
           state = state.copyWith(isLoading: false);
           res = successRes;
         },
@@ -189,6 +201,7 @@ class TodoController extends StateNotifier<TodoState> {
       result.when(
         success: (todo) {
           delete(todo);
+          deleteTodoNotifications(deleteTodo: todo);
           state = state.copyWith(isLoading: false);
           res = successRes;
         },
@@ -207,6 +220,41 @@ class TodoController extends StateNotifier<TodoState> {
     state = state.copyWith(todos: newList);
   }
 
+  Future<String> offTodoNotification({
+    required DateTime? notificationTime,
+  }) async {
+    String res = failureUpDate;
+    state = state.copyWith(isLoading: true);
+    if (_userNotifier.accessToken.isNotEmpty &&
+        _userNotifier.tokenType.isNotEmpty &&
+        _userNotifier.user.id != 0) {
+      final formData = FormData.fromMap({
+        'notification_time': notificationTime,
+      });
+      final result = await todoRepository.offTodoNotification(
+        accessToken: _userNotifier.accessToken,
+        tokenType: _userNotifier.tokenType,
+        formData: formData,
+        todo: state.selectedTodo,
+      );
+      result.when(
+        success: (todo) {
+          update(todo);
+          if (todo.notificationTime == null) {
+            deleteTodoNotifications(deleteTodo: todo);
+          }
+          state = state.copyWith(isLoading: false);
+          res = successRes;
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          res = error.toString();
+        },
+      );
+    }
+    return res;
+  }
+
   void changeTabIndex(int tabIndex) {
     state = state.copyWith(tabIndex: tabIndex);
   }
@@ -221,5 +269,46 @@ class TodoController extends StateNotifier<TodoState> {
 
   void setSelectedTodoIndex(int selectedTodoIndex) {
     state = state.copyWith(selectedTodoIndex: selectedTodoIndex);
+  }
+
+  Future<void> setTodoNotifications({
+    required Todo todo,
+  }) async {
+    List<Todo> todoNotifications =
+        await PreferencesManager().getTodoNotifications;
+    todoNotifications.add(todo);
+    await PreferencesManager()
+        .setTodoNotifications(todoNotifications: todoNotifications);
+    await dailyProteinNotifications(todoNotifications);
+  }
+
+  Future<void> updateTodoNotifications({
+    required Todo updateTodo,
+  }) async {
+    List<Todo> todoNotifications =
+        await PreferencesManager().getTodoNotifications;
+    final index =
+        todoNotifications.indexWhere((todo) => todo.id == updateTodo.id);
+
+    // 当てはまるindexがない場合、-1の値になる
+    if (index != -1) {
+      todoNotifications[index] = updateTodo;
+    } else {
+      todoNotifications.add(updateTodo);
+    }
+    await PreferencesManager()
+        .setTodoNotifications(todoNotifications: todoNotifications);
+    await dailyProteinNotifications(todoNotifications);
+  }
+
+  Future<void> deleteTodoNotifications({
+    required Todo deleteTodo,
+  }) async {
+    List<Todo> todoNotifications =
+        await PreferencesManager().getTodoNotifications;
+    todoNotifications.removeWhere((todo) => todo.id == deleteTodo.id);
+    await PreferencesManager()
+        .setTodoNotifications(todoNotifications: todoNotifications);
+    await dailyProteinNotifications(todoNotifications);
   }
 }

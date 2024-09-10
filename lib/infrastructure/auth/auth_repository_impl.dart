@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/controllers/global/dio_notifier.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
-import 'package:serene_track/model/enum/result.dart';
+import 'package:serene_track/model/src/result.dart';
 import 'package:serene_track/model/src/user.dart';
 import 'package:serene_track/repository/auth/auth_repository.dart';
 import 'dart:convert' as convert;

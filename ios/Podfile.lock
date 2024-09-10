@@ -4,6 +4,8 @@ PODS:
   - device_info_plus (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - flutter_native_splash (0.0.1):
     - Flutter
   - health (1.0.4):
@@ -13,6 +15,8 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - permission_handler_apple (9.3.0):
+    - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -23,10 +27,12 @@ DEPENDENCIES:
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - health (from `.symlinks/plugins/health/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
@@ -37,6 +43,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info_plus/ios"
   Flutter:
     :path: Flutter
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_native_splash:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   health:
@@ -45,6 +53,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   url_launcher_ios:
@@ -54,13 +64,15 @@ SPEC CHECKSUMS:
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
   health: 5a380c0f6c4f619535845992993964293962e99e
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
 
-PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
+PODFILE CHECKSUM: c5fdce31fba3a0614908362d521066cae3f472a8
 
 COCOAPODS: 1.15.2

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:serene_track/components/custom_dialog.dart';
+import 'package:serene_track/components/dialog/custom_dialog.dart';
 import 'package:serene_track/constant/colors.dart';
 
 Future<bool?> showDeleteConfirmationDialog(BuildContext context) {

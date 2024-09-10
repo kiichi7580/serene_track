@@ -12,9 +12,11 @@ import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/sign_up_page.dart';
 import 'package:serene_track/view/health_care_page/health_care_app_integration_page.dart';
 import 'package:serene_track/view/montring_page/montring_page.dart';
+import 'package:serene_track/view/notification_setting_page/notification_setting_page.dart';
 import 'package:serene_track/view/splash_page/splash_page.dart';
 import 'package:serene_track/view/todo_add_page/todo_add_page.dart';
 import 'package:serene_track/view/todo_edit_page/todo_edit_page.dart';
+import 'package:serene_track/view/todo_notification_page/todo_notification_page.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -124,6 +126,18 @@ final routerProvider = Provider<GoRouter>(
                 return const AccountEditPage();
               },
             ),
+            GoRoute(
+                path: NotificationSettingPage.routeLocation,
+                name: NotificationSettingPage.routeName,
+                builder: (context, state) {
+                  return const NotificationSettingPage();
+                }),
+            GoRoute(
+                path: TodoNotificationPage.routeLocation,
+                name: TodoNotificationPage.routeName,
+                builder: (context, state) {
+                  return const TodoNotificationPage();
+                }),
             GoRoute(
               path: HealthCareAppIntegrationPage.routeLocation,
               name: HealthCareAppIntegrationPage.routeName,

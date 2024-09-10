@@ -6,6 +6,7 @@ import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_edit_page/todo_edit_page.dart';
+import 'package:serene_track/view/todo_notification_page/todo_notification_page.dart';
 
 class CustomCheckboxTile extends ConsumerWidget {
   const CustomCheckboxTile({
@@ -61,8 +62,20 @@ class CustomCheckboxTile extends ConsumerWidget {
             ? null
             : Text(todos[index].description),
         trailing: todos[index].notificationTime != null
-            ? const Icon(Icons.notifications)
-            : const Icon(Icons.notifications_none),
+            ? IconButton(
+                onPressed: () {
+                  context.push(TodoNotificationPage.routeLocation);
+                },
+                icon: const Icon(Icons.notifications),
+              )
+            : IconButton(
+                onPressed: () {
+                  ref.read(todoProvider.notifier).setSelectedTodo(todos[index]);
+                  ref.read(todoProvider.notifier).setSelectedTodoIndex(index);
+                  context.push(TodoEditPage.routeLocation);
+                },
+                icon: const Icon(Icons.notifications_none),
+              ),
       ),
     );
   }

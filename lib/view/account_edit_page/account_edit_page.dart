@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:serene_track/components/loading_button.dart';
+import 'package:serene_track/components/button/loading_button.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
@@ -10,7 +10,7 @@ import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/model/enum/form_state.dart';
 import 'package:serene_track/view/account_edit_page/components/account_text_field.dart';
-import 'package:serene_track/components/custom_button.dart';
+import 'package:serene_track/components/button/custom_button.dart';
 import 'package:serene_track/view/account_edit_page/provider/account_text_field_notifier.dart';
 import 'package:serene_track/view/account_edit_page/provider/form_key_for_edit_account_notifier.dart';
 import 'package:serene_track/view/account_page/account_page.dart';

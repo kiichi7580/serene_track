@@ -8,7 +8,7 @@ import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/view/account_edit_page/account_edit_page.dart';
-import 'package:serene_track/components/image_dialog.dart';
+import 'package:serene_track/components/dialog/show_image_dialog.dart';
 import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
 
 class AccountHeader extends ConsumerWidget {
@@ -47,7 +47,7 @@ class AccountHeader extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () async {
-                        await imageDialog(
+                        await showImageDialog(
                           context: context,
                           imageUrl: user.photoUrl,
                         );

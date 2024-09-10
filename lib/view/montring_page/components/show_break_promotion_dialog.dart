@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:serene_track/components/custom_dialog.dart';
+import 'package:serene_track/components/dialog/custom_dialog.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/view/montring_page/provider/show_break_promotion_dialog_notifier.dart';
 import 'package:serene_track/view/montring_page/components/break_checkbox_tile.dart';
@@ -47,7 +47,7 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
                   value: checkedList[0],
                   onChanged: (value) {
                     ref
-                        .watch(showBreakPromotionDialogProvider.notifier)
+                        .read(showBreakPromotionDialogProvider.notifier)
                         .changeCheckedList(0, value!);
                   },
                 ),
@@ -57,7 +57,7 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
                   value: checkedList[1],
                   onChanged: (value) {
                     ref
-                        .watch(showBreakPromotionDialogProvider.notifier)
+                        .read(showBreakPromotionDialogProvider.notifier)
                         .changeCheckedList(1, value!);
                   },
                 ),
@@ -67,7 +67,7 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
                   value: checkedList[2],
                   onChanged: (value) {
                     ref
-                        .watch(showBreakPromotionDialogProvider.notifier)
+                        .read(showBreakPromotionDialogProvider.notifier)
                         .changeCheckedList(2, value!);
                   },
                 ),
@@ -78,7 +78,7 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
                   value: checkedList[3],
                   onChanged: (value) {
                     ref
-                        .watch(showBreakPromotionDialogProvider.notifier)
+                        .read(showBreakPromotionDialogProvider.notifier)
                         .changeCheckedList(3, value!);
                   },
                 ),
@@ -97,7 +97,7 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
             ),
             onPressed: () {
               ref
-                  .watch(showBreakPromotionDialogProvider.notifier)
+                  .read(showBreakPromotionDialogProvider.notifier)
                   .getInitCheckedList(4);
               Navigator.pop(context, false);
             },
@@ -119,7 +119,7 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
             onPressed: allChecked
                 ? () {
                     ref
-                        .watch(showBreakPromotionDialogProvider.notifier)
+                        .read(showBreakPromotionDialogProvider.notifier)
                         .getInitCheckedList(4);
                     Navigator.pop(context, true);
                   }

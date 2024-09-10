@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/controllers/global/dio_notifier.dart';
-import 'package:serene_track/model/enum/result.dart';
+import 'package:serene_track/model/src/result.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/repository/todo/todo_repository.dart';
 
@@ -107,6 +107,34 @@ class TodoRepositoryImpl implements TodoRepository {
         ),
       );
       if (response.statusCode == 204) {
+        return todo;
+      } else {
+        throw Exception('Unexpected response format');
+      }
+    });
+  }
+
+  @override
+  Future<Result<Todo>> offTodoNotification({
+    required String accessToken,
+    required String tokenType,
+    required Todo todo,
+    required FormData formData,
+  }) {
+    return Result.guardFuture(() async {
+      await Future.delayed(const Duration(seconds: 1));
+
+      final response = await _dio.put(
+        '/todo/notification_time/${todo.id}',
+        options: Options(
+          headers: {'Authorization': '$tokenType $accessToken'},
+        ),
+        data: formData,
+      );
+      if (response.statusCode == 204) {
+        return todo;
+      } else if (response.data != null) {
+        todo = Todo.fromJson(response.data);
         return todo;
       } else {
         throw Exception('Unexpected response format');

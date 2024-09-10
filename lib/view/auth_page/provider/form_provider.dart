@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:serene_track/model/enum/form_logic.dart';
+import 'package:serene_track/ui_core/validator/form_logic.dart';
 import 'package:serene_track/model/enum/form_state.dart';
 
 final formProvider =
