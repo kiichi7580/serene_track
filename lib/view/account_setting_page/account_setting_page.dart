@@ -12,6 +12,7 @@ import 'package:serene_track/view/account_setting_page/components/show_sign_out_
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/health_care_page/health_care_app_integration_page.dart';
 import 'package:serene_track/view/notification_setting_page/notification_setting_page.dart';
+import 'package:serene_track/view/todo_notification_page/todo_notification_page.dart';
 
 class AccountSettingPage extends ConsumerWidget {
   const AccountSettingPage({super.key});
@@ -34,6 +35,13 @@ class AccountSettingPage extends ConsumerWidget {
             iconData: Icons.notifications,
             onTap: () {
               context.push(NotificationSettingPage.routeLocation);
+            },
+          ),
+          settingItem(
+            title: 'タスク通知設定',
+            iconData: Icons.task_alt,
+            onTap: () {
+              context.push(TodoNotificationPage.routeLocation);
             },
           ),
           settingItem(
