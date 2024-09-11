@@ -23,7 +23,8 @@ mixin _$Todo {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get categoryId => throw _privateConstructorUsedError;
+  @CategoryEnumConverter()
+  Category? get categoryId => throw _privateConstructorUsedError;
   int get ownerId => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
   DateTime? get notificationTime => throw _privateConstructorUsedError;
@@ -43,7 +44,7 @@ abstract class $TodoCopyWith<$Res> {
       {int id,
       String title,
       String description,
-      String categoryId,
+      @CategoryEnumConverter() Category? categoryId,
       int ownerId,
       bool completed,
       DateTime? notificationTime,
@@ -66,7 +67,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? id = null,
     Object? title = null,
     Object? description = null,
-    Object? categoryId = null,
+    Object? categoryId = freezed,
     Object? ownerId = null,
     Object? completed = null,
     Object? notificationTime = freezed,
@@ -85,10 +86,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryId: null == categoryId
+      categoryId: freezed == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Category?,
       ownerId: null == ownerId
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
@@ -120,7 +121,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       {int id,
       String title,
       String description,
-      String categoryId,
+      @CategoryEnumConverter() Category? categoryId,
       int ownerId,
       bool completed,
       DateTime? notificationTime,
@@ -140,7 +141,7 @@ class __$$TodoImplCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? description = null,
-    Object? categoryId = null,
+    Object? categoryId = freezed,
     Object? ownerId = null,
     Object? completed = null,
     Object? notificationTime = freezed,
@@ -159,10 +160,10 @@ class __$$TodoImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryId: null == categoryId
+      categoryId: freezed == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Category?,
       ownerId: null == ownerId
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
@@ -191,7 +192,7 @@ class _$TodoImpl implements _Todo {
       {this.id = 0,
       this.title = '',
       this.description = '',
-      this.categoryId = '',
+      @CategoryEnumConverter() this.categoryId,
       this.ownerId = 0,
       this.completed = false,
       this.notificationTime = null,
@@ -210,8 +211,8 @@ class _$TodoImpl implements _Todo {
   @JsonKey()
   final String description;
   @override
-  @JsonKey()
-  final String categoryId;
+  @CategoryEnumConverter()
+  final Category? categoryId;
   @override
   @JsonKey()
   final int ownerId;
@@ -274,7 +275,7 @@ abstract class _Todo implements Todo {
       {final int id,
       final String title,
       final String description,
-      final String categoryId,
+      @CategoryEnumConverter() final Category? categoryId,
       final int ownerId,
       final bool completed,
       final DateTime? notificationTime,
@@ -289,7 +290,8 @@ abstract class _Todo implements Todo {
   @override
   String get description;
   @override
-  String get categoryId;
+  @CategoryEnumConverter()
+  Category? get categoryId;
   @override
   int get ownerId;
   @override

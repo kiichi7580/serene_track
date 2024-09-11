@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/components/dialog/show_off_todo_notification_dialog.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
@@ -9,6 +10,7 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/utils/notification/todo_notifications.dart';
 import 'package:serene_track/utils/permission/request_notification_permission.dart';
@@ -84,7 +86,7 @@ class TodoNotificationPageState extends ConsumerState<TodoNotificationPage> {
                 children: [
                   const SizedBox(height: 80),
                   Icon(
-                    Icons.checklist,
+                    LineIcons.alternateListAlt,
                     size: 60,
                     color: lightGreyColor,
                   ),
@@ -112,40 +114,64 @@ class TodoNotificationPageState extends ConsumerState<TodoNotificationPage> {
                         return Column(
                           children: [
                             ListTile(
-                              title: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: todoNotifications[index].categoryId,
-                                      style: TextStyles.taskTitleBoldStyle
-                                          .copyWith(
-                                        color: yellowGreenColor,
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 2,
+                                          horizontal: 8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          color: categoryColor(
+                                            todoNotifications[index]
+                                                .categoryId!,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          todoNotifications[index]
+                                              .categoryId!
+                                              .label,
+                                          style: TextStyles.taskTitleBoldStyle
+                                              .copyWith(
+                                            color: backGroundColor,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          '${todoNotifications[index].title}\n',
-                                      style: TextStyles.taskTitleBoldStyle,
-                                    ),
-                                    if (todoNotifications[index]
-                                            .notificationTime !=
-                                        null)
-                                      TextSpan(
-                                        text: '通知${index + 1}: ',
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        '${todoNotifications[index].notificationTime!.hour}時${todoNotifications[index].notificationTime!.minute}分',
                                         style: TextStyles.taskTitleBoldStyle,
                                       ),
-                                    TextSpan(
-                                      text:
-                                          '${todoNotifications[index].notificationTime!.hour}時${todoNotifications[index].notificationTime!.minute}分',
-                                      style: TextStyles.taskTitleBoldStyle,
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        LineIcons.bullhorn,
+                                        color: categoryColor(
+                                          todoNotifications[index].categoryId!,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        todoNotifications[index].title,
+                                        style: TextStyles.taskTitleBoldStyle,
+                                        softWrap: true,
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                               trailing: Builder(
                                 builder: (context) {
                                   return IconButton(
-                                    icon: const Icon(Icons.delete),
+                                    icon: const Icon(LineIcons.alternateTrash),
                                     onPressed: () async {
                                       final response =
                                           await showOffTodoNotificationDialog(

@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/infrastructure/todo/todo_repository_impl.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/repository/todo/todo_repository.dart';
 import 'package:serene_track/utils/notification/todo_notifications.dart';
@@ -60,18 +62,19 @@ class TodoController extends StateNotifier<TodoState> {
     required String title,
     required String description,
     required bool completed,
-    required String categoryId,
+    required Category categoryId,
     DateTime? notificationTime,
   }) async {
     String res = failureCreate;
     if (_userNotifier.accessToken.isNotEmpty &&
         _userNotifier.tokenType.isNotEmpty) {
       state = state.copyWith(isLoading: true);
+      String categoryString = EnumToString.convertToString(categoryId);
       final formData = FormData.fromMap({
         'title': title,
         'description': description,
         'complete': completed,
-        'category_id': categoryId,
+        'category_id': categoryString,
         'notification_time': notificationTime,
       });
       final result = await todoRepository.createTodo(
@@ -141,7 +144,7 @@ class TodoController extends StateNotifier<TodoState> {
     required String title,
     required String description,
     required bool completed,
-    required String categoryId,
+    required Category categoryId,
     DateTime? notificationTime,
   }) async {
     String res = failureUpDate;
@@ -149,11 +152,12 @@ class TodoController extends StateNotifier<TodoState> {
     if (_userNotifier.accessToken.isNotEmpty &&
         _userNotifier.tokenType.isNotEmpty &&
         _userNotifier.user.id != 0) {
+      String categoryString = EnumToString.convertToString(categoryId);
       final formData = FormData.fromMap({
         'title': title,
         'description': description,
         'complete': completed,
-        'category_id': categoryId,
+        'category_id': categoryString,
         'notification_time': notificationTime,
       });
       final result = await todoRepository.updateTodo(

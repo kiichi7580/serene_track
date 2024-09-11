@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/components/dialog/show_delete_confirmation_dialog.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/exercise_todo_tab/provider/exercise_todo_tab_notifier.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -20,7 +22,7 @@ class ExerciseTodoTab extends ConsumerWidget {
     //     exerciseTodoTabProvider.select((value) => value.exerciseTodoList));
     final exerciseTodos = ref
         .watch(todoProvider.select((value) => value.todos))
-        .where((value) => value.categoryId == exerciseTx)
+        .where((value) => value.categoryId == Category.exercise)
         .toList();
     final selectedItemList = ref
         .watch(exerciseTodoTabProvider.select((value) => value.isSelectedList));
@@ -35,7 +37,7 @@ class ExerciseTodoTab extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
-              Icons.sports_gymnastics,
+              LineIcons.running,
               size: 60,
               color: yellowGreenColor2,
             ),
@@ -92,16 +94,15 @@ class ExerciseTodoTab extends ConsumerWidget {
                       },
                       backgroundColor: deleteColor,
                       foregroundColor: backGroundColor,
-                      icon: Icons.delete,
+                      icon: LineIcons.alternateTrash,
                     ),
                   ],
                 ),
                 child: CustomCheckboxTile(
-                  // todo: todo,
                   todos: exerciseTodos,
                   index: index,
                   value: checkedList[index],
-                  fillColor: sandwispColor,
+                  fillColor: yellowGreenColor,
                   onTap: () {
                     ref
                         .read(exerciseTodoTabProvider.notifier)

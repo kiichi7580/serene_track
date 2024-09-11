@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
@@ -46,7 +47,7 @@ class TodoPageState extends ConsumerState<TodoPage>
               ref.read(todoProvider.notifier).changeEditMode();
             },
             icon: Icon(
-              Icons.edit,
+              LineIcons.edit,
               color: editMode ? selectedColor : textMainColor,
             ),
           ),
@@ -54,7 +55,7 @@ class TodoPageState extends ConsumerState<TodoPage>
             onPressed: () {
               context.push(TodoAddPage.routeLocation);
             },
-            icon: const Icon(Icons.add),
+            icon: const Icon(LineIcons.plus),
           ),
         ],
       ),

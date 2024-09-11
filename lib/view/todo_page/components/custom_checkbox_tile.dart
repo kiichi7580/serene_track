@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
@@ -44,7 +45,7 @@ class CustomCheckboxTile extends ConsumerWidget {
                   ref.read(todoProvider.notifier).setSelectedTodoIndex(index);
                   context.push(TodoEditPage.routeLocation);
                 },
-                icon: const Icon(Icons.edit, color: selectedColor),
+                icon: const Icon(LineIcons.pen, color: selectedColor),
               )
             : Checkbox(
                 fillColor:
@@ -66,7 +67,7 @@ class CustomCheckboxTile extends ConsumerWidget {
                 onPressed: () {
                   context.push(TodoNotificationPage.routeLocation);
                 },
-                icon: const Icon(Icons.notifications),
+                icon: const Icon(LineIcons.bell),
               )
             : IconButton(
                 onPressed: () {
@@ -74,7 +75,7 @@ class CustomCheckboxTile extends ConsumerWidget {
                   ref.read(todoProvider.notifier).setSelectedTodoIndex(index);
                   context.push(TodoEditPage.routeLocation);
                 },
-                icon: const Icon(Icons.notifications_none),
+                icon: const Icon(LineIcons.bellSlash),
               ),
       ),
     );

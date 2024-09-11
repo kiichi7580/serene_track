@@ -134,6 +134,9 @@ class _HealthCareAppIntegrationPageState
       ref
           .read(userProvider.notifier)
           .updateHealthDataIntegrationStatus(hasPermissions);
+      if (hasPermissions) {
+        fetchData();
+      }
     } catch (e) {
       ref.read(userProvider.notifier).updateHealthDataIntegrationStatus(false);
       throw ('Error: $e');

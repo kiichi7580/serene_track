@@ -11,6 +11,7 @@ import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/components/button/custom_button.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/enum/form_state.dart';
 import 'package:serene_track/ui_core/format/datetime_format.dart';
 import 'package:serene_track/view/auth_page/provider/form_provider.dart';
@@ -20,17 +21,34 @@ import 'package:serene_track/view/todo_edit_page/provider/form_key_for_edit_todo
 import 'package:serene_track/view/todo_page/components/todo_text_field.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
 
-class TodoEditPage extends ConsumerWidget {
+class TodoEditPage extends ConsumerStatefulWidget {
   const TodoEditPage({super.key});
   static String get routeName => 'todo_edit';
   static String get routeLocation => '/$routeName';
+
+  @override
+  TodoEditPageState createState() => TodoEditPageState();
+}
+
+class TodoEditPageState extends ConsumerState<TodoEditPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final selectedTodo =
+          ref.watch(todoProvider.select((value) => value.selectedTodo));
+      ref
+          .read(categoryNotifierProvider.notifier)
+          .setValue(selectedTodo.categoryId);
+    });
+  }
 
   Future<String> updateTodo({
     required WidgetRef ref,
     required String title,
     required String description,
     required bool completed,
-    required String categoryId,
+    required Category categoryId,
     DateTime? notificationTime,
   }) async {
     String res = failureUpDate;
@@ -46,8 +64,13 @@ class TodoEditPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final items = [allTx, exerciseTx, sleepTx, workTx];
+  Widget build(BuildContext context) {
+    final items = [
+      Category.all,
+      Category.exercise,
+      Category.sleep,
+      Category.work,
+    ];
     final isLoading =
         ref.watch(todoProvider.select((value) => value.isLoading));
     final selectedTodo =
@@ -94,32 +117,30 @@ class TodoEditPage extends ConsumerWidget {
                 SizedBox(
                   height: 56,
                   width: 72,
-                  child: Consumer(builder: (context, ref, _) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      ref
-                          .read(categoryNotifierProvider.notifier)
-                          .setValue(selectedTodo.categoryId);
-                    });
-                    return DropdownButton(
-                      items: items
-                          .map((item) => DropdownMenuItem<String>(
-                                alignment: AlignmentDirectional.center,
-                                value: item,
-                                child: Text(item),
-                              ))
-                          .toList(),
-                      value: ref.watch(categoryNotifierProvider),
-                      onChanged: (value) {
-                        ref
-                            .read(categoryNotifierProvider.notifier)
-                            .setValue(value);
-                      },
-                      underline: Container(
-                        height: 1,
-                        color: textMainColor,
-                      ),
-                    );
-                  }),
+                  child: Consumer(
+                    builder: (context, ref, _) {
+                      return DropdownButton(
+                        dropdownColor: backGroundColor,
+                        items: items
+                            .map((item) => DropdownMenuItem<Category>(
+                                  alignment: AlignmentDirectional.center,
+                                  value: item,
+                                  child: Text(item.label),
+                                ))
+                            .toList(),
+                        value: ref.watch(categoryNotifierProvider),
+                        onChanged: (value) {
+                          ref
+                              .read(categoryNotifierProvider.notifier)
+                              .setValue(value);
+                        },
+                        underline: Container(
+                          height: 1,
+                          color: textMainColor,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(height: 8),
                 TodoTextField(

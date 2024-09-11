@@ -173,12 +173,12 @@ class _TitleControllerNotifierProviderElement
   String get text => (origin as TitleControllerNotifierProvider).text;
 }
 
-String _$categoryNotifierHash() => r'98f5c779605edb81c41ef4e5d1d4795aaa16fb0d';
+String _$categoryNotifierHash() => r'f20d2cab16ef0e7d7dd2aed6f28ecd24aad72dee';
 
 /// See also [CategoryNotifier].
 @ProviderFor(CategoryNotifier)
 final categoryNotifierProvider =
-    AutoDisposeNotifierProvider<CategoryNotifier, String?>.internal(
+    AutoDisposeNotifierProvider<CategoryNotifier, Category?>.internal(
   CategoryNotifier.new,
   name: r'categoryNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -188,7 +188,7 @@ final categoryNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CategoryNotifier = AutoDisposeNotifier<String?>;
+typedef _$CategoryNotifier = AutoDisposeNotifier<Category?>;
 String _$descriptionControllerNotifierHash() =>
     r'b4eafa28bbeeb660b61acfacdef5782165f30bce';
 

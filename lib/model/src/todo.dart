@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:serene_track/model/enum/category.dart';
 
 part 'todo.freezed.dart';
 part 'todo.g.dart';
@@ -10,7 +11,7 @@ abstract class Todo with _$Todo {
     @Default(0) int id,
     @Default('') String title,
     @Default('') String description,
-    @Default('') String categoryId,
+    @CategoryEnumConverter() Category? categoryId,
     @Default(0) int ownerId,
     @Default(false) bool completed,
     @Default(null) DateTime? notificationTime,

@@ -11,6 +11,7 @@ import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/components/button/custom_button.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/enum/form_state.dart';
 import 'package:serene_track/ui_core/format/datetime_format.dart';
 import 'package:serene_track/view/auth_page/provider/form_provider.dart';
@@ -30,7 +31,7 @@ class TodoAddPage extends ConsumerWidget {
     required String title,
     required String description,
     required bool completed,
-    required String categoryId,
+    required Category categoryId,
     DateTime? notificationTime,
   }) async {
     String res = failureCreate;
@@ -47,7 +48,12 @@ class TodoAddPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = [allTx, exerciseTx, sleepTx, workTx];
+    final items = [
+      Category.all,
+      Category.exercise,
+      Category.sleep,
+      Category.work,
+    ];
     final isLoading =
         ref.watch(todoProvider.select((value) => value.isLoading));
     final formKey = ref.watch(formKeyForAddTodoNotifierProvider);
@@ -93,11 +99,12 @@ class TodoAddPage extends ConsumerWidget {
                   width: 72,
                   child: Consumer(builder: (context, ref, _) {
                     return DropdownButton(
+                      dropdownColor: backGroundColor,
                       items: items
-                          .map((item) => DropdownMenuItem<String>(
+                          .map((item) => DropdownMenuItem<Category>(
                                 alignment: AlignmentDirectional.center,
                                 value: item,
-                                child: Text(item),
+                                child: Text(item.label),
                               ))
                           .toList(),
                       value: ref.watch(categoryNotifierProvider),

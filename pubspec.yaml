@@ -55,6 +55,8 @@ dependencies:
   flutter_local_notifications: ^17.2.2
   permission_handler: ^11.3.1
   flutter_datetime_picker_plus: ^2.2.0
+  line_icons: ^2.0.3
+  enum_to_string: ^2.0.1
 
 dev_dependencies:
   flutter_test:

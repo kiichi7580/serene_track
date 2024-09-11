@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
@@ -94,7 +95,7 @@ class AccountHeader extends ConsumerWidget {
                       bottom: -10,
                       child: IconButton(
                         icon: const Icon(
-                          Icons.add,
+                          LineIcons.plus,
                           color: backGroundColor,
                           size: 16,
                         ),
@@ -123,7 +124,7 @@ class AccountHeader extends ConsumerWidget {
                 context.push(AccountSettingPage.routeLocation);
               },
               icon: const Icon(
-                Icons.menu,
+                LineIcons.bars,
                 color: textMainColor,
               ),
             ),

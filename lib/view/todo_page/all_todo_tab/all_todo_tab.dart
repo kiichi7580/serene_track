@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/components/dialog/show_delete_confirmation_dialog.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
@@ -30,7 +31,7 @@ class AllTodoTab extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
-              Icons.checklist,
+              LineIcons.alternateListAlt,
               size: 60,
               color: sandwispColor2,
             ),
@@ -88,7 +89,7 @@ class AllTodoTab extends ConsumerWidget {
                       },
                       backgroundColor: deleteColor,
                       foregroundColor: backGroundColor,
-                      icon: Icons.delete,
+                      icon: LineIcons.alternateTrash,
                     ),
                   ],
                 ),
