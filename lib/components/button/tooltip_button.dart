@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 Widget tooltipButton(String? message) {
   return Tooltip(
@@ -24,7 +25,7 @@ Widget tooltipButton(String? message) {
     triggerMode: TooltipTriggerMode.tap,
     enableFeedback: true,
     child: const Icon(
-      CupertinoIcons.question_circle,
+      LineIcons.questionCircle,
       color: Colors.grey,
       size: 30,
     ),

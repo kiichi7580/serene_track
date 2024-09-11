@@ -7,6 +7,7 @@ import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/view/account_page/account_page.dart';
 import 'package:serene_track/view/montring_page/montring_page.dart';
 import 'package:serene_track/view/todo_page/todo_page.dart';
+import 'package:line_icons/line_icons.dart';
 
 class BottomNavigation extends ConsumerWidget {
   const BottomNavigation({super.key, required this.child});
@@ -44,21 +45,21 @@ class BottomNavigation extends ConsumerWidget {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.add_task,
+              LineIcons.alternateListAlt,
               color: index == 0 ? selectedColor : unselectedColor,
             ),
             label: taskTx,
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.analytics,
+              LineIcons.clock,
               color: index == 1 ? selectedColor : unselectedColor,
             ),
             label: montringTx,
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.account_circle,
+              LineIcons.userCircle,
               color: index == 2 ? selectedColor : unselectedColor,
             ),
             label: accountTx,

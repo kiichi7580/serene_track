@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/view/account_page/steps_tab/provider/steps_tab_notifier.dart';
 
@@ -22,7 +23,7 @@ class TodayStepsCard extends ConsumerWidget {
               const Row(
                 children: [
                   Icon(
-                    Icons.local_fire_department,
+                    LineIcons.alternateFire,
                     color: healthCareStepsColor,
                   ),
                   Text(

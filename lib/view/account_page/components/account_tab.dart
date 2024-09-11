@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 
@@ -33,13 +34,13 @@ class AccountTab extends StatelessWidget {
   IconData tabIcon(String tabName) {
     switch (tabName) {
       case 'タスク':
-        return Icons.task_alt;
+        return LineIcons.checkSquareAlt;
       case '歩数':
-        return Icons.directions_walk_rounded;
+        return LineIcons.shoePrints;
       case '睡眠':
-        return Icons.bed;
+        return LineIcons.bed;
       default:
-        return Icons.task_alt;
+        return LineIcons.checkSquareAlt;
     }
   }
 }

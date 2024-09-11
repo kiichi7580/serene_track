@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/components/dialog/show_delete_confirmation_dialog.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
@@ -32,28 +33,28 @@ class AccountSettingPage extends ConsumerWidget {
           const SizedBox(height: 16),
           settingItem(
             title: '通知設定',
-            iconData: Icons.notifications,
+            iconData: LineIcons.bell,
             onTap: () {
               context.push(NotificationSettingPage.routeLocation);
             },
           ),
           settingItem(
             title: 'タスク通知設定',
-            iconData: Icons.task_alt,
+            iconData: LineIcons.bullhorn,
             onTap: () {
               context.push(TodoNotificationPage.routeLocation);
             },
           ),
           settingItem(
             title: 'ヘルスケアと連携する',
-            iconData: Icons.favorite,
+            iconData: LineIcons.heartAlt,
             onTap: () {
               context.push(HealthCareAppIntegrationPage.routeLocation);
             },
           ),
           settingItem2(
             title: 'サインアウトする',
-            iconData: Icons.logout,
+            iconData: LineIcons.alternateSignOut,
             onTap: () async {
               final response = await showSignOutDialog(context);
               if (response == null || response == false) {
@@ -66,7 +67,7 @@ class AccountSettingPage extends ConsumerWidget {
           ),
           settingItem2(
             title: 'アカウントを削除する',
-            iconData: Icons.person_off,
+            iconData: LineIcons.userSlash,
             onTap: () async {
               final response = await showDeleteConfirmationDialog(context);
               if (response == null || response == false) {
@@ -100,7 +101,7 @@ class AccountSettingPage extends ConsumerWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
       leading: Icon(iconData),
       title: Text(title, style: TextStyles.caption),
-      trailing: const Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(LineIcons.angleRight),
       onTap: onTap,
     );
   }

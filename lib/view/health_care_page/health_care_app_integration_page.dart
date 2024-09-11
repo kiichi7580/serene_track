@@ -178,6 +178,7 @@ class _HealthCareAppIntegrationPageState
   Widget build(BuildContext context) {
     final healthDataIntegrationStatus = ref.watch(
         userProvider.select((value) => value.user.healthDataIntegrationStatus));
+    print('health: $healthDataIntegrationStatus');
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: myAppBar(
@@ -197,6 +198,7 @@ class _HealthCareAppIntegrationPageState
               trailing: CupertinoSwitch(
                 value: healthDataIntegrationStatus,
                 onChanged: (value) async {
+                  print('value: $value');
                   if (value) {
                     await requestPermissions(
                       context: context,

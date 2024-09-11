@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/components/dialog/show_off_todo_notification_dialog.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
@@ -84,7 +85,7 @@ class TodoNotificationPageState extends ConsumerState<TodoNotificationPage> {
                 children: [
                   const SizedBox(height: 80),
                   Icon(
-                    Icons.checklist,
+                    LineIcons.alternateListAlt,
                     size: 60,
                     color: lightGreyColor,
                   ),
@@ -145,7 +146,8 @@ class TodoNotificationPageState extends ConsumerState<TodoNotificationPage> {
                               trailing: Builder(
                                 builder: (context) {
                                   return IconButton(
-                                    icon: const Icon(Icons.delete),
+                                    icon:
+                                        const Icon(LineIcons.alternateTrash),
                                     onPressed: () async {
                                       final response =
                                           await showOffTodoNotificationDialog(
