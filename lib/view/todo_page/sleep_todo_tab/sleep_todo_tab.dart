@@ -8,6 +8,7 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/sleep_todo_tab/provider/sleep_todo_tab_notifier.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -21,7 +22,7 @@ class SleepTodoTab extends ConsumerWidget {
     //     ref.watch(sleepTodoTabProvider.select((value) => value.sleepTodoList));
     final sleepTodos = ref
         .watch(todoProvider.select((value) => value.todos))
-        .where((value) => value.categoryId == sleepTx)
+        .where((value) => value.categoryId == Category.sleep)
         .toList();
     final selectedItemList =
         ref.watch(sleepTodoTabProvider.select((value) => value.isSelectedList));
@@ -101,7 +102,7 @@ class SleepTodoTab extends ConsumerWidget {
                   todos: sleepTodos,
                   index: index,
                   value: checkedList[index],
-                  fillColor: sandwispColor,
+                  fillColor: mantisColor,
                   onTap: () {
                     ref
                         .read(sleepTodoTabProvider.notifier)

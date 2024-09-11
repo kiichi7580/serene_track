@@ -8,6 +8,7 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/exercise_todo_tab/provider/exercise_todo_tab_notifier.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -21,7 +22,7 @@ class ExerciseTodoTab extends ConsumerWidget {
     //     exerciseTodoTabProvider.select((value) => value.exerciseTodoList));
     final exerciseTodos = ref
         .watch(todoProvider.select((value) => value.todos))
-        .where((value) => value.categoryId == exerciseTx)
+        .where((value) => value.categoryId == Category.exercise)
         .toList();
     final selectedItemList = ref
         .watch(exerciseTodoTabProvider.select((value) => value.isSelectedList));
@@ -101,7 +102,7 @@ class ExerciseTodoTab extends ConsumerWidget {
                   todos: exerciseTodos,
                   index: index,
                   value: checkedList[index],
-                  fillColor: sandwispColor,
+                  fillColor: yellowGreenColor,
                   onTap: () {
                     ref
                         .read(exerciseTodoTabProvider.notifier)

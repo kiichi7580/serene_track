@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:serene_track/constant/text_source.dart';
+import 'package:serene_track/model/enum/category.dart';
 
 part 'todo_edit_text_field_notifier.g.dart';
 
@@ -15,11 +15,11 @@ class TitleControllerNotifier extends _$TitleControllerNotifier {
 @riverpod
 class CategoryNotifier extends _$CategoryNotifier {
   @override
-  String? build() {
-    return allTx;
+  Category? build() {
+    return Category.all;
   }
 
-  void setValue(String? value) {
+  void setValue(Category? value) {
     state = value;
   }
 }
