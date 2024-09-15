@@ -47,7 +47,7 @@ class TodoEditPageState extends ConsumerState<TodoEditPage> {
     required WidgetRef ref,
     required String title,
     required String description,
-    required bool completed,
+    required bool complete,
     required Category categoryId,
     DateTime? notificationTime,
   }) async {
@@ -55,7 +55,7 @@ class TodoEditPageState extends ConsumerState<TodoEditPage> {
     res = await ref.read(todoProvider.notifier).updateTodo(
           title: title,
           description: description,
-          completed: completed,
+          complete: complete,
           categoryId: categoryId,
           notificationTime: notificationTime,
         );
@@ -175,7 +175,7 @@ class TodoEditPageState extends ConsumerState<TodoEditPage> {
                               ref: ref,
                               title: titleController.text,
                               description: descriptionController.text,
-                              completed: false,
+                              complete: false,
                               categoryId: category!,
                               notificationTime: notificationTime,
                             );

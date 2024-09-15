@@ -30,7 +30,7 @@ class TodoAddPage extends ConsumerWidget {
     required WidgetRef ref,
     required String title,
     required String description,
-    required bool completed,
+    required bool complete,
     required Category categoryId,
     DateTime? notificationTime,
   }) async {
@@ -38,7 +38,7 @@ class TodoAddPage extends ConsumerWidget {
     res = await ref.read(todoProvider.notifier).createTodo(
           title: title,
           description: description,
-          completed: completed,
+          complete: complete,
           categoryId: categoryId,
           notificationTime: notificationTime,
         );
@@ -152,7 +152,7 @@ class TodoAddPage extends ConsumerWidget {
                               ref: ref,
                               title: titleController.text,
                               description: descriptionController.text,
-                              completed: false,
+                              complete: false,
                               categoryId: category!,
                               notificationTime: notificationTime,
                             );
