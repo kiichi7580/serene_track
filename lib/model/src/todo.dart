@@ -13,7 +13,7 @@ abstract class Todo with _$Todo {
     @Default('') String description,
     @CategoryEnumConverter() Category? categoryId,
     @Default(0) int ownerId,
-    @Default(false) bool completed,
+    @Default(false) bool complete,
     @Default(null) DateTime? notificationTime,
     @Default(null) DateTime? createdAt,
   }) = _Todo;
