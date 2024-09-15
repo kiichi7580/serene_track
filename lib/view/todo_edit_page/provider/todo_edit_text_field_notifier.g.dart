@@ -173,7 +173,7 @@ class _TitleControllerNotifierProviderElement
   String get text => (origin as TitleControllerNotifierProvider).text;
 }
 
-String _$categoryNotifierHash() => r'f20d2cab16ef0e7d7dd2aed6f28ecd24aad72dee';
+String _$categoryNotifierHash() => r'1d5bdd7cd365323f6353c8e3f8752f4fbea1c258';
 
 /// See also [CategoryNotifier].
 @ProviderFor(CategoryNotifier)
