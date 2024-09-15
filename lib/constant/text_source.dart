@@ -86,6 +86,8 @@ const categoryFieldEmpty = 'カテゴリーが入力されていません';
 const descriptionFieldEmpty = '内容が入力されていません';
 const notificationSettingFieldEmpty = '通知設定が入力されていません';
 
+const completeTask = 'タスクを達成しました！おめでとうございます🥳';
+
 // アカウント関連
 const stepsTx = '歩数';
 const userName = 'ユーザー名';
