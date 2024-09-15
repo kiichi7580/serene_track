@@ -8,7 +8,6 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
-import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/sleep_todo_tab/provider/sleep_todo_tab_notifier.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -18,16 +17,12 @@ class SleepTodoTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final sleepTodoList =
-    //     ref.watch(sleepTodoTabProvider.select((value) => value.sleepTodoList));
-    final sleepTodos = ref
-        .watch(todoProvider.select((value) => value.todos))
-        .where((value) => value.categoryId == Category.sleep)
-        .toList();
+    final sleepTodos =
+        ref.watch(sleepTodoTabProvider.select((value) => value.sleepTodos));
     final selectedItemList =
         ref.watch(sleepTodoTabProvider.select((value) => value.isSelectedList));
-    final checkedList =
-        ref.watch(sleepTodoTabProvider.select((value) => value.checkedList));
+    final completeList =
+        ref.watch(sleepTodoTabProvider.select((value) => value.completeList));
     final isLoading =
         ref.watch(todoProvider.select((value) => value.isLoading));
 
@@ -101,23 +96,43 @@ class SleepTodoTab extends ConsumerWidget {
                 child: CustomCheckboxTile(
                   todos: sleepTodos,
                   index: index,
-                  value: checkedList[index],
+                  value: completeList[index],
                   fillColor: mantisColor,
                   onTap: () {
                     ref
                         .read(sleepTodoTabProvider.notifier)
                         .changeSelectedItemList(index);
                   },
-                  onChanged: (value) {
+                  onChanged: (value) async {
+                    if (value == null) {
+                      return;
+                    }
                     ref
-                        .watch(sleepTodoTabProvider.notifier)
-                        .changeCheckedList(index, value!);
+                        .read(todoProvider.notifier)
+                        .setSelectedTodo(sleepTodos[index]);
+                    await changeCompleteStatus(
+                      context: context,
+                      ref: ref,
+                      value: value,
+                    );
                   },
                   selectedItemList: selectedItemList,
                 ),
               );
             },
           );
+  }
+
+  Future<String> changeCompleteStatus({
+    required BuildContext context,
+    required WidgetRef ref,
+    required bool value,
+  }) async {
+    String res = await ref
+        .read(todoProvider.notifier)
+        .changeCompleteStatus(complete: value);
+    if (res == successRes) return completeTask;
+    return res;
   }
 
   Future<String> deleteTodo({
