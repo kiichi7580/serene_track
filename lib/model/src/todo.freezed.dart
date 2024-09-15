@@ -26,7 +26,7 @@ mixin _$Todo {
   @CategoryEnumConverter()
   Category? get categoryId => throw _privateConstructorUsedError;
   int get ownerId => throw _privateConstructorUsedError;
-  bool get completed => throw _privateConstructorUsedError;
+  bool get complete => throw _privateConstructorUsedError;
   DateTime? get notificationTime => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
@@ -46,7 +46,7 @@ abstract class $TodoCopyWith<$Res> {
       String description,
       @CategoryEnumConverter() Category? categoryId,
       int ownerId,
-      bool completed,
+      bool complete,
       DateTime? notificationTime,
       DateTime? createdAt});
 }
@@ -69,7 +69,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? description = null,
     Object? categoryId = freezed,
     Object? ownerId = null,
-    Object? completed = null,
+    Object? complete = null,
     Object? notificationTime = freezed,
     Object? createdAt = freezed,
   }) {
@@ -94,9 +94,9 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as int,
-      completed: null == completed
-          ? _value.completed
-          : completed // ignore: cast_nullable_to_non_nullable
+      complete: null == complete
+          ? _value.complete
+          : complete // ignore: cast_nullable_to_non_nullable
               as bool,
       notificationTime: freezed == notificationTime
           ? _value.notificationTime
@@ -123,7 +123,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String description,
       @CategoryEnumConverter() Category? categoryId,
       int ownerId,
-      bool completed,
+      bool complete,
       DateTime? notificationTime,
       DateTime? createdAt});
 }
@@ -143,7 +143,7 @@ class __$$TodoImplCopyWithImpl<$Res>
     Object? description = null,
     Object? categoryId = freezed,
     Object? ownerId = null,
-    Object? completed = null,
+    Object? complete = null,
     Object? notificationTime = freezed,
     Object? createdAt = freezed,
   }) {
@@ -168,9 +168,9 @@ class __$$TodoImplCopyWithImpl<$Res>
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as int,
-      completed: null == completed
-          ? _value.completed
-          : completed // ignore: cast_nullable_to_non_nullable
+      complete: null == complete
+          ? _value.complete
+          : complete // ignore: cast_nullable_to_non_nullable
               as bool,
       notificationTime: freezed == notificationTime
           ? _value.notificationTime
@@ -194,7 +194,7 @@ class _$TodoImpl implements _Todo {
       this.description = '',
       @CategoryEnumConverter() this.categoryId,
       this.ownerId = 0,
-      this.completed = false,
+      this.complete = false,
       this.notificationTime = null,
       this.createdAt = null});
 
@@ -218,7 +218,7 @@ class _$TodoImpl implements _Todo {
   final int ownerId;
   @override
   @JsonKey()
-  final bool completed;
+  final bool complete;
   @override
   @JsonKey()
   final DateTime? notificationTime;
@@ -228,7 +228,7 @@ class _$TodoImpl implements _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, title: $title, description: $description, categoryId: $categoryId, ownerId: $ownerId, completed: $completed, notificationTime: $notificationTime, createdAt: $createdAt)';
+    return 'Todo(id: $id, title: $title, description: $description, categoryId: $categoryId, ownerId: $ownerId, complete: $complete, notificationTime: $notificationTime, createdAt: $createdAt)';
   }
 
   @override
@@ -243,8 +243,8 @@ class _$TodoImpl implements _Todo {
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
-            (identical(other.completed, completed) ||
-                other.completed == completed) &&
+            (identical(other.complete, complete) ||
+                other.complete == complete) &&
             (identical(other.notificationTime, notificationTime) ||
                 other.notificationTime == notificationTime) &&
             (identical(other.createdAt, createdAt) ||
@@ -254,7 +254,7 @@ class _$TodoImpl implements _Todo {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, description,
-      categoryId, ownerId, completed, notificationTime, createdAt);
+      categoryId, ownerId, complete, notificationTime, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -277,7 +277,7 @@ abstract class _Todo implements Todo {
       final String description,
       @CategoryEnumConverter() final Category? categoryId,
       final int ownerId,
-      final bool completed,
+      final bool complete,
       final DateTime? notificationTime,
       final DateTime? createdAt}) = _$TodoImpl;
 
@@ -295,7 +295,7 @@ abstract class _Todo implements Todo {
   @override
   int get ownerId;
   @override
-  bool get completed;
+  bool get complete;
   @override
   DateTime? get notificationTime;
   @override

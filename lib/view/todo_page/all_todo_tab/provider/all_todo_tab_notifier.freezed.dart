@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AllTodoTabState {
   Todo get allTodo => throw _privateConstructorUsedError;
-  List<Todo> get allTodoList => throw _privateConstructorUsedError;
+  List<Todo> get allTodos => throw _privateConstructorUsedError;
   List<bool> get isSelectedList => throw _privateConstructorUsedError;
   List<bool> get checkedList => throw _privateConstructorUsedError;
 
@@ -34,7 +34,7 @@ abstract class $AllTodoTabStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Todo allTodo,
-      List<Todo> allTodoList,
+      List<Todo> allTodos,
       List<bool> isSelectedList,
       List<bool> checkedList});
 
@@ -55,7 +55,7 @@ class _$AllTodoTabStateCopyWithImpl<$Res, $Val extends AllTodoTabState>
   @override
   $Res call({
     Object? allTodo = null,
-    Object? allTodoList = null,
+    Object? allTodos = null,
     Object? isSelectedList = null,
     Object? checkedList = null,
   }) {
@@ -64,9 +64,9 @@ class _$AllTodoTabStateCopyWithImpl<$Res, $Val extends AllTodoTabState>
           ? _value.allTodo
           : allTodo // ignore: cast_nullable_to_non_nullable
               as Todo,
-      allTodoList: null == allTodoList
-          ? _value.allTodoList
-          : allTodoList // ignore: cast_nullable_to_non_nullable
+      allTodos: null == allTodos
+          ? _value.allTodos
+          : allTodos // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
       isSelectedList: null == isSelectedList
           ? _value.isSelectedList
@@ -98,7 +98,7 @@ abstract class _$$AllTodoTabStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Todo allTodo,
-      List<Todo> allTodoList,
+      List<Todo> allTodos,
       List<bool> isSelectedList,
       List<bool> checkedList});
 
@@ -118,7 +118,7 @@ class __$$AllTodoTabStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? allTodo = null,
-    Object? allTodoList = null,
+    Object? allTodos = null,
     Object? isSelectedList = null,
     Object? checkedList = null,
   }) {
@@ -127,9 +127,9 @@ class __$$AllTodoTabStateImplCopyWithImpl<$Res>
           ? _value.allTodo
           : allTodo // ignore: cast_nullable_to_non_nullable
               as Todo,
-      allTodoList: null == allTodoList
-          ? _value._allTodoList
-          : allTodoList // ignore: cast_nullable_to_non_nullable
+      allTodos: null == allTodos
+          ? _value._allTodos
+          : allTodos // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
       isSelectedList: null == isSelectedList
           ? _value._isSelectedList
@@ -148,10 +148,10 @@ class __$$AllTodoTabStateImplCopyWithImpl<$Res>
 class _$AllTodoTabStateImpl extends _AllTodoTabState {
   _$AllTodoTabStateImpl(
       {this.allTodo = const Todo(),
-      final List<Todo> allTodoList = const [],
+      final List<Todo> allTodos = const [],
       final List<bool> isSelectedList = const [],
       final List<bool> checkedList = const []})
-      : _allTodoList = allTodoList,
+      : _allTodos = allTodos,
         _isSelectedList = isSelectedList,
         _checkedList = checkedList,
         super._();
@@ -159,13 +159,13 @@ class _$AllTodoTabStateImpl extends _AllTodoTabState {
   @override
   @JsonKey()
   final Todo allTodo;
-  final List<Todo> _allTodoList;
+  final List<Todo> _allTodos;
   @override
   @JsonKey()
-  List<Todo> get allTodoList {
-    if (_allTodoList is EqualUnmodifiableListView) return _allTodoList;
+  List<Todo> get allTodos {
+    if (_allTodos is EqualUnmodifiableListView) return _allTodos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_allTodoList);
+    return EqualUnmodifiableListView(_allTodos);
   }
 
   final List<bool> _isSelectedList;
@@ -188,7 +188,7 @@ class _$AllTodoTabStateImpl extends _AllTodoTabState {
 
   @override
   String toString() {
-    return 'AllTodoTabState(allTodo: $allTodo, allTodoList: $allTodoList, isSelectedList: $isSelectedList, checkedList: $checkedList)';
+    return 'AllTodoTabState(allTodo: $allTodo, allTodos: $allTodos, isSelectedList: $isSelectedList, checkedList: $checkedList)';
   }
 
   @override
@@ -197,8 +197,7 @@ class _$AllTodoTabStateImpl extends _AllTodoTabState {
         (other.runtimeType == runtimeType &&
             other is _$AllTodoTabStateImpl &&
             (identical(other.allTodo, allTodo) || other.allTodo == allTodo) &&
-            const DeepCollectionEquality()
-                .equals(other._allTodoList, _allTodoList) &&
+            const DeepCollectionEquality().equals(other._allTodos, _allTodos) &&
             const DeepCollectionEquality()
                 .equals(other._isSelectedList, _isSelectedList) &&
             const DeepCollectionEquality()
@@ -209,7 +208,7 @@ class _$AllTodoTabStateImpl extends _AllTodoTabState {
   int get hashCode => Object.hash(
       runtimeType,
       allTodo,
-      const DeepCollectionEquality().hash(_allTodoList),
+      const DeepCollectionEquality().hash(_allTodos),
       const DeepCollectionEquality().hash(_isSelectedList),
       const DeepCollectionEquality().hash(_checkedList));
 
@@ -224,7 +223,7 @@ class _$AllTodoTabStateImpl extends _AllTodoTabState {
 abstract class _AllTodoTabState extends AllTodoTabState {
   factory _AllTodoTabState(
       {final Todo allTodo,
-      final List<Todo> allTodoList,
+      final List<Todo> allTodos,
       final List<bool> isSelectedList,
       final List<bool> checkedList}) = _$AllTodoTabStateImpl;
   _AllTodoTabState._() : super._();
@@ -232,7 +231,7 @@ abstract class _AllTodoTabState extends AllTodoTabState {
   @override
   Todo get allTodo;
   @override
-  List<Todo> get allTodoList;
+  List<Todo> get allTodos;
   @override
   List<bool> get isSelectedList;
   @override

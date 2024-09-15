@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$WorkTodoTabState {
   Todo get workTodo => throw _privateConstructorUsedError;
-  List<Todo> get workTodoList => throw _privateConstructorUsedError;
+  List<Todo> get workTodos => throw _privateConstructorUsedError;
   List<bool> get isSelectedList => throw _privateConstructorUsedError;
-  List<bool> get checkedList => throw _privateConstructorUsedError;
+  List<bool> get completeList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WorkTodoTabStateCopyWith<WorkTodoTabState> get copyWith =>
@@ -34,9 +34,9 @@ abstract class $WorkTodoTabStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Todo workTodo,
-      List<Todo> workTodoList,
+      List<Todo> workTodos,
       List<bool> isSelectedList,
-      List<bool> checkedList});
+      List<bool> completeList});
 
   $TodoCopyWith<$Res> get workTodo;
 }
@@ -55,26 +55,26 @@ class _$WorkTodoTabStateCopyWithImpl<$Res, $Val extends WorkTodoTabState>
   @override
   $Res call({
     Object? workTodo = null,
-    Object? workTodoList = null,
+    Object? workTodos = null,
     Object? isSelectedList = null,
-    Object? checkedList = null,
+    Object? completeList = null,
   }) {
     return _then(_value.copyWith(
       workTodo: null == workTodo
           ? _value.workTodo
           : workTodo // ignore: cast_nullable_to_non_nullable
               as Todo,
-      workTodoList: null == workTodoList
-          ? _value.workTodoList
-          : workTodoList // ignore: cast_nullable_to_non_nullable
+      workTodos: null == workTodos
+          ? _value.workTodos
+          : workTodos // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
       isSelectedList: null == isSelectedList
           ? _value.isSelectedList
           : isSelectedList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
-      checkedList: null == checkedList
-          ? _value.checkedList
-          : checkedList // ignore: cast_nullable_to_non_nullable
+      completeList: null == completeList
+          ? _value.completeList
+          : completeList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
     ) as $Val);
   }
@@ -98,9 +98,9 @@ abstract class _$$WorkTodoTabStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Todo workTodo,
-      List<Todo> workTodoList,
+      List<Todo> workTodos,
       List<bool> isSelectedList,
-      List<bool> checkedList});
+      List<bool> completeList});
 
   @override
   $TodoCopyWith<$Res> get workTodo;
@@ -118,26 +118,26 @@ class __$$WorkTodoTabStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? workTodo = null,
-    Object? workTodoList = null,
+    Object? workTodos = null,
     Object? isSelectedList = null,
-    Object? checkedList = null,
+    Object? completeList = null,
   }) {
     return _then(_$WorkTodoTabStateImpl(
       workTodo: null == workTodo
           ? _value.workTodo
           : workTodo // ignore: cast_nullable_to_non_nullable
               as Todo,
-      workTodoList: null == workTodoList
-          ? _value._workTodoList
-          : workTodoList // ignore: cast_nullable_to_non_nullable
+      workTodos: null == workTodos
+          ? _value._workTodos
+          : workTodos // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
       isSelectedList: null == isSelectedList
           ? _value._isSelectedList
           : isSelectedList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
-      checkedList: null == checkedList
-          ? _value._checkedList
-          : checkedList // ignore: cast_nullable_to_non_nullable
+      completeList: null == completeList
+          ? _value._completeList
+          : completeList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
     ));
   }
@@ -148,24 +148,24 @@ class __$$WorkTodoTabStateImplCopyWithImpl<$Res>
 class _$WorkTodoTabStateImpl extends _WorkTodoTabState {
   _$WorkTodoTabStateImpl(
       {this.workTodo = const Todo(),
-      final List<Todo> workTodoList = const [],
+      final List<Todo> workTodos = const [],
       final List<bool> isSelectedList = const [],
-      final List<bool> checkedList = const []})
-      : _workTodoList = workTodoList,
+      final List<bool> completeList = const []})
+      : _workTodos = workTodos,
         _isSelectedList = isSelectedList,
-        _checkedList = checkedList,
+        _completeList = completeList,
         super._();
 
   @override
   @JsonKey()
   final Todo workTodo;
-  final List<Todo> _workTodoList;
+  final List<Todo> _workTodos;
   @override
   @JsonKey()
-  List<Todo> get workTodoList {
-    if (_workTodoList is EqualUnmodifiableListView) return _workTodoList;
+  List<Todo> get workTodos {
+    if (_workTodos is EqualUnmodifiableListView) return _workTodos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_workTodoList);
+    return EqualUnmodifiableListView(_workTodos);
   }
 
   final List<bool> _isSelectedList;
@@ -177,18 +177,18 @@ class _$WorkTodoTabStateImpl extends _WorkTodoTabState {
     return EqualUnmodifiableListView(_isSelectedList);
   }
 
-  final List<bool> _checkedList;
+  final List<bool> _completeList;
   @override
   @JsonKey()
-  List<bool> get checkedList {
-    if (_checkedList is EqualUnmodifiableListView) return _checkedList;
+  List<bool> get completeList {
+    if (_completeList is EqualUnmodifiableListView) return _completeList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_checkedList);
+    return EqualUnmodifiableListView(_completeList);
   }
 
   @override
   String toString() {
-    return 'WorkTodoTabState(workTodo: $workTodo, workTodoList: $workTodoList, isSelectedList: $isSelectedList, checkedList: $checkedList)';
+    return 'WorkTodoTabState(workTodo: $workTodo, workTodos: $workTodos, isSelectedList: $isSelectedList, completeList: $completeList)';
   }
 
   @override
@@ -199,20 +199,20 @@ class _$WorkTodoTabStateImpl extends _WorkTodoTabState {
             (identical(other.workTodo, workTodo) ||
                 other.workTodo == workTodo) &&
             const DeepCollectionEquality()
-                .equals(other._workTodoList, _workTodoList) &&
+                .equals(other._workTodos, _workTodos) &&
             const DeepCollectionEquality()
                 .equals(other._isSelectedList, _isSelectedList) &&
             const DeepCollectionEquality()
-                .equals(other._checkedList, _checkedList));
+                .equals(other._completeList, _completeList));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       workTodo,
-      const DeepCollectionEquality().hash(_workTodoList),
+      const DeepCollectionEquality().hash(_workTodos),
       const DeepCollectionEquality().hash(_isSelectedList),
-      const DeepCollectionEquality().hash(_checkedList));
+      const DeepCollectionEquality().hash(_completeList));
 
   @JsonKey(ignore: true)
   @override
@@ -225,19 +225,19 @@ class _$WorkTodoTabStateImpl extends _WorkTodoTabState {
 abstract class _WorkTodoTabState extends WorkTodoTabState {
   factory _WorkTodoTabState(
       {final Todo workTodo,
-      final List<Todo> workTodoList,
+      final List<Todo> workTodos,
       final List<bool> isSelectedList,
-      final List<bool> checkedList}) = _$WorkTodoTabStateImpl;
+      final List<bool> completeList}) = _$WorkTodoTabStateImpl;
   _WorkTodoTabState._() : super._();
 
   @override
   Todo get workTodo;
   @override
-  List<Todo> get workTodoList;
+  List<Todo> get workTodos;
   @override
   List<bool> get isSelectedList;
   @override
-  List<bool> get checkedList;
+  List<bool> get completeList;
   @override
   @JsonKey(ignore: true)
   _$$WorkTodoTabStateImplCopyWith<_$WorkTodoTabStateImpl> get copyWith =>

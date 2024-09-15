@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SleepTodoTabState {
   Todo get sleepTodo => throw _privateConstructorUsedError;
-  List<Todo> get sleepTodoList => throw _privateConstructorUsedError;
+  List<Todo> get sleepTodos => throw _privateConstructorUsedError;
   List<bool> get isSelectedList => throw _privateConstructorUsedError;
-  List<bool> get checkedList => throw _privateConstructorUsedError;
+  List<bool> get completeList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SleepTodoTabStateCopyWith<SleepTodoTabState> get copyWith =>
@@ -34,9 +34,9 @@ abstract class $SleepTodoTabStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Todo sleepTodo,
-      List<Todo> sleepTodoList,
+      List<Todo> sleepTodos,
       List<bool> isSelectedList,
-      List<bool> checkedList});
+      List<bool> completeList});
 
   $TodoCopyWith<$Res> get sleepTodo;
 }
@@ -55,26 +55,26 @@ class _$SleepTodoTabStateCopyWithImpl<$Res, $Val extends SleepTodoTabState>
   @override
   $Res call({
     Object? sleepTodo = null,
-    Object? sleepTodoList = null,
+    Object? sleepTodos = null,
     Object? isSelectedList = null,
-    Object? checkedList = null,
+    Object? completeList = null,
   }) {
     return _then(_value.copyWith(
       sleepTodo: null == sleepTodo
           ? _value.sleepTodo
           : sleepTodo // ignore: cast_nullable_to_non_nullable
               as Todo,
-      sleepTodoList: null == sleepTodoList
-          ? _value.sleepTodoList
-          : sleepTodoList // ignore: cast_nullable_to_non_nullable
+      sleepTodos: null == sleepTodos
+          ? _value.sleepTodos
+          : sleepTodos // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
       isSelectedList: null == isSelectedList
           ? _value.isSelectedList
           : isSelectedList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
-      checkedList: null == checkedList
-          ? _value.checkedList
-          : checkedList // ignore: cast_nullable_to_non_nullable
+      completeList: null == completeList
+          ? _value.completeList
+          : completeList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
     ) as $Val);
   }
@@ -98,9 +98,9 @@ abstract class _$$SleepTodoTabStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Todo sleepTodo,
-      List<Todo> sleepTodoList,
+      List<Todo> sleepTodos,
       List<bool> isSelectedList,
-      List<bool> checkedList});
+      List<bool> completeList});
 
   @override
   $TodoCopyWith<$Res> get sleepTodo;
@@ -118,26 +118,26 @@ class __$$SleepTodoTabStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? sleepTodo = null,
-    Object? sleepTodoList = null,
+    Object? sleepTodos = null,
     Object? isSelectedList = null,
-    Object? checkedList = null,
+    Object? completeList = null,
   }) {
     return _then(_$SleepTodoTabStateImpl(
       sleepTodo: null == sleepTodo
           ? _value.sleepTodo
           : sleepTodo // ignore: cast_nullable_to_non_nullable
               as Todo,
-      sleepTodoList: null == sleepTodoList
-          ? _value._sleepTodoList
-          : sleepTodoList // ignore: cast_nullable_to_non_nullable
+      sleepTodos: null == sleepTodos
+          ? _value._sleepTodos
+          : sleepTodos // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
       isSelectedList: null == isSelectedList
           ? _value._isSelectedList
           : isSelectedList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
-      checkedList: null == checkedList
-          ? _value._checkedList
-          : checkedList // ignore: cast_nullable_to_non_nullable
+      completeList: null == completeList
+          ? _value._completeList
+          : completeList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
     ));
   }
@@ -148,24 +148,24 @@ class __$$SleepTodoTabStateImplCopyWithImpl<$Res>
 class _$SleepTodoTabStateImpl extends _SleepTodoTabState {
   _$SleepTodoTabStateImpl(
       {this.sleepTodo = const Todo(),
-      final List<Todo> sleepTodoList = const [],
+      final List<Todo> sleepTodos = const [],
       final List<bool> isSelectedList = const [],
-      final List<bool> checkedList = const []})
-      : _sleepTodoList = sleepTodoList,
+      final List<bool> completeList = const []})
+      : _sleepTodos = sleepTodos,
         _isSelectedList = isSelectedList,
-        _checkedList = checkedList,
+        _completeList = completeList,
         super._();
 
   @override
   @JsonKey()
   final Todo sleepTodo;
-  final List<Todo> _sleepTodoList;
+  final List<Todo> _sleepTodos;
   @override
   @JsonKey()
-  List<Todo> get sleepTodoList {
-    if (_sleepTodoList is EqualUnmodifiableListView) return _sleepTodoList;
+  List<Todo> get sleepTodos {
+    if (_sleepTodos is EqualUnmodifiableListView) return _sleepTodos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_sleepTodoList);
+    return EqualUnmodifiableListView(_sleepTodos);
   }
 
   final List<bool> _isSelectedList;
@@ -177,18 +177,18 @@ class _$SleepTodoTabStateImpl extends _SleepTodoTabState {
     return EqualUnmodifiableListView(_isSelectedList);
   }
 
-  final List<bool> _checkedList;
+  final List<bool> _completeList;
   @override
   @JsonKey()
-  List<bool> get checkedList {
-    if (_checkedList is EqualUnmodifiableListView) return _checkedList;
+  List<bool> get completeList {
+    if (_completeList is EqualUnmodifiableListView) return _completeList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_checkedList);
+    return EqualUnmodifiableListView(_completeList);
   }
 
   @override
   String toString() {
-    return 'SleepTodoTabState(sleepTodo: $sleepTodo, sleepTodoList: $sleepTodoList, isSelectedList: $isSelectedList, checkedList: $checkedList)';
+    return 'SleepTodoTabState(sleepTodo: $sleepTodo, sleepTodos: $sleepTodos, isSelectedList: $isSelectedList, completeList: $completeList)';
   }
 
   @override
@@ -199,20 +199,20 @@ class _$SleepTodoTabStateImpl extends _SleepTodoTabState {
             (identical(other.sleepTodo, sleepTodo) ||
                 other.sleepTodo == sleepTodo) &&
             const DeepCollectionEquality()
-                .equals(other._sleepTodoList, _sleepTodoList) &&
+                .equals(other._sleepTodos, _sleepTodos) &&
             const DeepCollectionEquality()
                 .equals(other._isSelectedList, _isSelectedList) &&
             const DeepCollectionEquality()
-                .equals(other._checkedList, _checkedList));
+                .equals(other._completeList, _completeList));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       sleepTodo,
-      const DeepCollectionEquality().hash(_sleepTodoList),
+      const DeepCollectionEquality().hash(_sleepTodos),
       const DeepCollectionEquality().hash(_isSelectedList),
-      const DeepCollectionEquality().hash(_checkedList));
+      const DeepCollectionEquality().hash(_completeList));
 
   @JsonKey(ignore: true)
   @override
@@ -225,19 +225,19 @@ class _$SleepTodoTabStateImpl extends _SleepTodoTabState {
 abstract class _SleepTodoTabState extends SleepTodoTabState {
   factory _SleepTodoTabState(
       {final Todo sleepTodo,
-      final List<Todo> sleepTodoList,
+      final List<Todo> sleepTodos,
       final List<bool> isSelectedList,
-      final List<bool> checkedList}) = _$SleepTodoTabStateImpl;
+      final List<bool> completeList}) = _$SleepTodoTabStateImpl;
   _SleepTodoTabState._() : super._();
 
   @override
   Todo get sleepTodo;
   @override
-  List<Todo> get sleepTodoList;
+  List<Todo> get sleepTodos;
   @override
   List<bool> get isSelectedList;
   @override
-  List<bool> get checkedList;
+  List<bool> get completeList;
   @override
   @JsonKey(ignore: true)
   _$$SleepTodoTabStateImplCopyWith<_$SleepTodoTabStateImpl> get copyWith =>

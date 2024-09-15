@@ -8,7 +8,6 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
-import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/exercise_todo_tab/provider/exercise_todo_tab_notifier.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -18,16 +17,12 @@ class ExerciseTodoTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final exerciseTodoList = ref.watch(
-    //     exerciseTodoTabProvider.select((value) => value.exerciseTodoList));
-    final exerciseTodos = ref
-        .watch(todoProvider.select((value) => value.todos))
-        .where((value) => value.categoryId == Category.exercise)
-        .toList();
+    final exerciseTodos = ref.watch(
+        exerciseTodoTabProvider.select((value) => value.exerciseTodos));
     final selectedItemList = ref
         .watch(exerciseTodoTabProvider.select((value) => value.isSelectedList));
-    final checkedList =
-        ref.watch(exerciseTodoTabProvider.select((value) => value.checkedList));
+    final completeList =
+        ref.watch(exerciseTodoTabProvider.select((value) => value.completeList));
     final isLoading =
         ref.watch(todoProvider.select((value) => value.isLoading));
 
@@ -101,23 +96,43 @@ class ExerciseTodoTab extends ConsumerWidget {
                 child: CustomCheckboxTile(
                   todos: exerciseTodos,
                   index: index,
-                  value: checkedList[index],
+                  value: completeList[index],
                   fillColor: yellowGreenColor,
                   onTap: () {
                     ref
                         .read(exerciseTodoTabProvider.notifier)
                         .changeSelectedItemList(index);
                   },
-                  onChanged: (value) {
+                  onChanged: (value) async {
+                    if (value == null) {
+                      return;
+                    }
                     ref
-                        .watch(exerciseTodoTabProvider.notifier)
-                        .changeCheckedList(index, value!);
+                        .read(todoProvider.notifier)
+                        .setSelectedTodo(exerciseTodos[index]);
+                    await changeCompleteStatus(
+                      context: context,
+                      ref: ref,
+                      value: value,
+                    );
                   },
                   selectedItemList: selectedItemList,
                 ),
               );
             },
           );
+  }
+
+  Future<String> changeCompleteStatus({
+    required BuildContext context,
+    required WidgetRef ref,
+    required bool value,
+  }) async {
+    String res = await ref
+        .read(todoProvider.notifier)
+        .changeCompleteStatus(complete: value);
+    if (res == successRes) return completeTask;
+    return res;
   }
 
   Future<String> deleteTodo({

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/components/dialog/show_delete_confirmation_dialog.dart';
+import 'package:serene_track/components/dialog/show_task_complete_dialog.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
@@ -17,15 +18,25 @@ class AllTodoTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final allTodos =
+        ref.watch(allTodoTabProvider.select((value) => value.allTodos));
+    final isLoading =
+        ref.watch(todoProvider.select((value) => value.isLoading));
     final selectedItemList =
         ref.watch(allTodoTabProvider.select((value) => value.isSelectedList));
     final checkedList =
         ref.watch(allTodoTabProvider.select((value) => value.checkedList));
-    final todos = ref.watch(todoProvider.select((value) => value.todos));
-    final isLoading =
-        ref.watch(todoProvider.select((value) => value.isLoading));
 
-    if (todos.isEmpty) {
+    ref.listen<bool?>(
+        todoProvider.select((value) => value.selectedTodo.complete),
+        (_, complete) async {
+      // selectedTodoのcompleteプロパティがfalseからtrueになったらダイアログが出る
+      if (complete == false) {
+        await showTaskCompleteDialog(context: context);
+      }
+    });
+
+    if (allTodos.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -61,10 +72,10 @@ class AllTodoTab extends ConsumerWidget {
         : ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: todos.length,
+            itemCount: allTodos.length,
             itemBuilder: (context, index) {
               // Todo allTodo = allTodoList[index];
-              Todo todo = todos[index];
+              Todo todo = allTodos[index];
 
               return Slidable(
                 key: ValueKey(index),
@@ -94,8 +105,7 @@ class AllTodoTab extends ConsumerWidget {
                   ],
                 ),
                 child: CustomCheckboxTile(
-                  // todo: todo,
-                  todos: todos,
+                  todos: allTodos,
                   index: index,
                   value: checkedList[index],
                   fillColor: sandwispColor,
@@ -104,16 +114,36 @@ class AllTodoTab extends ConsumerWidget {
                         .read(allTodoTabProvider.notifier)
                         .changeSelectedItemList(index);
                   },
-                  onChanged: (value) {
+                  onChanged: (value) async {
+                    if (value == null) {
+                      return;
+                    }
                     ref
-                        .watch(allTodoTabProvider.notifier)
-                        .changeCheckedList(index, value!);
+                        .read(todoProvider.notifier)
+                        .setSelectedTodo(allTodos[index]);
+                    await changeCompleteStatus(
+                      context: context,
+                      ref: ref,
+                      value: value,
+                    );
                   },
                   selectedItemList: selectedItemList,
                 ),
               );
             },
           );
+  }
+
+  Future<String> changeCompleteStatus({
+    required BuildContext context,
+    required WidgetRef ref,
+    required bool value,
+  }) async {
+    String res = await ref
+        .read(todoProvider.notifier)
+        .changeCompleteStatus(complete: value);
+    if (res == successRes) return completeTask;
+    return res;
   }
 
   Future<String> deleteTodo({

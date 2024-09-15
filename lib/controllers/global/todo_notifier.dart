@@ -61,7 +61,7 @@ class TodoController extends StateNotifier<TodoState> {
   Future<String> createTodo({
     required String title,
     required String description,
-    required bool completed,
+    required bool complete,
     required Category categoryId,
     DateTime? notificationTime,
   }) async {
@@ -73,7 +73,7 @@ class TodoController extends StateNotifier<TodoState> {
       final formData = FormData.fromMap({
         'title': title,
         'description': description,
-        'complete': completed,
+        'complete': complete,
         'category_id': categoryString,
         'notification_time': notificationTime,
       });
@@ -143,7 +143,7 @@ class TodoController extends StateNotifier<TodoState> {
   Future<String> updateTodo({
     required String title,
     required String description,
-    required bool completed,
+    required bool complete,
     required Category categoryId,
     DateTime? notificationTime,
   }) async {
@@ -156,7 +156,7 @@ class TodoController extends StateNotifier<TodoState> {
       final formData = FormData.fromMap({
         'title': title,
         'description': description,
-        'complete': completed,
+        'complete': complete,
         'category_id': categoryString,
         'notification_time': notificationTime,
       });
@@ -222,6 +222,38 @@ class TodoController extends StateNotifier<TodoState> {
     final newList =
         state.todos.where((todo) => todo.id != deleteTodo.id).toList();
     state = state.copyWith(todos: newList);
+  }
+
+  Future<String> changeCompleteStatus({
+    required bool complete,
+  }) async {
+    String res = failureUpDate;
+    state = state.copyWith(isLoading: true);
+    if (_userNotifier.accessToken.isNotEmpty &&
+        _userNotifier.tokenType.isNotEmpty &&
+        _userNotifier.user.id != 0) {
+      final formData = FormData.fromMap({
+        'complete': complete,
+      });
+      final result = await todoRepository.changeCompleteStatus(
+        accessToken: _userNotifier.accessToken,
+        tokenType: _userNotifier.tokenType,
+        formData: formData,
+        todo: state.selectedTodo,
+      );
+      result.when(
+        success: (todo) {
+          update(todo);
+          state = state.copyWith(isLoading: false);
+          res = successRes;
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          res = error.toString();
+        },
+      );
+    }
+    return res;
   }
 
   Future<String> offTodoNotification({

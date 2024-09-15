@@ -115,6 +115,35 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
+  Future<Result<Todo>> changeCompleteStatus({
+    required String accessToken,
+    required String tokenType,
+    required Todo todo,
+    required FormData formData,
+  }) {
+    return Result.guardFuture(() async {
+      await Future.delayed(const Duration(seconds: 1));
+
+      final response = await _dio.put(
+        '/todo/complete/${todo.id}',
+        options: Options(
+          headers: {'Authorization': '$tokenType $accessToken'},
+        ),
+        data: formData,
+      );
+
+      if (response.statusCode == 204) {
+        return todo;
+      } else if (response.data != null) {
+        todo = Todo.fromJson(response.data);
+        return todo;
+      } else {
+        throw Exception('Unexpected response format');
+      }
+    });
+  }
+
+  @override
   Future<Result<Todo>> offTodoNotification({
     required String accessToken,
     required String tokenType,

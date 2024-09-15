@@ -31,6 +31,12 @@ class CustomCheckboxTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final editMode = ref.watch(todoProvider.select((value) => value.editMode));
+
+    // リストの範囲外の場合は空のコンテナを返す
+    if (index >= todos.length || index >= selectedItemList.length) {
+      return const SizedBox.shrink();
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(

@@ -27,6 +27,13 @@ abstract class TodoRepository {
     required Todo todo,
   });
 
+  Future<Result<Todo>> changeCompleteStatus({
+    required String accessToken,
+    required String tokenType,
+    required FormData formData,
+    required Todo todo,
+  });
+
   Future<Result<Todo>> offTodoNotification({
     required String accessToken,
     required String tokenType,
