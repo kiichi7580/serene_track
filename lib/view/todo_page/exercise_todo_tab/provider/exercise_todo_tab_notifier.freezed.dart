@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ExerciseTodoTabState {
   Todo get exerciseTodo => throw _privateConstructorUsedError;
-  List<Todo> get exerciseTodoList => throw _privateConstructorUsedError;
+  List<Todo> get exerciseTodos => throw _privateConstructorUsedError;
   List<bool> get isSelectedList => throw _privateConstructorUsedError;
-  List<bool> get checkedList => throw _privateConstructorUsedError;
+  List<bool> get completeList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ExerciseTodoTabStateCopyWith<ExerciseTodoTabState> get copyWith =>
@@ -34,9 +34,9 @@ abstract class $ExerciseTodoTabStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Todo exerciseTodo,
-      List<Todo> exerciseTodoList,
+      List<Todo> exerciseTodos,
       List<bool> isSelectedList,
-      List<bool> checkedList});
+      List<bool> completeList});
 
   $TodoCopyWith<$Res> get exerciseTodo;
 }
@@ -56,26 +56,26 @@ class _$ExerciseTodoTabStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? exerciseTodo = null,
-    Object? exerciseTodoList = null,
+    Object? exerciseTodos = null,
     Object? isSelectedList = null,
-    Object? checkedList = null,
+    Object? completeList = null,
   }) {
     return _then(_value.copyWith(
       exerciseTodo: null == exerciseTodo
           ? _value.exerciseTodo
           : exerciseTodo // ignore: cast_nullable_to_non_nullable
               as Todo,
-      exerciseTodoList: null == exerciseTodoList
-          ? _value.exerciseTodoList
-          : exerciseTodoList // ignore: cast_nullable_to_non_nullable
+      exerciseTodos: null == exerciseTodos
+          ? _value.exerciseTodos
+          : exerciseTodos // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
       isSelectedList: null == isSelectedList
           ? _value.isSelectedList
           : isSelectedList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
-      checkedList: null == checkedList
-          ? _value.checkedList
-          : checkedList // ignore: cast_nullable_to_non_nullable
+      completeList: null == completeList
+          ? _value.completeList
+          : completeList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
     ) as $Val);
   }
@@ -99,9 +99,9 @@ abstract class _$$ExerciseTodoTabStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Todo exerciseTodo,
-      List<Todo> exerciseTodoList,
+      List<Todo> exerciseTodos,
       List<bool> isSelectedList,
-      List<bool> checkedList});
+      List<bool> completeList});
 
   @override
   $TodoCopyWith<$Res> get exerciseTodo;
@@ -119,26 +119,26 @@ class __$$ExerciseTodoTabStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? exerciseTodo = null,
-    Object? exerciseTodoList = null,
+    Object? exerciseTodos = null,
     Object? isSelectedList = null,
-    Object? checkedList = null,
+    Object? completeList = null,
   }) {
     return _then(_$ExerciseTodoTabStateImpl(
       exerciseTodo: null == exerciseTodo
           ? _value.exerciseTodo
           : exerciseTodo // ignore: cast_nullable_to_non_nullable
               as Todo,
-      exerciseTodoList: null == exerciseTodoList
-          ? _value._exerciseTodoList
-          : exerciseTodoList // ignore: cast_nullable_to_non_nullable
+      exerciseTodos: null == exerciseTodos
+          ? _value._exerciseTodos
+          : exerciseTodos // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
       isSelectedList: null == isSelectedList
           ? _value._isSelectedList
           : isSelectedList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
-      checkedList: null == checkedList
-          ? _value._checkedList
-          : checkedList // ignore: cast_nullable_to_non_nullable
+      completeList: null == completeList
+          ? _value._completeList
+          : completeList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
     ));
   }
@@ -149,25 +149,24 @@ class __$$ExerciseTodoTabStateImplCopyWithImpl<$Res>
 class _$ExerciseTodoTabStateImpl extends _ExerciseTodoTabState {
   _$ExerciseTodoTabStateImpl(
       {this.exerciseTodo = const Todo(),
-      final List<Todo> exerciseTodoList = const [],
+      final List<Todo> exerciseTodos = const [],
       final List<bool> isSelectedList = const [],
-      final List<bool> checkedList = const []})
-      : _exerciseTodoList = exerciseTodoList,
+      final List<bool> completeList = const []})
+      : _exerciseTodos = exerciseTodos,
         _isSelectedList = isSelectedList,
-        _checkedList = checkedList,
+        _completeList = completeList,
         super._();
 
   @override
   @JsonKey()
   final Todo exerciseTodo;
-  final List<Todo> _exerciseTodoList;
+  final List<Todo> _exerciseTodos;
   @override
   @JsonKey()
-  List<Todo> get exerciseTodoList {
-    if (_exerciseTodoList is EqualUnmodifiableListView)
-      return _exerciseTodoList;
+  List<Todo> get exerciseTodos {
+    if (_exerciseTodos is EqualUnmodifiableListView) return _exerciseTodos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_exerciseTodoList);
+    return EqualUnmodifiableListView(_exerciseTodos);
   }
 
   final List<bool> _isSelectedList;
@@ -179,18 +178,18 @@ class _$ExerciseTodoTabStateImpl extends _ExerciseTodoTabState {
     return EqualUnmodifiableListView(_isSelectedList);
   }
 
-  final List<bool> _checkedList;
+  final List<bool> _completeList;
   @override
   @JsonKey()
-  List<bool> get checkedList {
-    if (_checkedList is EqualUnmodifiableListView) return _checkedList;
+  List<bool> get completeList {
+    if (_completeList is EqualUnmodifiableListView) return _completeList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_checkedList);
+    return EqualUnmodifiableListView(_completeList);
   }
 
   @override
   String toString() {
-    return 'ExerciseTodoTabState(exerciseTodo: $exerciseTodo, exerciseTodoList: $exerciseTodoList, isSelectedList: $isSelectedList, checkedList: $checkedList)';
+    return 'ExerciseTodoTabState(exerciseTodo: $exerciseTodo, exerciseTodos: $exerciseTodos, isSelectedList: $isSelectedList, completeList: $completeList)';
   }
 
   @override
@@ -201,20 +200,20 @@ class _$ExerciseTodoTabStateImpl extends _ExerciseTodoTabState {
             (identical(other.exerciseTodo, exerciseTodo) ||
                 other.exerciseTodo == exerciseTodo) &&
             const DeepCollectionEquality()
-                .equals(other._exerciseTodoList, _exerciseTodoList) &&
+                .equals(other._exerciseTodos, _exerciseTodos) &&
             const DeepCollectionEquality()
                 .equals(other._isSelectedList, _isSelectedList) &&
             const DeepCollectionEquality()
-                .equals(other._checkedList, _checkedList));
+                .equals(other._completeList, _completeList));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       exerciseTodo,
-      const DeepCollectionEquality().hash(_exerciseTodoList),
+      const DeepCollectionEquality().hash(_exerciseTodos),
       const DeepCollectionEquality().hash(_isSelectedList),
-      const DeepCollectionEquality().hash(_checkedList));
+      const DeepCollectionEquality().hash(_completeList));
 
   @JsonKey(ignore: true)
   @override
@@ -228,19 +227,19 @@ class _$ExerciseTodoTabStateImpl extends _ExerciseTodoTabState {
 abstract class _ExerciseTodoTabState extends ExerciseTodoTabState {
   factory _ExerciseTodoTabState(
       {final Todo exerciseTodo,
-      final List<Todo> exerciseTodoList,
+      final List<Todo> exerciseTodos,
       final List<bool> isSelectedList,
-      final List<bool> checkedList}) = _$ExerciseTodoTabStateImpl;
+      final List<bool> completeList}) = _$ExerciseTodoTabStateImpl;
   _ExerciseTodoTabState._() : super._();
 
   @override
   Todo get exerciseTodo;
   @override
-  List<Todo> get exerciseTodoList;
+  List<Todo> get exerciseTodos;
   @override
   List<bool> get isSelectedList;
   @override
-  List<bool> get checkedList;
+  List<bool> get completeList;
   @override
   @JsonKey(ignore: true)
   _$$ExerciseTodoTabStateImplCopyWith<_$ExerciseTodoTabStateImpl>
