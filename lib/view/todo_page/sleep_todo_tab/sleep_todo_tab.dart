@@ -8,6 +8,7 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/sleep_todo_tab/provider/sleep_todo_tab_notifier.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -31,16 +32,16 @@ class SleepTodoTab extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               LineIcons.procedures,
               size: 60,
-              color: mantisColor2,
+              color: categoryColor2(Category.sleep),
             ),
             const SizedBox(height: 16),
             Text(
               'タスクを追加しましょう',
               style: TextStyles.taskTitleStyle.copyWith(
-                color: mantisColor2,
+                color: categoryColor2(Category.sleep),
               ),
             ),
             const SizedBox(height: 260),
@@ -97,7 +98,7 @@ class SleepTodoTab extends ConsumerWidget {
                   todos: sleepTodos,
                   index: index,
                   value: completeList[index],
-                  fillColor: mantisColor,
+                  fillColor: categoryColor(Category.sleep),
                   onTap: () {
                     ref
                         .read(sleepTodoTabProvider.notifier)

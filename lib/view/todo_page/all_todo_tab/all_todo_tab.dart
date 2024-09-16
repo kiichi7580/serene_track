@@ -9,6 +9,7 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/all_todo_tab/provider/all_todo_tab_notifier.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -41,16 +42,16 @@ class AllTodoTab extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               LineIcons.alternateListAlt,
               size: 60,
-              color: sandwispColor2,
+              color: categoryColor2(Category.all),
             ),
             const SizedBox(height: 16),
             Text(
               'タスクを追加しましょう',
               style: TextStyles.taskTitleStyle.copyWith(
-                color: sandwispColor2,
+                color: categoryColor2(Category.all),
               ),
             ),
             const SizedBox(height: 260),
@@ -108,7 +109,7 @@ class AllTodoTab extends ConsumerWidget {
                   todos: allTodos,
                   index: index,
                   value: checkedList[index],
-                  fillColor: sandwispColor,
+                  fillColor: categoryColor(Category.all),
                   onTap: () {
                     ref
                         .read(allTodoTabProvider.notifier)

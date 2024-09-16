@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/view/account_page/sleep_tab/sleep_tab.dart';
 import 'package:serene_track/view/account_page/steps_tab/steps_tab.dart';
+import 'package:serene_track/view/account_page/task_tab/task_tab.dart';
 
 class AccountTabsContents extends StatelessWidget {
   const AccountTabsContents({super.key});
@@ -10,9 +10,7 @@ class AccountTabsContents extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TabBarView(
       children: [
-        Center(
-          child: Text(taskTx),
-        ),
+        TaskTab(),
         StepsTab(),
         SleepTab(),
       ],
