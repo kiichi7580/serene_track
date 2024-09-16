@@ -8,6 +8,7 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
 import 'package:serene_track/view/todo_page/work_todo_tab/provider/work_todo_tab_notifier.dart';
@@ -31,16 +32,13 @@ class WorkTodoTab extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              LineIcons.briefcase,
-              size: 60,
-              color: appleColor2,
-            ),
+            Icon(LineIcons.briefcase,
+                size: 60, color: categoryColor2(Category.work)),
             const SizedBox(height: 16),
             Text(
               'タスクを追加しましょう',
               style: TextStyles.taskTitleStyle.copyWith(
-                color: appleColor2,
+                color: categoryColor2(Category.work),
               ),
             ),
             const SizedBox(height: 260),
@@ -97,7 +95,7 @@ class WorkTodoTab extends ConsumerWidget {
                   todos: workTodos,
                   index: index,
                   value: completeList[index],
-                  fillColor: appleColor,
+                  fillColor: categoryColor(Category.work),
                   onTap: () {
                     ref
                         .read(workTodoTabProvider.notifier)

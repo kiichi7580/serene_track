@@ -8,6 +8,7 @@ import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:serene_track/view/todo_page/exercise_todo_tab/provider/exercise_todo_tab_notifier.dart';
 import 'package:serene_track/view/todo_page/components/custom_checkbox_tile.dart';
@@ -17,12 +18,12 @@ class ExerciseTodoTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final exerciseTodos = ref.watch(
-        exerciseTodoTabProvider.select((value) => value.exerciseTodos));
+    final exerciseTodos = ref
+        .watch(exerciseTodoTabProvider.select((value) => value.exerciseTodos));
     final selectedItemList = ref
         .watch(exerciseTodoTabProvider.select((value) => value.isSelectedList));
-    final completeList =
-        ref.watch(exerciseTodoTabProvider.select((value) => value.completeList));
+    final completeList = ref
+        .watch(exerciseTodoTabProvider.select((value) => value.completeList));
     final isLoading =
         ref.watch(todoProvider.select((value) => value.isLoading));
 
@@ -31,16 +32,16 @@ class ExerciseTodoTab extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               LineIcons.running,
               size: 60,
-              color: yellowGreenColor2,
+              color: categoryColor2(Category.exercise),
             ),
             const SizedBox(height: 16),
             Text(
               'タスクを追加しましょう',
               style: TextStyles.taskTitleStyle.copyWith(
-                color: yellowGreenColor2,
+                color: categoryColor2(Category.exercise),
               ),
             ),
             const SizedBox(height: 260),
@@ -97,7 +98,7 @@ class ExerciseTodoTab extends ConsumerWidget {
                   todos: exerciseTodos,
                   index: index,
                   value: completeList[index],
-                  fillColor: yellowGreenColor,
+                  fillColor: categoryColor(Category.exercise),
                   onTap: () {
                     ref
                         .read(exerciseTodoTabProvider.notifier)

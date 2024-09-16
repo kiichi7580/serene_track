@@ -28,6 +28,19 @@ Color categoryColor(Category category) {
   }
 }
 
+Color categoryColor2(Category category) {
+  switch (category) {
+    case Category.all:
+      return sandwispColor2;
+    case Category.exercise:
+      return yellowGreenColor2;
+    case Category.sleep:
+      return mantisColor2;
+    case Category.work:
+      return appleColor2;
+  }
+}
+
 class CategoryEnumConverter implements JsonConverter<Category?, String?> {
   const CategoryEnumConverter();
 
