@@ -8,22 +8,28 @@ class BeforeIntegrationContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          side: const BorderSide(
-            color: healthCareAppColor,
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Column(
+      children: [
+        SizedBox(height: screenHeight * 0.2),
+        Center(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              side: const BorderSide(
+                color: healthCareAppColor,
+              ),
+              foregroundColor: healthCareAppColor,
+              backgroundColor: backGroundColor,
+            ),
+            onPressed: () {
+              context.push(HealthCareAppIntegrationPage.routeLocation);
+            },
+            child: const Text('ヘルスケアと連携する'),
           ),
-          foregroundColor: healthCareAppColor,
-          backgroundColor: backGroundColor,
         ),
-        onPressed: () {
-          context.push(HealthCareAppIntegrationPage.routeLocation);
-        },
-        child: const Text('ヘルスケアと連携する'),
-      ),
+      ],
     );
   }
 }
