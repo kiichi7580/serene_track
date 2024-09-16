@@ -48,4 +48,9 @@ class TextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
+  static const pieChartTextStyle = TextStyle(
+    color: textMainColor,
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+  );
 }
