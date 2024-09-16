@@ -97,28 +97,30 @@ class TodoAddPage extends ConsumerWidget {
                 SizedBox(
                   height: 56,
                   width: 72,
-                  child: Consumer(builder: (context, ref, _) {
-                    return DropdownButton(
-                      dropdownColor: backGroundColor,
-                      items: items
-                          .map((item) => DropdownMenuItem<Category>(
-                                alignment: AlignmentDirectional.center,
-                                value: item,
-                                child: Text(item.label),
-                              ))
-                          .toList(),
-                      value: ref.watch(categoryNotifierProvider),
-                      onChanged: (value) {
-                        ref
-                            .read(categoryNotifierProvider.notifier)
-                            .setValue(value);
-                      },
-                      underline: Container(
-                        height: 1,
-                        color: textMainColor,
-                      ),
-                    );
-                  }),
+                  child: Consumer(
+                    builder: (context, ref, _) {
+                      return DropdownButton(
+                        dropdownColor: backGroundColor,
+                        items: items
+                            .map((item) => DropdownMenuItem<Category>(
+                                  alignment: AlignmentDirectional.center,
+                                  value: item,
+                                  child: Text(item.label),
+                                ))
+                            .toList(),
+                        value: ref.watch(categoryNotifierProvider),
+                        onChanged: (value) {
+                          ref
+                              .read(categoryNotifierProvider.notifier)
+                              .setValue(value);
+                        },
+                        underline: Container(
+                          height: 1,
+                          color: textMainColor,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(height: 8),
                 TodoTextField(

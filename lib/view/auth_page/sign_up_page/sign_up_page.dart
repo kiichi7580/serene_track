@@ -14,7 +14,7 @@ import 'package:serene_track/view/auth_page/provider/form_provider.dart';
 import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/provider/sign_up_text_cotroller_notifier.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/provider/form_key_for_sign_up_notifier.dart';
-import 'package:serene_track/view/todo_page/todo_page.dart';
+import 'package:serene_track/view/splash_page/splash_page.dart';
 
 class SignUpPage extends ConsumerWidget {
   const SignUpPage({super.key});
@@ -162,7 +162,7 @@ class SignUpPage extends ConsumerWidget {
                           );
                           if (res == successSignUp) {
                             if (!context.mounted) return;
-                            context.go(TodoPage.routeLocation);
+                            context.go(SplashPage.routeLocation);
                           }
                           if (!context.mounted) return;
                           showSnackBar(res, context);

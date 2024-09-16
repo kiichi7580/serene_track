@@ -27,11 +27,11 @@ class WeekAverageSleepHoursCard extends ConsumerWidget {
                     color: healthCareSleepColor,
                   ),
                   Text(
-                    '今週の睡眠時間',
+                    '今週の平均睡眠時間',
                     style: TextStyle(
                       color: healthCareSleepColor,
                       fontWeight: FontWeight.bold,
-                    ),
+                    ), 
                   ),
                 ],
               ),
