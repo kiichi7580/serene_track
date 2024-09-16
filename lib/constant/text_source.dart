@@ -75,6 +75,8 @@ const exerciseTx = '運動';
 const sleepTx = '睡眠';
 const workTx = '仕事';
 
+const incompleteTx = '未達成';
+
 // タスク関連
 const titleTx = 'タイトル';
 const categoryTx = 'カテゴリー';

@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/constant/colors.dart';
+import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/controllers/global/todo_notifier.dart';
+import 'package:serene_track/model/enum/category.dart';
 import 'package:serene_track/view/todo_add_page/todo_add_page.dart';
 import 'package:serene_track/view/todo_page/all_todo_tab/all_todo_tab.dart';
 import 'package:serene_track/view/todo_page/exercise_todo_tab/exercise_todo_tab.dart';
@@ -88,17 +90,17 @@ class TodoPageState extends ConsumerState<TodoPage>
                     fontSize: 13,
                     color: textMainColor,
                   ),
-                  colors: const [
-                    sandwispColor,
-                    yellowGreenColor,
-                    mantisColor,
-                    appleColor,
+                  colors: [
+                    categoryColor(Category.all),
+                    categoryColor(Category.exercise),
+                    categoryColor(Category.sleep),
+                    categoryColor(Category.work),
                   ],
                   tabs: const [
-                    Text('すべて'),
-                    Text('運動'),
-                    Text('睡眠'),
-                    Text('仕事'),
+                    Text(allTx),
+                    Text(exerciseTx),
+                    Text(sleepTx),
+                    Text(workTx),
                   ],
                   children: const [
                     AllTodoTab(),
