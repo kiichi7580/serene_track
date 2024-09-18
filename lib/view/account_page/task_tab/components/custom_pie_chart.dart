@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/model/src/pie_chart_sector.dart';
 import 'package:serene_track/view/account_page/task_tab/provider/task_tab_notifier.dart';
+import 'dart:math';
 
 class CustomPieChart extends ConsumerWidget {
   const CustomPieChart({
@@ -28,7 +29,7 @@ class CustomPieChart extends ConsumerWidget {
           showTitle: false,
           radius: touchedSectionIndex == i ? 48.0 : 40.0,
           badgeWidget: Transform.rotate(
-            angle: 90 * 3.2 / 180,
+            angle: 90 * pi / 180,
             child: Text(
               '${sector.value.toString()}%',
               style: sector.titleStyle,
@@ -44,7 +45,7 @@ class CustomPieChart extends ConsumerWidget {
       height: 200,
       width: 200,
       child: Transform.rotate(
-        angle: -90 * 3.2 / 180,
+        angle: -90 * pi / 180,
         child: PieChart(
           PieChartData(
             sections: chartSections(sectors),
