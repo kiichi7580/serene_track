@@ -33,8 +33,8 @@ class MontringPageStateController extends StateNotifier<MontringPageState> {
   }
 
   void setTimer() {
-    state = state.copyWith(totalSeconds: 10);
-    state = state.copyWith(dynamicSeconds: 10);
+    state = state.copyWith(totalSeconds: 3600);
+    state = state.copyWith(dynamicSeconds: 3600);
   }
 
   void changeIsRunningState(bool isRunning) {

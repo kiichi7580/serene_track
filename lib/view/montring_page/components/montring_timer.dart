@@ -35,7 +35,7 @@ class MontringTimer extends ConsumerWidget {
           ),
           Center(
             child: Text(
-              '$dynamicSeconds',
+              (dynamicSeconds / 60).floor().toString(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: dynamicSeconds == 0 ? lightSkyBlueColor : navyBlueColor,

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/view/montring_page/provider/montring_page_notifier.dart';
 import 'package:serene_track/view/montring_page/components/show_break_promotion_dialog.dart';
+import 'package:serene_track/view/montring_page/provider/show_break_promotion_dialog_notifier.dart';
 
 class MontringCustomButton extends ConsumerWidget {
   const MontringCustomButton({super.key});
@@ -61,13 +62,18 @@ class MontringCustomButton extends ConsumerWidget {
                 borderSideColor: darkOrangeColor,
                 onPressed: () async {
                   ref.read(montringPageProvider.notifier).stopTimer();
-                  ref.watch(montringPageProvider.notifier).resetTimer();
-                  final response = await showBreakPromotionDialog(
-                    context,
-                  );
+                  ref.read(montringPageProvider.notifier).resetTimer();
+                  final response = await showBreakPromotionDialog(context);
                   if (response == null || response == false) {
                     return;
                   }
+                  ref
+                      .read(showBreakPromotionDialogProvider.notifier)
+                      .setResponse(response);
+                  ref
+                      .read(showBreakPromotionDialogProvider.notifier)
+                      .celebrate();
+                  ref.read(showBreakPromotionDialogProvider.notifier).vibrate();
                 },
               );
   }
