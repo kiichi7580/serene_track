@@ -17,7 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ShowBreakPromotionDialogState {
   List<bool> get checkedList => throw _privateConstructorUsedError;
-  bool get isAllchecked => throw _privateConstructorUsedError;
+  bool get isAllChecked => throw _privateConstructorUsedError;
+  bool get response => throw _privateConstructorUsedError;
+  ConfettiController? get confettiController =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ShowBreakPromotionDialogStateCopyWith<ShowBreakPromotionDialogState>
@@ -32,7 +35,11 @@ abstract class $ShowBreakPromotionDialogStateCopyWith<$Res> {
       _$ShowBreakPromotionDialogStateCopyWithImpl<$Res,
           ShowBreakPromotionDialogState>;
   @useResult
-  $Res call({List<bool> checkedList, bool isAllchecked});
+  $Res call(
+      {List<bool> checkedList,
+      bool isAllChecked,
+      bool response,
+      ConfettiController? confettiController});
 }
 
 /// @nodoc
@@ -50,17 +57,27 @@ class _$ShowBreakPromotionDialogStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? checkedList = null,
-    Object? isAllchecked = null,
+    Object? isAllChecked = null,
+    Object? response = null,
+    Object? confettiController = freezed,
   }) {
     return _then(_value.copyWith(
       checkedList: null == checkedList
           ? _value.checkedList
           : checkedList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
-      isAllchecked: null == isAllchecked
-          ? _value.isAllchecked
-          : isAllchecked // ignore: cast_nullable_to_non_nullable
+      isAllChecked: null == isAllChecked
+          ? _value.isAllChecked
+          : isAllChecked // ignore: cast_nullable_to_non_nullable
               as bool,
+      response: null == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as bool,
+      confettiController: freezed == confettiController
+          ? _value.confettiController
+          : confettiController // ignore: cast_nullable_to_non_nullable
+              as ConfettiController?,
     ) as $Val);
   }
 }
@@ -74,7 +91,11 @@ abstract class _$$ShowBreakPromotionDialogStateImplCopyWith<$Res>
       __$$ShowBreakPromotionDialogStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<bool> checkedList, bool isAllchecked});
+  $Res call(
+      {List<bool> checkedList,
+      bool isAllChecked,
+      bool response,
+      ConfettiController? confettiController});
 }
 
 /// @nodoc
@@ -91,17 +112,27 @@ class __$$ShowBreakPromotionDialogStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? checkedList = null,
-    Object? isAllchecked = null,
+    Object? isAllChecked = null,
+    Object? response = null,
+    Object? confettiController = freezed,
   }) {
     return _then(_$ShowBreakPromotionDialogStateImpl(
       checkedList: null == checkedList
           ? _value._checkedList
           : checkedList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
-      isAllchecked: null == isAllchecked
-          ? _value.isAllchecked
-          : isAllchecked // ignore: cast_nullable_to_non_nullable
+      isAllChecked: null == isAllChecked
+          ? _value.isAllChecked
+          : isAllChecked // ignore: cast_nullable_to_non_nullable
               as bool,
+      response: null == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as bool,
+      confettiController: freezed == confettiController
+          ? _value.confettiController
+          : confettiController // ignore: cast_nullable_to_non_nullable
+              as ConfettiController?,
     ));
   }
 }
@@ -111,7 +142,10 @@ class __$$ShowBreakPromotionDialogStateImplCopyWithImpl<$Res>
 class _$ShowBreakPromotionDialogStateImpl
     extends _ShowBreakPromotionDialogState {
   _$ShowBreakPromotionDialogStateImpl(
-      {final List<bool> checkedList = const [], this.isAllchecked = false})
+      {final List<bool> checkedList = const [],
+      this.isAllChecked = false,
+      this.response = false,
+      this.confettiController})
       : _checkedList = checkedList,
         super._();
 
@@ -126,11 +160,16 @@ class _$ShowBreakPromotionDialogStateImpl
 
   @override
   @JsonKey()
-  final bool isAllchecked;
+  final bool isAllChecked;
+  @override
+  @JsonKey()
+  final bool response;
+  @override
+  final ConfettiController? confettiController;
 
   @override
   String toString() {
-    return 'ShowBreakPromotionDialogState(checkedList: $checkedList, isAllchecked: $isAllchecked)';
+    return 'ShowBreakPromotionDialogState(checkedList: $checkedList, isAllChecked: $isAllChecked, response: $response, confettiController: $confettiController)';
   }
 
   @override
@@ -140,13 +179,21 @@ class _$ShowBreakPromotionDialogStateImpl
             other is _$ShowBreakPromotionDialogStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._checkedList, _checkedList) &&
-            (identical(other.isAllchecked, isAllchecked) ||
-                other.isAllchecked == isAllchecked));
+            (identical(other.isAllChecked, isAllChecked) ||
+                other.isAllChecked == isAllChecked) &&
+            (identical(other.response, response) ||
+                other.response == response) &&
+            (identical(other.confettiController, confettiController) ||
+                other.confettiController == confettiController));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_checkedList), isAllchecked);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_checkedList),
+      isAllChecked,
+      response,
+      confettiController);
 
   @JsonKey(ignore: true)
   @override
@@ -160,14 +207,21 @@ class _$ShowBreakPromotionDialogStateImpl
 abstract class _ShowBreakPromotionDialogState
     extends ShowBreakPromotionDialogState {
   factory _ShowBreakPromotionDialogState(
-      {final List<bool> checkedList,
-      final bool isAllchecked}) = _$ShowBreakPromotionDialogStateImpl;
+          {final List<bool> checkedList,
+          final bool isAllChecked,
+          final bool response,
+          final ConfettiController? confettiController}) =
+      _$ShowBreakPromotionDialogStateImpl;
   _ShowBreakPromotionDialogState._() : super._();
 
   @override
   List<bool> get checkedList;
   @override
-  bool get isAllchecked;
+  bool get isAllChecked;
+  @override
+  bool get response;
+  @override
+  ConfettiController? get confettiController;
   @override
   @JsonKey(ignore: true)
   _$$ShowBreakPromotionDialogStateImplCopyWith<

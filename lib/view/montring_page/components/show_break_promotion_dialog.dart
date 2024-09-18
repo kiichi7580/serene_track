@@ -117,10 +117,13 @@ Widget _buildBreakPromotionDialog(BuildContext context) {
               backgroundColor: backGroundColor,
             ),
             onPressed: allChecked
-                ? () {
+                ? () async {
                     ref
                         .read(showBreakPromotionDialogProvider.notifier)
                         .getInitCheckedList(4);
+                    ref
+                        .read(showBreakPromotionDialogProvider.notifier)
+                        .setIsAllChecked(allChecked);
                     Navigator.pop(context, true);
                   }
                 : null,
