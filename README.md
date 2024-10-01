@@ -78,6 +78,8 @@
 
   - #### タイマー機能
 
+    ⇨ デフォルトで1時間タイマーに設定
+
   - #### サウンド機能
 
   - #### 休憩促進機能
@@ -112,6 +114,16 @@
 <br>
 <br>
 <br>
+<br>
+<br>
+
+***
+## 画面遷移図
+
+<br>
+
+<img src="./assets/images/screen_transition_diagram.png" width=" 1000">
+
 <br>
 <br>
 
