@@ -1,4 +1,4 @@
-package com.example.serene_track
+package com.nakazatokiichi.serene_track
 
 import io.flutter.embedding.android.FlutterActivity
 

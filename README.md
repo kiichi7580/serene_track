@@ -28,16 +28,16 @@
 <br>
 
 ***
-## イメージ画像・動画
+## イメージ画像
 
 | 新規登録画面 | サインイン画面 |
 | :---: | :---: |
-| <img src="./assets/images/sign_up_screen_image.png" width="200">  | <img src="./assets/images/sign_in_screen_image.png" width="200">  |
+| <img src="./assets/images/screens/sign_up_screen_image.png" width="200">  | <img src="./assets/images/screens/sign_in_screen_image.png" width="200">  |
 
 
 | タスク画面 | モニタリング画面 | アカウント画面 |
 | :---: | :---: | :---: |
-| <video src="./assets/videos/task_screen_video.mov" width="200"> | <video src="./assets/videos/montring_screen_video.mov" width="200"> | <video src="./assets/videos/account_screen_video.mov" width="200"> |
+| <img src="./assets/images/screens/task_screen_image.png" width="200"> | <img src="./assets/images/screens/montring_screen_image.png" width="200"> | <img src="./assets/images/screens/account_screen_image.png" width="200"> |
 
 <br>
 <br>
@@ -77,6 +77,8 @@
 - ### ⏰ モニタリング画面
 
   - #### タイマー機能
+
+    ⇨ デフォルトで1時間タイマーに設定
 
   - #### サウンド機能
 
@@ -120,7 +122,17 @@
 
 <br>
 
-<img src="" width="1000">
+<img src="./assets/images/screen_transition_diagram.png" width=" 1000">
+
+<br>
+<br>
+
+***
+## ER図
+
+<br>
+
+<img src="./assets/images/entity_relationship_diagram.png" width="500">
 
 <br>
 <br>
