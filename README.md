@@ -116,11 +116,11 @@
 <br>
 
 ***
-## 画面遷移図
+## ER図
 
 <br>
 
-<img src="" width="1000">
+<img src="./assets/images/entity_relationship_diagram.png" width="500">
 
 <br>
 <br>
