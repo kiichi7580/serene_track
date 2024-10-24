@@ -23,7 +23,7 @@ class CustomPieChart extends ConsumerWidget {
         final sector = sectors[i];
         final data = PieChartSectionData(
           color: sector.color,
-          value: sector.value,
+          value: sector.value.isNaN ? 0 : sector.value,
           // title: '${sector.value.toString()}%',
           // titleStyle: sector.titleStyle,
           showTitle: false,
@@ -31,7 +31,7 @@ class CustomPieChart extends ConsumerWidget {
           badgeWidget: Transform.rotate(
             angle: 90 * pi / 180,
             child: Text(
-              '${sector.value.toString()}%',
+              sector.value.isNaN ? '' : '${sector.value.toString()}%',
               style: sector.titleStyle,
             ),
           ),
