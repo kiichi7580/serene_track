@@ -42,18 +42,20 @@ class SignInPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              appleColor,
-              sandwispColor,
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 1.0,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                appleColor,
+                sandwispColor,
+              ],
+            ),
           ),
+          child: buildBody(context, ref),
         ),
-        child: buildBody(context, ref),
       ),
     );
   }

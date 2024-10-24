@@ -48,91 +48,94 @@ class AccountEditPage extends ConsumerWidget {
     final longTermGoalController =
         ref.watch(longTermGorlControllerNotifierProvider(user.longTermGoal));
     final formController = ref.read(formProvider.notifier);
-    final formKey = ref.read(formKeyForEditAccountNotifierProvider);
+    final formKey = ref.watch(formKeyForEditAccountNotifierProvider);
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: myAppBar(title: 'アカウントを編集'),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8,
-            horizontal: 16,
-          ),
-          width: MediaQuery.of(context).size.width * 0.94,
-          decoration: const BoxDecoration(
-            color: backGroundColor,
-          ),
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.04,
-                ),
-                Center(
-                  child: CircleAvatar(
-                    backgroundImage: iconImage(user.photoUrl),
-                    radius: 64,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 16,
+            ),
+            height: MediaQuery.of(context).size.height * 0.87,
+            width: MediaQuery.of(context).size.width * 0.94,
+            decoration: const BoxDecoration(
+              color: backGroundColor,
+            ),
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.04,
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.06,
-                ),
-                AccountTextField(
-                  caption: userName,
-                  controller: nameController,
-                  keyboardType: TextInputType.text,
-                  maxLength: 45,
-                  validator: formController.basicValidator,
-                ),
-                const SizedBox(height: 4),
-                AccountTextField(
-                  caption: shortTermGorlTx,
-                  controller: shortTermGoalController,
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  validator: formController.basicValidator,
-                ),
-                const SizedBox(height: 4),
-                AccountTextField(
-                  caption: longTermGorlTx,
-                  controller: longTermGoalController,
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  validator: formController.basicValidator,
-                ),
-                const SizedBox(height: 16),
-                isLoading
-                    ? const LoadingButton()
-                    : CustomButton(
-                        buttonText: '更新する',
-                        onTap: () async {
-                          FormStatus formStatus =
-                              formController.validateForm(formKey);
-                          if (formStatus == FormStatus.valid) {
-                            String res = await updateUser(
-                              ref: ref,
-                              name: nameController.text,
-                              shortTermGoal: shortTermGoalController.text,
-                              longTermGoal: longTermGoalController.text,
-                            );
-                            if (res == successUpDate) {
-                              if (!context.mounted) return;
-                              context.go(AccountPage.routeLocation);
-                              showSnackBar(res, context);
-                            } else {
-                              if (!context.mounted) return;
-                              showSnackBar(
-                                res,
-                                context,
-                                backgroundColor: noReactionColor,
+                  Center(
+                    child: CircleAvatar(
+                      backgroundImage: iconImage(user.photoUrl),
+                      radius: 64,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                  ),
+                  AccountTextField(
+                    caption: userName,
+                    controller: nameController,
+                    keyboardType: TextInputType.text,
+                    maxLength: 45,
+                    validator: formController.basicValidator,
+                  ),
+                  const SizedBox(height: 4),
+                  AccountTextField(
+                    caption: shortTermGorlTx,
+                    controller: shortTermGoalController,
+                    keyboardType: TextInputType.text,
+                    maxLength: 100,
+                    validator: formController.basicValidator,
+                  ),
+                  const SizedBox(height: 4),
+                  AccountTextField(
+                    caption: longTermGorlTx,
+                    controller: longTermGoalController,
+                    keyboardType: TextInputType.text,
+                    maxLength: 100,
+                    validator: formController.basicValidator,
+                  ),
+                  const SizedBox(height: 16),
+                  isLoading
+                      ? const LoadingButton()
+                      : CustomButton(
+                          buttonText: '更新する',
+                          onTap: () async {
+                            FormStatus formStatus =
+                                formController.validateForm(formKey);
+                            if (formStatus == FormStatus.valid) {
+                              String res = await updateUser(
+                                ref: ref,
+                                name: nameController.text,
+                                shortTermGoal: shortTermGoalController.text,
+                                longTermGoal: longTermGoalController.text,
                               );
+                              if (res == successUpDate) {
+                                if (!context.mounted) return;
+                                context.go(AccountPage.routeLocation);
+                                showSnackBar(res, context);
+                              } else {
+                                if (!context.mounted) return;
+                                showSnackBar(
+                                  res,
+                                  context,
+                                  backgroundColor: noReactionColor,
+                                );
+                              }
                             }
-                          }
-                        },
-                      ),
-              ],
+                          },
+                        ),
+                ],
+              ),
             ),
           ),
         ),

@@ -85,119 +85,123 @@ class TodoEditPageState extends ConsumerState<TodoEditPage> {
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: myAppBar(title: 'タスクを編集する'),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8,
-            horizontal: 16,
-          ),
-          width: MediaQuery.of(context).size.width * 0.94,
-          decoration: const BoxDecoration(
-            color: backGroundColor,
-          ),
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.04,
-                ),
-                TodoTextField(
-                  caption: titleTx,
-                  controller: titleController,
-                  keyboardType: TextInputType.text,
-                  maxLength: 50,
-                  maxLines: 1,
-                  validator: formController.basicValidator,
-                ),
-                const SizedBox(height: 8),
-                const Text(categoryTx, style: TextStyles.caption),
-                const SizedBox(height: 8),
-                SizedBox(
-                  height: 56,
-                  width: 72,
-                  child: Consumer(
-                    builder: (context, ref, _) {
-                      return DropdownButton(
-                        dropdownColor: backGroundColor,
-                        items: items
-                            .map((item) => DropdownMenuItem<Category>(
-                                  alignment: AlignmentDirectional.center,
-                                  value: item,
-                                  child: Text(item.label),
-                                ))
-                            .toList(),
-                        value: ref.watch(categoryNotifierProvider),
-                        onChanged: (value) {
-                          ref
-                              .read(categoryNotifierProvider.notifier)
-                              .setValue(value);
-                        },
-                        underline: Container(
-                          height: 1,
-                          color: textMainColor,
-                        ),
-                      );
-                    },
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 16,
+            ),
+            height: MediaQuery.of(context).size.height * 0.87,
+            width: MediaQuery.of(context).size.width * 0.94,
+            decoration: const BoxDecoration(
+              color: backGroundColor,
+            ),
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.04,
                   ),
-                ),
-                const SizedBox(height: 8),
-                TodoTextField(
-                  caption: descriptionTx,
-                  controller: descriptionController,
-                  keyboardType: TextInputType.text,
-                  maxLength: 200,
-                  maxLines: 3,
-                  validator: formController.basicValidator,
-                ),
-                const SizedBox(height: 8),
-                const Text(notificationSettingTx, style: TextStyles.caption),
-                const SizedBox(height: 24),
-                notificationSettingArea(),
-                Flexible(
-                  flex: 1,
-                  child: Container(),
-                ),
-                isLoading
-                    ? const LoadingButton()
-                    : CustomButton(
-                        buttonText: '更新する',
-                        onTap: () async {
-                          final category = ref.watch(categoryNotifierProvider);
-                          final notificationTime = ref.watch(
-                              todoEditPageProvider
-                                  .select((value) => value.notificationTime));
-                          FormStatus formStatus =
-                              formController.validateForm(formKey);
-                          if (formStatus == FormStatus.valid) {
-                            String res = await updateTodo(
-                              ref: ref,
-                              title: titleController.text,
-                              description: descriptionController.text,
-                              complete: false,
-                              categoryId: category!,
-                              notificationTime: notificationTime,
-                            );
-                            if (res == successUpDate) {
-                              if (!context.mounted) return;
-                              context.go(TodoPage.routeLocation);
-                              showSnackBar(res, context);
-                            } else {
-                              if (!context.mounted) return;
-                              showSnackBar(
-                                res,
-                                context,
-                                backgroundColor: noReactionColor,
+                  TodoTextField(
+                    caption: titleTx,
+                    controller: titleController,
+                    keyboardType: TextInputType.text,
+                    maxLength: 50,
+                    maxLines: 1,
+                    validator: formController.basicValidator,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(categoryTx, style: TextStyles.caption),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    height: 56,
+                    width: 72,
+                    child: Consumer(
+                      builder: (context, ref, _) {
+                        return DropdownButton(
+                          dropdownColor: backGroundColor,
+                          items: items
+                              .map((item) => DropdownMenuItem<Category>(
+                                    alignment: AlignmentDirectional.center,
+                                    value: item,
+                                    child: Text(item.label),
+                                  ))
+                              .toList(),
+                          value: ref.watch(categoryNotifierProvider),
+                          onChanged: (value) {
+                            ref
+                                .read(categoryNotifierProvider.notifier)
+                                .setValue(value);
+                          },
+                          underline: Container(
+                            height: 1,
+                            color: textMainColor,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TodoTextField(
+                    caption: descriptionTx,
+                    controller: descriptionController,
+                    keyboardType: TextInputType.text,
+                    maxLength: 200,
+                    maxLines: 3,
+                    validator: formController.basicValidator,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(notificationSettingTx, style: TextStyles.caption),
+                  const SizedBox(height: 24),
+                  notificationSettingArea(),
+                  Flexible(
+                    flex: 1,
+                    child: Container(),
+                  ),
+                  isLoading
+                      ? const LoadingButton()
+                      : CustomButton(
+                          buttonText: '更新する',
+                          onTap: () async {
+                            final category =
+                                ref.watch(categoryNotifierProvider);
+                            final notificationTime = ref.watch(
+                                todoEditPageProvider
+                                    .select((value) => value.notificationTime));
+                            FormStatus formStatus =
+                                formController.validateForm(formKey);
+                            if (formStatus == FormStatus.valid) {
+                              String res = await updateTodo(
+                                ref: ref,
+                                title: titleController.text,
+                                description: descriptionController.text,
+                                complete: false,
+                                categoryId: category!,
+                                notificationTime: notificationTime,
                               );
+                              if (res == successUpDate) {
+                                if (!context.mounted) return;
+                                context.go(TodoPage.routeLocation);
+                                showSnackBar(res, context);
+                              } else {
+                                if (!context.mounted) return;
+                                showSnackBar(
+                                  res,
+                                  context,
+                                  backgroundColor: noReactionColor,
+                                );
+                              }
                             }
-                          }
-                        },
-                      ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.16,
-                ),
-              ],
+                          },
+                        ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.16,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
