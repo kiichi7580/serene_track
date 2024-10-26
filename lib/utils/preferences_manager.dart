@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:serene_track/model/src/todo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+const String _isFirstLaunchAfterInstallKey = '_isFirstLaunchAfterInstall';
 const String _isLoginKey = 'isLogin';
 const String _accessTokenKey = 'accessToken';
 const String _tokenTypeKey = 'tokenType';
@@ -19,6 +20,17 @@ class PreferencesManager {
 
   Future<void> set(SharedPreferences preferences) async =>
       _preferences = preferences;
+
+  Future<bool> get isFirstLaunchAfterInstall async {
+    return _preferences.getBool(_isFirstLaunchAfterInstallKey) ?? true;
+  }
+
+  Future<void> setIsFirstLaunchAfterInstall({
+    required bool isFirstLaunchAfterInstall,
+  }) async {
+    await _preferences.setBool(
+        _isFirstLaunchAfterInstallKey, isFirstLaunchAfterInstall);
+  }
 
   Future<bool> get isLogin async {
     return _preferences.getBool(_isLoginKey) ?? false;
