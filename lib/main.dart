@@ -28,7 +28,9 @@ class MyApp extends ConsumerWidget {
       routerDelegate: router.routerDelegate,
       routeInformationProvider: router.routeInformationProvider,
       debugShowCheckedModeBanner: false,
-      supportedLocales: const [Locale('ja', 'JP')],
+      supportedLocales: const [
+        Locale('ja', 'JP'),
+      ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

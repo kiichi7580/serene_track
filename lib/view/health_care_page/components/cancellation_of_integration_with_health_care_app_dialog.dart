@@ -59,7 +59,7 @@ Widget _buildCancellationOfIntegrationHealthCareAppDialog(
                 if (await canLaunchUrl(url)) {
                   await launchUrl(url);
                 } else {
-                  throw 'Could not launch $url';
+                  throw 'ヘルスケアアプリのリンクが開けません: $url';
                 }
               }
             },

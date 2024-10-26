@@ -8,7 +8,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 // タスク通知 複数設定可
-Future<void> dailyProteinNotifications(List<Todo> todos) async {
+Future<void> dailyTodoNotifications(List<Todo> todos) async {
   for (int i = 0; i < todos.length; i++) {
     await dailyTodoNotification(todos[i]);
   }
