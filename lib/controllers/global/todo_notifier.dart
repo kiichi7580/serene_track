@@ -117,20 +117,22 @@ class TodoController extends StateNotifier<TodoState> {
         accessToken: _userNotifier.accessToken,
         tokenType: _userNotifier.tokenType,
       );
-      result.when(
-        success: (todos) {
-          if (todos == null) {
-            return;
-          }
-          sort(todos);
-          state = state.copyWith(isLoading: false);
-          res = successRes;
-        },
-        failure: (error) {
-          state = state.copyWith(isLoading: false);
-          res = error.toString();
-        },
-      );
+      if (mounted) {
+        result.when(
+          success: (todos) {
+            if (todos == null) {
+              return;
+            }
+            sort(todos);
+            state = state.copyWith(isLoading: false);
+            res = successRes;
+          },
+          failure: (error) {
+            state = state.copyWith(isLoading: false);
+            res = error.toString();
+          },
+        );
+      }
     }
     return res;
   }
@@ -205,7 +207,7 @@ class TodoController extends StateNotifier<TodoState> {
       result.when(
         success: (todo) {
           delete(todo);
-          deleteTodoNotifications(deleteTodo: todo);
+          deleteTodoNotifications(todo);
           state = state.copyWith(isLoading: false);
           res = successRes;
         },
@@ -277,7 +279,7 @@ class TodoController extends StateNotifier<TodoState> {
         success: (todo) {
           update(todo);
           if (todo.notificationTime == null) {
-            deleteTodoNotifications(deleteTodo: todo);
+            deleteTodoNotifications(todo);
           }
           state = state.copyWith(isLoading: false);
           res = successRes;
@@ -315,7 +317,7 @@ class TodoController extends StateNotifier<TodoState> {
     todoNotifications.add(todo);
     await PreferencesManager()
         .setTodoNotifications(todoNotifications: todoNotifications);
-    await dailyProteinNotifications(todoNotifications);
+    await dailyTodoNotifications(todoNotifications);
   }
 
   Future<void> updateTodoNotifications({
@@ -334,17 +336,45 @@ class TodoController extends StateNotifier<TodoState> {
     }
     await PreferencesManager()
         .setTodoNotifications(todoNotifications: todoNotifications);
-    await dailyProteinNotifications(todoNotifications);
+    await dailyTodoNotifications(todoNotifications);
   }
 
-  Future<void> deleteTodoNotifications({
-    required Todo deleteTodo,
-  }) async {
-    List<Todo> todoNotifications =
-        await PreferencesManager().getTodoNotifications;
-    todoNotifications.removeWhere((todo) => todo.id == deleteTodo.id);
-    await PreferencesManager()
-        .setTodoNotifications(todoNotifications: todoNotifications);
-    await dailyProteinNotifications(todoNotifications);
+  Future<void> deleteTodoNotifications(Todo? deleteTodo) async {
+    if (deleteTodo == null) {
+      await PreferencesManager().setTodoNotifications(todoNotifications: []);
+      await dailyTodoNotifications([]);
+    } else {
+      List<Todo> todoNotifications =
+          await PreferencesManager().getTodoNotifications;
+      todoNotifications.removeWhere((todo) => todo.id == deleteTodo.id);
+      await PreferencesManager()
+          .setTodoNotifications(todoNotifications: todoNotifications);
+      await dailyTodoNotifications(todoNotifications);
+    }
+  }
+
+  Future<String> deleteTodos() async {
+    String res = failureDelete;
+    state = state.copyWith(isLoading: true);
+    if (_userNotifier.accessToken.isNotEmpty &&
+        _userNotifier.tokenType.isNotEmpty &&
+        _userNotifier.user.id != 0) {
+      final result = await todoRepository.deleteTodos(
+        accessToken: _userNotifier.accessToken,
+        tokenType: _userNotifier.tokenType,
+      );
+      result.when(
+        success: (response) async {
+          deleteTodoNotifications(null);
+          state = state.copyWith(isLoading: false);
+          res = successRes;
+        },
+        failure: (error) {
+          state = state.copyWith(isLoading: false);
+          res = error.toString();
+        },
+      );
+    }
+    return res;
   }
 }
