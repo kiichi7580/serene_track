@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SplashPageState {
   bool? get isLogin => throw _privateConstructorUsedError;
+  bool? get isFirstLaunchAfterInstall => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SplashPageStateCopyWith<SplashPageState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $SplashPageStateCopyWith<$Res> {
           SplashPageState value, $Res Function(SplashPageState) then) =
       _$SplashPageStateCopyWithImpl<$Res, SplashPageState>;
   @useResult
-  $Res call({bool? isLogin});
+  $Res call({bool? isLogin, bool? isFirstLaunchAfterInstall});
 }
 
 /// @nodoc
@@ -46,11 +47,16 @@ class _$SplashPageStateCopyWithImpl<$Res, $Val extends SplashPageState>
   @override
   $Res call({
     Object? isLogin = freezed,
+    Object? isFirstLaunchAfterInstall = freezed,
   }) {
     return _then(_value.copyWith(
       isLogin: freezed == isLogin
           ? _value.isLogin
           : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isFirstLaunchAfterInstall: freezed == isFirstLaunchAfterInstall
+          ? _value.isFirstLaunchAfterInstall
+          : isFirstLaunchAfterInstall // ignore: cast_nullable_to_non_nullable
               as bool?,
     ) as $Val);
   }
@@ -64,7 +70,7 @@ abstract class _$$SplashPageStateImplCopyWith<$Res>
       __$$SplashPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool? isLogin});
+  $Res call({bool? isLogin, bool? isFirstLaunchAfterInstall});
 }
 
 /// @nodoc
@@ -79,11 +85,16 @@ class __$$SplashPageStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLogin = freezed,
+    Object? isFirstLaunchAfterInstall = freezed,
   }) {
     return _then(_$SplashPageStateImpl(
       isLogin: freezed == isLogin
           ? _value.isLogin
           : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isFirstLaunchAfterInstall: freezed == isFirstLaunchAfterInstall
+          ? _value.isFirstLaunchAfterInstall
+          : isFirstLaunchAfterInstall // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
   }
@@ -92,14 +103,16 @@ class __$$SplashPageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SplashPageStateImpl implements _SplashPageState {
-  const _$SplashPageStateImpl({this.isLogin});
+  const _$SplashPageStateImpl({this.isLogin, this.isFirstLaunchAfterInstall});
 
   @override
   final bool? isLogin;
+  @override
+  final bool? isFirstLaunchAfterInstall;
 
   @override
   String toString() {
-    return 'SplashPageState(isLogin: $isLogin)';
+    return 'SplashPageState(isLogin: $isLogin, isFirstLaunchAfterInstall: $isFirstLaunchAfterInstall)';
   }
 
   @override
@@ -107,11 +120,15 @@ class _$SplashPageStateImpl implements _SplashPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SplashPageStateImpl &&
-            (identical(other.isLogin, isLogin) || other.isLogin == isLogin));
+            (identical(other.isLogin, isLogin) || other.isLogin == isLogin) &&
+            (identical(other.isFirstLaunchAfterInstall,
+                    isFirstLaunchAfterInstall) ||
+                other.isFirstLaunchAfterInstall == isFirstLaunchAfterInstall));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLogin);
+  int get hashCode =>
+      Object.hash(runtimeType, isLogin, isFirstLaunchAfterInstall);
 
   @JsonKey(ignore: true)
   @override
@@ -122,10 +139,14 @@ class _$SplashPageStateImpl implements _SplashPageState {
 }
 
 abstract class _SplashPageState implements SplashPageState {
-  const factory _SplashPageState({final bool? isLogin}) = _$SplashPageStateImpl;
+  const factory _SplashPageState(
+      {final bool? isLogin,
+      final bool? isFirstLaunchAfterInstall}) = _$SplashPageStateImpl;
 
   @override
   bool? get isLogin;
+  @override
+  bool? get isFirstLaunchAfterInstall;
   @override
   @JsonKey(ignore: true)
   _$$SplashPageStateImplCopyWith<_$SplashPageStateImpl> get copyWith =>
