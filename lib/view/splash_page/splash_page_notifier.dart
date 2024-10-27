@@ -10,6 +10,7 @@ part 'splash_page_notifier.freezed.dart';
 class SplashPageState with _$SplashPageState {
   const factory SplashPageState({
     bool? isLogin,
+    bool? isFirstLaunchAfterInstall,
   }) = _SplashPageState;
 }
 
@@ -35,11 +36,24 @@ class SplashPageController extends StateNotifier<SplashPageState> {
     await Future.delayed(const Duration(seconds: 1));
     if (_isAuthenticated && mounted) {
       final isLogin = await PreferencesManager().isLogin;
-      state = state.copyWith(isLogin: isLogin);
+      final isFirstLaunchAfterInstall =
+          await PreferencesManager().isFirstLaunchAfterInstall;
+      state = state.copyWith(
+        isLogin: isLogin,
+        isFirstLaunchAfterInstall: isFirstLaunchAfterInstall,
+      );
     }
   }
 
   void changeIsLogin(bool isLogin) {
     state = state.copyWith(isLogin: isLogin);
+  }
+
+  void changeIsFirstLaunchAfterInstall(
+    bool isFirstLaunchAfterInstall,
+  ) {
+    state = state.copyWith(
+      isFirstLaunchAfterInstall: isFirstLaunchAfterInstall,
+    );
   }
 }

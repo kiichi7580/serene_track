@@ -43,7 +43,7 @@ class TodoNotificationPageState extends ConsumerState<TodoNotificationPage> {
   Future<void> init() async {
     try {
       await initRequestNotificationPermission();
-      await dailyProteinNotifications(todoNotifications);
+      await dailyTodoNotifications(todoNotifications);
     } catch (e) {
       throw (e.toString());
     }

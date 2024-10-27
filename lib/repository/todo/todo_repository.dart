@@ -40,4 +40,9 @@ abstract class TodoRepository {
     required FormData formData,
     required Todo todo,
   });
+
+  Future<Result<String>> deleteTodos({
+    required String accessToken,
+    required String tokenType,
+  });
 }

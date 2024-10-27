@@ -14,6 +14,7 @@ import 'package:serene_track/view/health_care_page/health_care_app_integration_p
 import 'package:serene_track/view/montring_page/montring_page.dart';
 import 'package:serene_track/view/notification_setting_page/notification_setting_page.dart';
 import 'package:serene_track/view/splash_page/splash_page.dart';
+import 'package:serene_track/view/start_stepper_page/start_stepper_page.dart';
 import 'package:serene_track/view/todo_add_page/todo_add_page.dart';
 import 'package:serene_track/view/todo_edit_page/todo_edit_page.dart';
 import 'package:serene_track/view/todo_notification_page/todo_notification_page.dart';
@@ -34,6 +35,13 @@ final routerProvider = Provider<GoRouter>(
           name: SplashPage.routeName,
           builder: (context, state) {
             return const SplashPage();
+          },
+        ),
+        GoRoute(
+          path: StartStepperPage.routeLocation,
+          name: StartStepperPage.routeName,
+          builder: (context, state) {
+            return const StartStepperPage();
           },
         ),
         GoRoute(

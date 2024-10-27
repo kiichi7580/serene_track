@@ -15,6 +15,7 @@ import 'package:serene_track/view/auth_page/sign_in_page/sign_in_page.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/provider/sign_up_text_cotroller_notifier.dart';
 import 'package:serene_track/view/auth_page/sign_up_page/provider/form_key_for_sign_up_notifier.dart';
 import 'package:serene_track/view/splash_page/splash_page.dart';
+import 'package:serene_track/view/splash_page/splash_page_notifier.dart';
 
 class SignUpPage extends ConsumerWidget {
   const SignUpPage({super.key});
@@ -34,6 +35,11 @@ class SignUpPage extends ConsumerWidget {
     if (signUpRes == successRes && getUserRes == successRes) {
       res = successSignUp;
       await PreferencesManager().setIsLogin(isLogin: true);
+      await PreferencesManager()
+          .setIsFirstLaunchAfterInstall(isFirstLaunchAfterInstall: true);
+      ref
+          .read(splashPageProvider.notifier)
+          .changeIsFirstLaunchAfterInstall(true);
     }
     return res;
   }
@@ -234,9 +240,6 @@ class SignUpPage extends ConsumerWidget {
                     child: const Text('サインイン'),
                   ),
                 ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
               ),
             ],
           ),
