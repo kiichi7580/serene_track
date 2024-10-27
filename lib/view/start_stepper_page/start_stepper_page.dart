@@ -25,9 +25,10 @@ class StartStepperPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: AppBar(
-        foregroundColor: textMainColor,
+        foregroundColor: backGroundColor,
         backgroundColor: appleColor,
         elevation: 0,
+        centerTitle: false,
         flexibleSpace: ClipRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
@@ -37,148 +38,176 @@ class StartStepperPage extends ConsumerWidget {
         title: const Text(
           'ようこそ',
           style: TextStyle(
-            color: textMainColor,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Stepper(
-            currentStep: currentStep,
-            onStepCancel: () {
-              if (currentStep != 0) {
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 24,
+          horizontal: 16,
+        ),
+        child: Column(
+          children: [
+            RichText(
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Serene Trackへようこそ\n',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: appleColor,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '\n',
+                  ),
+                  TextSpan(
+                    text: '利用を開始する前に、利用規約・プライバシーポリシーの合意をお願いいたします。',
+                    style: TextStyle(
+                      color: textMainColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Stepper(
+              currentStep: currentStep,
+              onStepCancel: () {
+                if (currentStep != 0) {
+                  ref
+                      .read(startStepperPageProvider.notifier)
+                      .setIndex(currentStep - 1);
+                }
+              },
+              onStepContinue: () {
                 ref
                     .read(startStepperPageProvider.notifier)
-                    .setIndex(currentStep - 1);
-              }
-            },
-            onStepContinue: () {
-              ref
-                  .read(startStepperPageProvider.notifier)
-                  .setIndex(currentStep + 1);
-            },
-            onStepTapped: (int index) {
-              ref.read(startStepperPageProvider.notifier).setIndex(index);
-            },
-            controlsBuilder: (BuildContext context, ControlsDetails details) {
-              return Row(
-                children: [
-                  if (currentStep != 1)
-                    ElevatedButton(
-                      onPressed: details.onStepContinue,
-                      style: ElevatedButton.styleFrom(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                    .setIndex(currentStep + 1);
+              },
+              onStepTapped: (int index) {
+                ref.read(startStepperPageProvider.notifier).setIndex(index);
+              },
+              controlsBuilder: (BuildContext context, ControlsDetails details) {
+                return Row(
+                  children: [
+                    if (currentStep != 1)
+                      ElevatedButton(
+                        onPressed: details.onStepContinue,
+                        style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          foregroundColor: yellowGreenColor,
+                          backgroundColor: backGroundColor,
+                          side: const BorderSide(
+                            width: 1,
+                            color: yellowGreenColor,
+                          ),
                         ),
-                        foregroundColor: yellowGreenColor,
-                        backgroundColor: backGroundColor,
-                        side: const BorderSide(
-                          width: 1,
-                          color: yellowGreenColor,
-                        ),
+                        child: const Text('次へ'),
                       ),
-                      child: const Text('次へ'),
-                    ),
-                  const SizedBox(width: 8),
-                  if (currentStep != 0)
-                    TextButton(
-                      onPressed: details.onStepCancel,
-                      style: TextButton.styleFrom(
-                        foregroundColor: textMainColor,
-                        backgroundColor: backGroundColor,
-                        side: const BorderSide(
-                          width: 1,
-                          color: textMainColor,
+                    const SizedBox(width: 8),
+                    if (currentStep != 0)
+                      TextButton(
+                        onPressed: details.onStepCancel,
+                        style: TextButton.styleFrom(
+                          foregroundColor: textMainColor,
+                          backgroundColor: backGroundColor,
+                          side: const BorderSide(
+                            width: 1,
+                            color: textMainColor,
+                          ),
                         ),
+                        child: const Text('戻る'),
                       ),
-                      child: const Text('戻る'),
-                    ),
-                ],
-              );
-            },
-            steps: [
-              Step(
-                stepStyle: StepStyle(
-                  color: checkedList[0] == false ? unselectedColor : null,
-                  gradient: checkedList[0] == true
-                      ? const LinearGradient(
-                          colors: [
-                            appleColor,
-                            yellowGreenColor,
-                          ],
-                        )
-                      : null,
+                  ],
+                );
+              },
+              steps: [
+                Step(
+                  stepStyle: StepStyle(
+                    color: checkedList[0] == false ? unselectedColor : null,
+                    gradient: checkedList[0] == true
+                        ? const LinearGradient(
+                            colors: [
+                              appleColor,
+                              yellowGreenColor,
+                            ],
+                          )
+                        : null,
+                  ),
+                  isActive: true,
+                  state: stepState(
+                    step: 0,
+                    currentStep: currentStep,
+                    isChecked: checkedList[0],
+                  ),
+                  title: const Text('利用規約の確認'),
+                  content: const StepContent(
+                    index: 0,
+                    text: '利用規約はこちら',
+                    urlString: kAppTermsUrl,
+                  ),
                 ),
-                isActive: true,
-                state: stepState(
-                  step: 0,
-                  currentStep: currentStep,
-                  isChecked: checkedList[0],
+                Step(
+                  stepStyle: StepStyle(
+                    color: checkedList[1] == false ? unselectedColor : null,
+                    gradient: checkedList[1] == true
+                        ? const LinearGradient(
+                            colors: [
+                              appleColor,
+                              yellowGreenColor,
+                            ],
+                          )
+                        : null,
+                  ),
+                  isActive: true,
+                  state: stepState(
+                    step: 1,
+                    currentStep: currentStep,
+                    isChecked: checkedList[1],
+                  ),
+                  title: const Text('プライバシーポリシーの確認'),
+                  content: const StepContent(
+                    index: 1,
+                    text: 'プライバシーポリシーはこちら',
+                    urlString: kAppPrivacyPolicyUrl,
+                  ),
                 ),
-                title: const Text('利用規約の確認'),
-                content: const StepContent(
-                  index: 0,
-                  text: '利用規約はこちら',
-                  urlString: kAppTermsUrl,
-                ),
-              ),
-              Step(
-                stepStyle: StepStyle(
-                  color: checkedList[1] == false ? unselectedColor : null,
-                  gradient: checkedList[1] == true
-                      ? const LinearGradient(
-                          colors: [
-                            appleColor,
-                            yellowGreenColor,
-                          ],
-                        )
-                      : null,
-                ),
-                isActive: true,
-                state: stepState(
-                  step: 1,
-                  currentStep: currentStep,
-                  isChecked: checkedList[1],
-                ),
-                title: const Text('プライバシーポリシーの確認'),
-                content: const StepContent(
-                  index: 1,
-                  text: 'プライバシーポリシーはこちら',
-                  urlString: kAppPrivacyPolicyUrl,
-                ),
-              ),
-            ],
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              textStyle: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-              side: BorderSide(
-                color: allChecked ? appleColor : unselectedColor,
-              ),
-              foregroundColor: appleColor,
-              backgroundColor: backGroundColor,
+              ],
             ),
-            onPressed: allChecked
-                ? () async {
-                    ref
-                        .read(startStepperPageProvider.notifier)
-                        .getInitCheckedList(2);
-                    ref
-                        .read(startStepperPageProvider.notifier)
-                        .setIsAllChecked(allChecked);
-                    await PreferencesManager().setIsFirstLaunchAfterInstall(
-                        isFirstLaunchAfterInstall: false);
-                    if (!context.mounted) return;
-                    context.go(TodoPage.routeLocation);
-                  }
-                : null,
-            child: const Text('はじめる'),
-          ),
-        ],
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                side: BorderSide(
+                  color: allChecked ? appleColor : unselectedColor,
+                ),
+                foregroundColor: appleColor,
+                backgroundColor: backGroundColor,
+              ),
+              onPressed: allChecked
+                  ? () async {
+                      ref
+                          .read(startStepperPageProvider.notifier)
+                          .getInitCheckedList(2);
+                      ref
+                          .read(startStepperPageProvider.notifier)
+                          .setIsAllChecked(allChecked);
+                      await PreferencesManager().setIsFirstLaunchAfterInstall(
+                          isFirstLaunchAfterInstall: false);
+                      if (!context.mounted) return;
+                      context.go(TodoPage.routeLocation);
+                    }
+                  : null,
+              child: const Text('はじめる'),
+            ),
+          ],
+        ),
       ),
     );
   }
