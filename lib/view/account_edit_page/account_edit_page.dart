@@ -11,7 +11,7 @@ import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/controllers/global/image_notifier.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
 import 'package:serene_track/model/enum/form_state.dart';
-import 'package:serene_track/ui_core/user_icon/user_icon_image.dart';
+import 'package:serene_track/ui_core/image/user_icon_image.dart';
 import 'package:serene_track/view/account_edit_page/components/account_text_field.dart';
 import 'package:serene_track/components/button/custom_button.dart';
 import 'package:serene_track/view/account_edit_page/provider/account_text_field_notifier.dart';

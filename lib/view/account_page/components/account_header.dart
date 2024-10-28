@@ -8,7 +8,7 @@ import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
 import 'package:serene_track/controllers/global/image_notifier.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
-import 'package:serene_track/ui_core/user_icon/user_icon_image.dart';
+import 'package:serene_track/ui_core/image/user_icon_image.dart';
 import 'package:serene_track/view/account_edit_page/account_edit_page.dart';
 import 'package:serene_track/components/dialog/show_image_dialog.dart';
 import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
