@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serene_track/components/button/loading_button.dart';
+import 'package:serene_track/components/dialog/show_image_change_confirmation_dialog.dart';
+import 'package:serene_track/components/dialog/show_image_dialog.dart';
 import 'package:serene_track/components/my_appbar.dart';
 import 'package:serene_track/components/show_snack_bar.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
+import 'package:serene_track/controllers/global/image_notifier.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
-import 'package:serene_track/gen/assets.gen.dart';
 import 'package:serene_track/model/enum/form_state.dart';
+import 'package:serene_track/ui_core/image/user_icon_image.dart';
 import 'package:serene_track/view/account_edit_page/components/account_text_field.dart';
 import 'package:serene_track/components/button/custom_button.dart';
 import 'package:serene_track/view/account_edit_page/provider/account_text_field_notifier.dart';
@@ -73,9 +76,32 @@ class AccountEditPage extends ConsumerWidget {
                     height: MediaQuery.of(context).size.width * 0.04,
                   ),
                   Center(
-                    child: CircleAvatar(
-                      backgroundImage: iconImage(user.photoUrl),
-                      radius: 64,
+                    child: GestureDetector(
+                      onLongPressStart: (LongPressStartDetails details) async {
+                        await showImageDialog(
+                          context: context,
+                          imageUrl: user.photoUrl,
+                        );
+                      },
+                      onTap: () async {
+                        String? photoUrl =
+                            await ref.read(imageProvider.notifier).pickImage();
+                        if (photoUrl != null && photoUrl.isNotEmpty) {
+                          if (!context.mounted) return;
+                          final response =
+                              await showImageChangeConfirmationDialog(context);
+                          if (response == null || response == false) {
+                            return;
+                          }
+                          ref
+                              .read(userProvider.notifier)
+                              .updateUserIcon(photoUrl);
+                        }
+                      },
+                      child: CircleAvatar(
+                        backgroundImage: userIconImage(user.photoUrl),
+                        radius: 64,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -141,21 +167,5 @@ class AccountEditPage extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  ImageProvider<Object> iconImage(String? url) {
-    if (url == null || url.isEmpty || url.length < 8) {
-      return AssetImage(
-        Assets.images.icons.sereneTrackIconBlack.path,
-      ) as ImageProvider;
-    }
-    bool networkImage = url.startsWith('https://');
-    if (networkImage) {
-      return NetworkImage(url);
-    } else {
-      return AssetImage(
-        Assets.images.icons.sereneTrackIconBlack.path,
-      ) as ImageProvider;
-    }
   }
 }

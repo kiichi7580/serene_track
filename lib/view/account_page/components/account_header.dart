@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:serene_track/components/dialog/show_image_change_confirmation_dialog.dart';
 import 'package:serene_track/constant/colors.dart';
 import 'package:serene_track/constant/text_source.dart';
 import 'package:serene_track/constant/themes/text_styles.dart';
+import 'package:serene_track/controllers/global/image_notifier.dart';
 import 'package:serene_track/controllers/global/user_notifier.dart';
-import 'package:serene_track/gen/assets.gen.dart';
+import 'package:serene_track/ui_core/image/user_icon_image.dart';
 import 'package:serene_track/view/account_edit_page/account_edit_page.dart';
 import 'package:serene_track/components/dialog/show_image_dialog.dart';
 import 'package:serene_track/view/account_setting_page/account_setting_page.dart';
@@ -18,23 +19,6 @@ class AccountHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider.select((value) => value.user));
-
-    Future<String?> pickImage() async {
-      final ImagePicker picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        return pickedFile.path;
-      }
-      return null;
-    }
-
-    Future<String?> getImageUrl(String? imagePath) async {
-      if (imagePath != null) {
-        final imageUrl = 'file://$imagePath';
-        return imageUrl;
-      }
-      return null;
-    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +41,7 @@ class AccountHeader extends ConsumerWidget {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: iconImage(user.photoUrl),
+                            image: userIconImage(user.photoUrl),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.circular(50),
@@ -100,8 +84,21 @@ class AccountHeader extends ConsumerWidget {
                           size: 16,
                         ),
                         onPressed: () async {
-                          String? imagePath = await pickImage();
-                          await getImageUrl(imagePath);
+                          String? photoUrl = await ref
+                              .read(imageProvider.notifier)
+                              .pickImage();
+                          if (photoUrl != null && photoUrl.isNotEmpty) {
+                            if (!context.mounted) return;
+                            final response =
+                                await showImageChangeConfirmationDialog(
+                                    context);
+                            if (response == null || response == false) {
+                              return;
+                            }
+                            ref
+                                .read(userProvider.notifier)
+                                .updateUserIcon(photoUrl);
+                          }
                         },
                       ),
                     ),
@@ -217,22 +214,6 @@ class AccountHeader extends ConsumerWidget {
       return goal;
     } else {
       return '長期的に達成したい目標を設定しましょう。';
-    }
-  }
-
-  ImageProvider<Object> iconImage(String? url) {
-    if (url == null || url.isEmpty || url.length < 8) {
-      return AssetImage(
-        Assets.images.icons.sereneTrackIconBlack.path,
-      ) as ImageProvider;
-    }
-    bool networkImage = url.startsWith('https://');
-    if (networkImage) {
-      return NetworkImage(url);
-    } else {
-      return AssetImage(
-        Assets.images.icons.sereneTrackIconBlack.path,
-      ) as ImageProvider;
     }
   }
 }

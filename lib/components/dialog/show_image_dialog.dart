@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:serene_track/gen/assets.gen.dart';
 
@@ -16,8 +18,8 @@ Future<void> showImageDialog({
                 Assets.images.icons.sereneTrackIconBlack.path,
                 fit: BoxFit.cover,
               )
-            : Image.network(
-                imageUrl,
+            : Image.file(
+                File(imageUrl),
                 fit: BoxFit.cover,
               ),
       );
