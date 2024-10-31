@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'image_notifier.freezed.dart';
 
@@ -26,9 +29,19 @@ class ImageController extends StateNotifier<ImageState> {
     final ImagePicker picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      state = state.copyWith(imageUrl: pickedFile.path);
-      return pickedFile.path;
+      String imageUrl = await convertImagePermanently(pickedFile);
+      state = state.copyWith(imageUrl: imageUrl);
+      return imageUrl;
     }
     return null;
+  }
+
+  Future<String> convertImagePermanently(XFile pickedFile) async {
+    final File image = File(pickedFile.path);
+    final directory = await getApplicationDocumentsDirectory();
+    final path = directory.path;
+    final fileName = image.path.split('/').last;
+    final newImage = await image.copy('$path/$fileName');
+    return newImage.path;
   }
 }
