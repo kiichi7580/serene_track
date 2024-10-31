@@ -101,6 +101,9 @@ class AccountEditPage extends ConsumerWidget {
                       child: CircleAvatar(
                         backgroundImage: userIconImage(user.photoUrl),
                         radius: 64,
+                        onBackgroundImageError: (exception, stackTrace) {
+                          userIconImage('');
+                        },
                       ),
                     ),
                   ),

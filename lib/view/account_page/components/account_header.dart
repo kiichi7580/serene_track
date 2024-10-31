@@ -43,6 +43,9 @@ class AccountHeader extends ConsumerWidget {
                           image: DecorationImage(
                             image: userIconImage(user.photoUrl),
                             fit: BoxFit.cover,
+                            onError: (exception, stackTrace) {
+                              userIconImage('');
+                            },
                           ),
                           borderRadius: BorderRadius.circular(50),
                         ),
