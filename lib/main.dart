@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:serene_track/constant/constants.dart';
 import 'package:serene_track/router/app_router.dart';
 import 'package:serene_track/utils/notification/local_notification_setting.dart';
 import 'package:serene_track/utils/preferences_manager.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: envFileName);
   await PreferencesManager().set(await SharedPreferences.getInstance());
   await initializeLocalNotifications();
   const scope = ProviderScope(
