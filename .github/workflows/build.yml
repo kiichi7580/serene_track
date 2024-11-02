@@ -1,0 +1,27 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+          FLUTTER_ENV: ${{ vars.FLUTTER_ENV }}
+        run: flutter build apk --release --dart-define=FLUTTER_ENV=${{ vars.FLUTTER_ENV }}
