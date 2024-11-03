@@ -59,8 +59,6 @@ flutter:
   assets:
     - assets/images/icons/
     - assets/sounds/timeup.mp3
-    # 環境変数ファイル設定
-    - .env
 
 flutter_icons:
   android: true
