@@ -1,25 +1,27 @@
 {
-  // IntelliSense を使用して利用可能な属性を学べます。
-  // 既存の属性の説明をホバーして表示します。
-  // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "serene_track",
-      "request": "launch",
-      "type": "dart"
-    },
-    {
-      "name": "serene_track (profile mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile"
-    },
-    {
-      "name": "serene_track (release mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release"
-    }
+      {
+     // flutter run --debug --dart-define=env=.env.development
+          "name": "serene_track (debug mode)",
+          "request": "launch",
+          "type": "dart",
+          "flutterMode": "debug",
+          "args": [
+              "--dart-define",
+              "env=.env.development"
+          ]
+      },
+      {
+     // flutter run --debug --dart-define=env=.env.production
+          "name": "serene_track (release mode)",
+          "request": "launch",
+          "type": "dart",
+          "flutterMode": "release",
+          "args": [
+              "--dart-define",
+              "env=.env.production"
+          ]
+      }
   ]
 }
