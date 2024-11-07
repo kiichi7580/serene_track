@@ -54,7 +54,7 @@ class TodoController extends StateNotifier<TodoState> {
     if (res == successRes) {
       return;
     } else {
-      throw (res.toString());
+      AssertionError(res.toString());
     }
   }
 
