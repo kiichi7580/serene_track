@@ -42,10 +42,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# iOS
+**/ios/Flutter/Dart-Defines.xcconfig
 
 # FVM Version Cache
 .fvm/
 !.fvm/fvm_config.json
-
-# flutter_dotenv
-.env*
