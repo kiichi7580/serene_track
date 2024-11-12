@@ -102,128 +102,130 @@ class SignInPage extends ConsumerWidget {
         ref.watch(signInPasswordControllerNotifierProvider);
     final isLoading =
         ref.watch(userProvider.select((value) => value.isLoading));
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: backGroundColor,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(48),
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.7,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: backGroundColor,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(48),
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 32,
-        ),
-        child: Column(
-          children: [
-            Form(
-              key: formKey,
-              autovalidateMode: AutovalidateMode.always,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.08,
-                  ),
-                  AuthTextField(
-                      caption: 'メールアドレス',
-                      controller: emailController,
-                      hintText: 'example@gmail.com',
-                      validator: formController.emailrValidator),
-                  const SizedBox(height: 16),
-                  AuthTextField(
-                    caption: 'パスワード',
-                    controller: passwordController,
-                    hintText: '6文字以上のパスワードを入力',
-                    obscureText: true,
-                    validator: formController.passwordValidator,
-                  ),
-                  const SizedBox(height: 32),
-                  InkWell(
-                    onTap: () async {
-                      FormStatus formStatus =
-                          formController.validateForm(formKey);
-                      if (formStatus == FormStatus.valid) {
-                        String res = await signInUser(
-                          ref: ref,
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                        if (res == successSignIn) {
-                          if (!context.mounted) return;
-                          context.go(SplashPage.routeLocation);
-                        }
-                        if (!context.mounted) return;
-                        showSnackBar(res, context);
-                      }
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            yellowGreenColor,
-                            appleColor,
-                          ],
-                        ),
-                      ),
-                      child: isLoading
-                          ? const CircularProgressIndicator(
-                              color: backGroundColor,
-                              strokeWidth: 2,
-                            )
-                          : const Text('サインイン'),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+          ),
+          child: Column(
+            children: [
+              Form(
+                key: formKey,
+                autovalidateMode: AutovalidateMode.always,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.08,
                     ),
-                  )
+                    AuthTextField(
+                        caption: 'メールアドレス',
+                        controller: emailController,
+                        hintText: 'example@gmail.com',
+                        validator: formController.emailrValidator),
+                    const SizedBox(height: 16),
+                    AuthTextField(
+                      caption: 'パスワード',
+                      controller: passwordController,
+                      hintText: '6文字以上のパスワードを入力',
+                      obscureText: true,
+                      validator: formController.passwordValidator,
+                    ),
+                    const SizedBox(height: 32),
+                    InkWell(
+                      onTap: () async {
+                        FormStatus formStatus =
+                            formController.validateForm(formKey);
+                        if (formStatus == FormStatus.valid) {
+                          String res = await signInUser(
+                            ref: ref,
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                          if (res == successSignIn) {
+                            if (!context.mounted) return;
+                            context.go(SplashPage.routeLocation);
+                          }
+                          if (!context.mounted) return;
+                          showSnackBar(res, context);
+                        }
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              yellowGreenColor,
+                              appleColor,
+                            ],
+                          ),
+                        ),
+                        child: isLoading
+                            ? const CircularProgressIndicator(
+                                color: backGroundColor,
+                                strokeWidth: 2,
+                              )
+                            : const Text('サインイン'),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
+              const Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 1,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      '他のアカウントから',
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 1,
+                    ),
+                  ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
-            ),
-            const Row(
-              children: [
-                Expanded(
-                  child: Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    '他のアカウントから',
-                    style: TextStyle(
-                      color: Colors.grey,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('アカウントをお持ちでないですか？'),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: linkBlue,
                     ),
+                    onPressed: () {
+                      context.go(SignUpPage.routeLocation);
+                    },
+                    child: const Text('新規登録'),
                   ),
-                ),
-                Expanded(
-                  child: Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('アカウントをお持ちでないですか？'),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: linkBlue,
-                  ),
-                  onPressed: () {
-                    context.go(SignUpPage.routeLocation);
-                  },
-                  child: const Text('新規登録'),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
