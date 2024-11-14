@@ -15,21 +15,13 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$HealthCareState {
-  Health? get health => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $HealthCareStateCopyWith<HealthCareState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+mixin _$HealthCareState {}
 
 /// @nodoc
 abstract class $HealthCareStateCopyWith<$Res> {
   factory $HealthCareStateCopyWith(
           HealthCareState value, $Res Function(HealthCareState) then) =
       _$HealthCareStateCopyWithImpl<$Res, HealthCareState>;
-  @useResult
-  $Res call({Health? health});
 }
 
 /// @nodoc
@@ -41,30 +33,13 @@ class _$HealthCareStateCopyWithImpl<$Res, $Val extends HealthCareState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? health = freezed,
-  }) {
-    return _then(_value.copyWith(
-      health: freezed == health
-          ? _value.health
-          : health // ignore: cast_nullable_to_non_nullable
-              as Health?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$HealthCareStateImplCopyWith<$Res>
-    implements $HealthCareStateCopyWith<$Res> {
+abstract class _$$HealthCareStateImplCopyWith<$Res> {
   factory _$$HealthCareStateImplCopyWith(_$HealthCareStateImpl value,
           $Res Function(_$HealthCareStateImpl) then) =
       __$$HealthCareStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Health? health});
 }
 
 /// @nodoc
@@ -74,61 +49,28 @@ class __$$HealthCareStateImplCopyWithImpl<$Res>
   __$$HealthCareStateImplCopyWithImpl(
       _$HealthCareStateImpl _value, $Res Function(_$HealthCareStateImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? health = freezed,
-  }) {
-    return _then(_$HealthCareStateImpl(
-      health: freezed == health
-          ? _value.health
-          : health // ignore: cast_nullable_to_non_nullable
-              as Health?,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$HealthCareStateImpl implements _HealthCareState {
-  const _$HealthCareStateImpl({this.health});
-
-  @override
-  final Health? health;
+  const _$HealthCareStateImpl();
 
   @override
   String toString() {
-    return 'HealthCareState(health: $health)';
+    return 'HealthCareState()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$HealthCareStateImpl &&
-            (identical(other.health, health) || other.health == health));
+        (other.runtimeType == runtimeType && other is _$HealthCareStateImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, health);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$HealthCareStateImplCopyWith<_$HealthCareStateImpl> get copyWith =>
-      __$$HealthCareStateImplCopyWithImpl<_$HealthCareStateImpl>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 }
 
 abstract class _HealthCareState implements HealthCareState {
-  const factory _HealthCareState({final Health? health}) =
-      _$HealthCareStateImpl;
-
-  @override
-  Health? get health;
-  @override
-  @JsonKey(ignore: true)
-  _$$HealthCareStateImplCopyWith<_$HealthCareStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _HealthCareState() = _$HealthCareStateImpl;
 }
