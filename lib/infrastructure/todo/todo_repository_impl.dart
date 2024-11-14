@@ -18,7 +18,6 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Result<Todo?>> createTodo({
     required String accessToken,
-    required String tokenType,
     required FormData formData,
   }) {
     return Result.guardFuture(() async {
@@ -27,7 +26,7 @@ class TodoRepositoryImpl implements TodoRepository {
       final response = await _dio.post(
         '/todo/',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
         data: formData,
       );
@@ -44,15 +43,14 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<Result<List<Todo>?>> fetchTodo({
-    required String accessToken,
-    required String tokenType,
+    required String accessToken
   }) {
     return Result.guardFuture(() async {
       await Future.delayed(const Duration(seconds: 1));
 
       final response = await _dio.get('/todo/',
           options: Options(
-            headers: {'Authorization': '$tokenType $accessToken'},
+            headers: {'Authorization': 'Bearer $accessToken'},
           ));
       if (response.data.isEmpty) {
         return [];
@@ -66,7 +64,6 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Result<Todo>> updateTodo({
     required String accessToken,
-    required String tokenType,
     required Todo todo,
     required FormData formData,
   }) {
@@ -76,7 +73,7 @@ class TodoRepositoryImpl implements TodoRepository {
       final response = await _dio.put(
         '/todo/${todo.id}',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
         data: formData,
       );
@@ -95,7 +92,6 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Result<Todo>> deleteTodo({
     required String accessToken,
-    required String tokenType,
     required Todo todo,
   }) {
     return Result.guardFuture(() async {
@@ -104,7 +100,7 @@ class TodoRepositoryImpl implements TodoRepository {
       final response = await _dio.delete(
         '/todo/${todo.id}',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
       if (response.statusCode == 204) {
@@ -118,7 +114,6 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Result<Todo>> changeCompleteStatus({
     required String accessToken,
-    required String tokenType,
     required Todo todo,
     required FormData formData,
   }) {
@@ -128,7 +123,7 @@ class TodoRepositoryImpl implements TodoRepository {
       final response = await _dio.put(
         '/todo/complete/${todo.id}',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
         data: formData,
       );
@@ -147,7 +142,6 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Result<Todo>> offTodoNotification({
     required String accessToken,
-    required String tokenType,
     required Todo todo,
     required FormData formData,
   }) {
@@ -157,7 +151,7 @@ class TodoRepositoryImpl implements TodoRepository {
       final response = await _dio.put(
         '/todo/notification_time/${todo.id}',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
         data: formData,
       );
@@ -174,8 +168,7 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<Result<String>> deleteTodos({
-    required String accessToken,
-    required String tokenType,
+    required String accessToken
   }) {
     return Result.guardFuture(() async {
       await Future.delayed(const Duration(seconds: 1));
@@ -183,7 +176,7 @@ class TodoRepositoryImpl implements TodoRepository {
       final response = await _dio.delete(
         '/todos/',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
       if (response.statusCode == 204) {

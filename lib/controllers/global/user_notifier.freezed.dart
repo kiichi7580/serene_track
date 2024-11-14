@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserState {
   String get accessToken => throw _privateConstructorUsedError;
-  String get tokenType => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
   bool get isAuthenticated => throw _privateConstructorUsedError;
   bool get initialized => throw _privateConstructorUsedError;
@@ -35,7 +34,6 @@ abstract class $UserStateCopyWith<$Res> {
   @useResult
   $Res call(
       {String accessToken,
-      String tokenType,
       User user,
       bool isAuthenticated,
       bool initialized,
@@ -58,7 +56,6 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? tokenType = null,
     Object? user = null,
     Object? isAuthenticated = null,
     Object? initialized = null,
@@ -68,10 +65,6 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenType: null == tokenType
-          ? _value.tokenType
-          : tokenType // ignore: cast_nullable_to_non_nullable
               as String,
       user: null == user
           ? _value.user
@@ -111,7 +104,6 @@ abstract class _$$UserStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {String accessToken,
-      String tokenType,
       User user,
       bool isAuthenticated,
       bool initialized,
@@ -133,7 +125,6 @@ class __$$UserStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? tokenType = null,
     Object? user = null,
     Object? isAuthenticated = null,
     Object? initialized = null,
@@ -143,10 +134,6 @@ class __$$UserStateImplCopyWithImpl<$Res>
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenType: null == tokenType
-          ? _value.tokenType
-          : tokenType // ignore: cast_nullable_to_non_nullable
               as String,
       user: null == user
           ? _value.user
@@ -173,7 +160,6 @@ class __$$UserStateImplCopyWithImpl<$Res>
 class _$UserStateImpl extends _UserState {
   _$UserStateImpl(
       {this.accessToken = '',
-      this.tokenType = '',
       this.user = const User(),
       this.isAuthenticated = false,
       this.initialized = false,
@@ -183,9 +169,6 @@ class _$UserStateImpl extends _UserState {
   @override
   @JsonKey()
   final String accessToken;
-  @override
-  @JsonKey()
-  final String tokenType;
   @override
   @JsonKey()
   final User user;
@@ -201,7 +184,7 @@ class _$UserStateImpl extends _UserState {
 
   @override
   String toString() {
-    return 'UserState(accessToken: $accessToken, tokenType: $tokenType, user: $user, isAuthenticated: $isAuthenticated, initialized: $initialized, isLoading: $isLoading)';
+    return 'UserState(accessToken: $accessToken, user: $user, isAuthenticated: $isAuthenticated, initialized: $initialized, isLoading: $isLoading)';
   }
 
   @override
@@ -211,8 +194,6 @@ class _$UserStateImpl extends _UserState {
             other is _$UserStateImpl &&
             (identical(other.accessToken, accessToken) ||
                 other.accessToken == accessToken) &&
-            (identical(other.tokenType, tokenType) ||
-                other.tokenType == tokenType) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.isAuthenticated, isAuthenticated) ||
                 other.isAuthenticated == isAuthenticated) &&
@@ -223,8 +204,8 @@ class _$UserStateImpl extends _UserState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, tokenType, user,
-      isAuthenticated, initialized, isLoading);
+  int get hashCode => Object.hash(
+      runtimeType, accessToken, user, isAuthenticated, initialized, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -236,7 +217,6 @@ class _$UserStateImpl extends _UserState {
 abstract class _UserState extends UserState {
   factory _UserState(
       {final String accessToken,
-      final String tokenType,
       final User user,
       final bool isAuthenticated,
       final bool initialized,
@@ -245,8 +225,6 @@ abstract class _UserState extends UserState {
 
   @override
   String get accessToken;
-  @override
-  String get tokenType;
   @override
   User get user;
   @override

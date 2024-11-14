@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 const String _isFirstLaunchAfterInstallKey = '_isFirstLaunchAfterInstall';
 const String _isLoginKey = 'isLogin';
 const String _accessTokenKey = 'accessToken';
-const String _tokenTypeKey = 'tokenType';
 const String _todoNotificationsKey = 'todo_notifications';
 
 class PreferencesManager {
@@ -54,20 +53,6 @@ class PreferencesManager {
 
   Future<void> deleteAccessToken() async {
     await _preferences.remove(_accessTokenKey);
-  }
-
-  Future<String> get getTokenType async {
-    return _preferences.getString(_tokenTypeKey) ?? '';
-  }
-
-  Future<void> setTokenType({
-    required String tokenType,
-  }) async {
-    await _preferences.setString(_tokenTypeKey, tokenType);
-  }
-
-  Future<void> deleteTokenType() async {
-    await _preferences.remove(_tokenTypeKey);
   }
 
   Future<List<Todo>> get getTodoNotifications async {

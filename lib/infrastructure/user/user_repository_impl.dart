@@ -15,17 +15,14 @@ class UserRepositoryImpl implements UserRepository {
   final Dio _dio;
 
   @override
-  Future<Result<User?>> fetchUser({
-    required String accessToken,
-    required String tokenType,
-  }) async {
+  Future<Result<User?>> fetchUser({required String accessToken}) async {
     return Result.guardFuture(() async {
       await Future.delayed(const Duration(seconds: 1));
 
       User? user;
       final response = await _dio.get('/user/',
           options: Options(
-            headers: {'Authorization': '$tokenType $accessToken'},
+            headers: {'Authorization': 'Bearer $accessToken'},
           ));
       user = User.fromJson(response.data);
       return user;
@@ -35,7 +32,6 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Result<User>> updateUser({
     required String accessToken,
-    required String tokenType,
     required User user,
     required FormData formData,
   }) {
@@ -45,7 +41,7 @@ class UserRepositoryImpl implements UserRepository {
       final response = await _dio.put(
         '/user/${user.id}',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
         data: formData,
       );
@@ -64,7 +60,6 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Result<User>> updateUserIcon({
     required String accessToken,
-    required String tokenType,
     required User user,
     required FormData formData,
   }) {
@@ -74,7 +69,7 @@ class UserRepositoryImpl implements UserRepository {
       final response = await _dio.put(
         '/user/user_icon/${user.id}',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
         data: formData,
       );
@@ -93,7 +88,6 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Result<User>> updateHealthDataIntegrationStatus({
     required String accessToken,
-    required String tokenType,
     required User user,
     required FormData formData,
   }) {
@@ -103,7 +97,7 @@ class UserRepositoryImpl implements UserRepository {
       final response = await _dio.put(
         '/user/health_care/${user.id}',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
         data: formData,
       );
@@ -122,7 +116,6 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Result<void>> deleteUser({
     required String accessToken,
-    required String tokenType,
     required User user,
   }) {
     return Result.guardFuture(() async {
@@ -131,7 +124,7 @@ class UserRepositoryImpl implements UserRepository {
       final response = await _dio.delete(
         '/user/${user.id}',
         options: Options(
-          headers: {'Authorization': '$tokenType $accessToken'},
+          headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
 

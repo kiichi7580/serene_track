@@ -53,8 +53,6 @@ class TodoController extends StateNotifier<TodoState> {
     String res = await fetchTodo();
     if (res == successRes) {
       return;
-    } else {
-      AssertionError(res.toString());
     }
   }
 
@@ -66,8 +64,7 @@ class TodoController extends StateNotifier<TodoState> {
     DateTime? notificationTime,
   }) async {
     String res = failureCreate;
-    if (_userNotifier.accessToken.isNotEmpty &&
-        _userNotifier.tokenType.isNotEmpty) {
+    if (_userNotifier.accessToken.isNotEmpty) {
       state = state.copyWith(isLoading: true);
       String categoryString = EnumToString.convertToString(categoryId);
       final formData = FormData.fromMap({
@@ -79,7 +76,6 @@ class TodoController extends StateNotifier<TodoState> {
       });
       final result = await todoRepository.createTodo(
         accessToken: _userNotifier.accessToken,
-        tokenType: _userNotifier.tokenType,
         formData: formData,
       );
       result.when(
@@ -110,12 +106,10 @@ class TodoController extends StateNotifier<TodoState> {
 
   Future<String> fetchTodo() async {
     String res = failureRead;
-    if (_userNotifier.accessToken.isNotEmpty &&
-        _userNotifier.tokenType.isNotEmpty) {
+    if (_userNotifier.accessToken.isNotEmpty) {
       state = state.copyWith(isLoading: true);
       final result = await todoRepository.fetchTodo(
-        accessToken: _userNotifier.accessToken,
-        tokenType: _userNotifier.tokenType,
+        accessToken: _userNotifier.accessToken
       );
       if (mounted) {
         result.when(
@@ -152,7 +146,6 @@ class TodoController extends StateNotifier<TodoState> {
     String res = failureUpDate;
     state = state.copyWith(isLoading: true);
     if (_userNotifier.accessToken.isNotEmpty &&
-        _userNotifier.tokenType.isNotEmpty &&
         _userNotifier.user.id != 0) {
       String categoryString = EnumToString.convertToString(categoryId);
       final formData = FormData.fromMap({
@@ -164,7 +157,6 @@ class TodoController extends StateNotifier<TodoState> {
       });
       final result = await todoRepository.updateTodo(
         accessToken: _userNotifier.accessToken,
-        tokenType: _userNotifier.tokenType,
         formData: formData,
         todo: state.selectedTodo,
       );
@@ -197,11 +189,9 @@ class TodoController extends StateNotifier<TodoState> {
     String res = failureDelete;
     state = state.copyWith(isLoading: true);
     if (_userNotifier.accessToken.isNotEmpty &&
-        _userNotifier.tokenType.isNotEmpty &&
         _userNotifier.user.id != 0) {
       final result = await todoRepository.deleteTodo(
         accessToken: _userNotifier.accessToken,
-        tokenType: _userNotifier.tokenType,
         todo: state.selectedTodo,
       );
       result.when(
@@ -232,14 +222,12 @@ class TodoController extends StateNotifier<TodoState> {
     String res = failureUpDate;
     state = state.copyWith(isLoading: true);
     if (_userNotifier.accessToken.isNotEmpty &&
-        _userNotifier.tokenType.isNotEmpty &&
         _userNotifier.user.id != 0) {
       final formData = FormData.fromMap({
         'complete': complete,
       });
       final result = await todoRepository.changeCompleteStatus(
         accessToken: _userNotifier.accessToken,
-        tokenType: _userNotifier.tokenType,
         formData: formData,
         todo: state.selectedTodo,
       );
@@ -264,14 +252,12 @@ class TodoController extends StateNotifier<TodoState> {
     String res = failureUpDate;
     state = state.copyWith(isLoading: true);
     if (_userNotifier.accessToken.isNotEmpty &&
-        _userNotifier.tokenType.isNotEmpty &&
         _userNotifier.user.id != 0) {
       final formData = FormData.fromMap({
         'notification_time': notificationTime,
       });
       final result = await todoRepository.offTodoNotification(
         accessToken: _userNotifier.accessToken,
-        tokenType: _userNotifier.tokenType,
         formData: formData,
         todo: state.selectedTodo,
       );
@@ -357,11 +343,9 @@ class TodoController extends StateNotifier<TodoState> {
     String res = failureDelete;
     state = state.copyWith(isLoading: true);
     if (_userNotifier.accessToken.isNotEmpty &&
-        _userNotifier.tokenType.isNotEmpty &&
         _userNotifier.user.id != 0) {
       final result = await todoRepository.deleteTodos(
-        accessToken: _userNotifier.accessToken,
-        tokenType: _userNotifier.tokenType,
+        accessToken: _userNotifier.accessToken
       );
       result.when(
         success: (response) async {
