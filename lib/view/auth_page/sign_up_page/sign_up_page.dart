@@ -27,13 +27,12 @@ class SignUpPage extends ConsumerWidget {
     required String email,
     required String password,
   }) async {
-    String res = failureSignUp;
     String signUpRes = await ref
         .read(userProvider.notifier)
         .signUp(email: email, password: password);
     String getUserRes = await ref.read(userProvider.notifier).fetchUser();
     if (signUpRes == successRes && getUserRes == successRes) {
-      res = successSignUp;
+      signUpRes = successSignUp;
       await PreferencesManager().setIsLogin(isLogin: true);
       await PreferencesManager()
           .setIsFirstLaunchAfterInstall(isFirstLaunchAfterInstall: true);
@@ -41,7 +40,7 @@ class SignUpPage extends ConsumerWidget {
           .read(splashPageProvider.notifier)
           .changeIsFirstLaunchAfterInstall(true);
     }
-    return res;
+    return signUpRes;
   }
 
   @override

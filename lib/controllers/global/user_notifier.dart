@@ -66,22 +66,27 @@ class UserController extends StateNotifier<UserState> {
     String res = failureSignIn;
     if (email.isNotEmpty && password.isNotEmpty) {
       state = state.copyWith(isLoading: true);
-      final result =
-          await authRepository.signIn(email: email, password: password);
-      result.when(
-        success: (data) {
-          state = state.copyWith(
-            isLoading: false,
-            accessToken: data['access_token'],
-          );
-        },
-        failure: (error) {
-          state = state.copyWith(isLoading: false);
-          res = error.toString();
-          return res;
-        },
-      );
-      res = successRes;
+      try {
+        final result =
+            await authRepository.signIn(email: email, password: password);
+        result.when(
+          success: (data) {
+            state = state.copyWith(
+              isLoading: false,
+              accessToken: data['access_token'],
+            );
+            res = successRes;
+            return res;
+          },
+          failure: (error) {
+            state = state.copyWith(isLoading: false);
+            res = error.toString();
+            return res;
+          },
+        );
+      } catch (e) {
+        res = e.toString();
+      }
     } else {
       res = validationRes;
     }
@@ -95,22 +100,27 @@ class UserController extends StateNotifier<UserState> {
     String res = failureSignUp;
     if (email.isNotEmpty && password.isNotEmpty) {
       state = state.copyWith(isLoading: true);
-      final result =
-          await authRepository.signUp(email: email, password: password);
-      result.when(
-        success: (data) {
-          state = state.copyWith(
-            isLoading: false,
-            accessToken: data['access_token'],
-          );
-        },
-        failure: (error) {
-          state = state.copyWith(isLoading: false);
-          res = error.toString();
-          return res;
-        },
-      );
-      res = successRes;
+      try {
+        final result =
+            await authRepository.signUp(email: email, password: password);
+        result.when(
+          success: (data) {
+            state = state.copyWith(
+              isLoading: false,
+              accessToken: data['access_token'],
+            );
+            res = successRes;
+            return res;
+          },
+          failure: (error) {
+            state = state.copyWith(isLoading: false);
+            res = error.toString();
+            return res;
+          },
+        );
+      } catch (e) {
+        res = e.toString();
+      }
     } else {
       res = validationRes;
     }

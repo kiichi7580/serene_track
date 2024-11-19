@@ -26,17 +26,16 @@ class SignInPage extends ConsumerWidget {
     required String email,
     required String password,
   }) async {
-    String res = failureSignIn;
     String signInRes = await ref.read(userProvider.notifier).signIn(
           email: email,
           password: password,
         );
     String getUserRes = await ref.read(userProvider.notifier).fetchUser();
     if (signInRes == successRes && getUserRes == successRes) {
-      res = successSignIn;
+      signInRes = successSignIn;
       await PreferencesManager().setIsLogin(isLogin: true);
     }
-    return res;
+    return signInRes;
   }
 
   @override

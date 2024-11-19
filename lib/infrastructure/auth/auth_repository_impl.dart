@@ -28,14 +28,27 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     return Result.guardFuture(() async {
-      await Future.delayed(const Duration(seconds: 1));
+      try {
+        await Future.delayed(const Duration(seconds: 1));
 
-      Map<String, dynamic> tokenMap = {};
-      final response = await _dio
-          .post('/user/sign_up', data: {'email': email, 'password': password});
-      tokenMap =
-          convert.json.decode(response.toString()) as Map<String, dynamic>;
-      return tokenMap;
+        Map<String, dynamic> tokenMap = {};
+        final response = await _dio.post('/user/sign_up',
+            data: {'email': email, 'password': password});
+        tokenMap =
+            convert.json.decode(response.toString()) as Map<String, dynamic>;
+        return tokenMap;
+      } on DioException catch (e) {
+        if (e.type == DioExceptionType.connectionTimeout ||
+            e.type == DioExceptionType.receiveTimeout) {
+          throw Exception('通信がタイムアウトしました。ネットワーク状態を確認してください。');
+        } else if (e.type == DioExceptionType.badResponse) {
+          throw Exception('サーバーエラーが発生しました。ステータスコード: ${e.response?.statusCode}');
+        } else {
+          throw Exception('通信中にエラーが発生しました: ${e.message}');
+        }
+      } catch (e) {
+        throw Exception('予期しないエラーが発生しました: ${e.toString()}');
+      }
     });
   }
 
@@ -45,14 +58,27 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     return Result.guardFuture(() async {
-      await Future.delayed(const Duration(seconds: 1));
+      try {
+        await Future.delayed(const Duration(seconds: 1));
 
-      Map<String, dynamic> tokenMap = {};
-      final response = await _dio
-          .post('/user/sign_in', data: {'email': email, 'password': password});
-      tokenMap =
-          convert.json.decode(response.toString()) as Map<String, dynamic>;
-      return tokenMap;
+        Map<String, dynamic> tokenMap = {};
+        final response = await _dio.post('/user/sign_in',
+            data: {'email': email, 'password': password});
+        tokenMap =
+            convert.json.decode(response.toString()) as Map<String, dynamic>;
+        return tokenMap;
+      } on DioException catch (e) {
+        if (e.type == DioExceptionType.connectionTimeout ||
+            e.type == DioExceptionType.receiveTimeout) {
+          throw Exception('通信がタイムアウトしました。ネットワーク状態を確認してください。');
+        } else if (e.type == DioExceptionType.badResponse) {
+          throw Exception('サーバーエラーが発生しました。ステータスコード: ${e.response?.statusCode}');
+        } else {
+          throw Exception('通信中にエラーが発生しました: ${e.message}');
+        }
+      } catch (e) {
+        throw Exception('予期しないエラーが発生しました: ${e.toString()}');
+      }
     });
   }
 
